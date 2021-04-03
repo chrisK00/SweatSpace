@@ -21,6 +21,8 @@ namespace SweatSpace.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+            .ConfigureAppConfiguration(config =>
+            config.AddJsonFile("appsettings.secret.json"));
     }
 }

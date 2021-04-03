@@ -1,0 +1,2 @@
+﻿First migration:
+ add-migration Init -o Foldername/Migrations
