@@ -3,12 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SweatSpace.Api.Persistence.Entities
 {
-    public class AppUser
+    public class Exercise
     {
         public int Id { get; set; }
         [Required, MaxLength(255)]
-        public string UserName { get; set; }
+        public string Name { get; set; }
+        public int Sets { get; set; }
+        public int Reps { get; set; }
         public ICollection<Workout> Workouts { get; set; } = new List<Workout>();
-        public ICollection<Workout> LikedWorkouts { get; set; } = new List<Workout>();
     }
 }

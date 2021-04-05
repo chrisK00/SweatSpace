@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweatSpace.Api", "SweatSpace.Api\SweatSpace.Api.csproj", "{4B57F26C-1152-4FFB-888F-1650AE1CAACF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SweatSpace.Api", "SweatSpace.Api\SweatSpace.Api.csproj", "{4B57F26C-1152-4FFB-888F-1650AE1CAACF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweatSpace.Tests", "SweatSpace.Tests\SweatSpace.Tests.csproj", "{A4DBE9A4-8EB2-464F-8B02-5A3FBF82E03E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{4B57F26C-1152-4FFB-888F-1650AE1CAACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B57F26C-1152-4FFB-888F-1650AE1CAACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B57F26C-1152-4FFB-888F-1650AE1CAACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4DBE9A4-8EB2-464F-8B02-5A3FBF82E03E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4DBE9A4-8EB2-464F-8B02-5A3FBF82E03E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4DBE9A4-8EB2-464F-8B02-5A3FBF82E03E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4DBE9A4-8EB2-464F-8B02-5A3FBF82E03E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
