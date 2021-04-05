@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SweatSpace.Api.Business.Profiles;
+using SweatSpace.Api.Persistence.Profiles;
 using SweatSpace.Persistence.Business;
 
 namespace SweatSpace.Api.Extensions
