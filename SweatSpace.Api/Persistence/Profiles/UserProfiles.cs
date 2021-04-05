@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace SweatSpace.Api.Business.Profiles
+namespace SweatSpace.Api.Persistence.Profiles
 {
     public class UserProfiles : Profile
     {
