@@ -15,7 +15,7 @@ namespace SweatSpace.Persistence.Business
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AppUser>().HasMany(x => x.Workouts).WithMany(x => x.Users);
+            modelBuilder.Entity<AppUser>().HasMany(x => x.Workouts).WithOne(x => x.User).HasForeignKey(x => x.UserId);
             modelBuilder.Entity<AppUser>().HasMany(x => x.LikedWorkouts).WithMany(x => x.UsersThatLiked);
 
             base.OnModelCreating(modelBuilder);
