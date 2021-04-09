@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace SweatSpace.Api.Persistence.Entities
 {
-    public class AppUser
+    public class AppUser : IdentityUser<int>
     {
-        public int Id { get; set; }
-        [Required, MaxLength(255)]
-        public string UserName { get; set; }
+        public ICollection<AppRole> Roles { get; set; } = new List<AppRole>();
         public ICollection<Workout> Workouts { get; set; } = new List<Workout>();
         public ICollection<Workout> LikedWorkouts { get; set; } = new List<Workout>();
     }

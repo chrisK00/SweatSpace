@@ -13,10 +13,10 @@ namespace SweatSpace.Api.Persistence.Entities
         public bool IsCompleted { get; set; }
         public int Rating { get; set; }
         public DateTime Date { get; set; }
-
+      
         public ICollection<Exercise> Exercises { get; set; } = new List<Exercise>();
+        public ICollection<AppUser> UsersThatLiked { get; set; } = new List<AppUser>();
         public AppUser User { get; set; }
         public int UserId { get; set; }
-        public ICollection<AppUser> UsersThatLiked { get; set; } = new List<AppUser>();
     }
 }

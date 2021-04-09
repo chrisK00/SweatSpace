@@ -1,6 +1,8 @@
-﻿namespace SweatSpace.Api.Persistence.Repos
+﻿using SweatSpace.Api.Persistence.Interfaces;
+
+namespace SweatSpace.Api.Persistence.Repos
 {
-    public class UserRepo
+    internal class UserRepo : IUserRepo
     {
     }
 }
