@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
@@ -25,10 +26,11 @@ namespace SweatSpace.Api.Business.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString())
+                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
             };
+            claims.AddRange(user.Roles.Select(r => new Claim(ClaimTypes.Role, r.Name)));
 
-            //validation credentials, algorithm to use
+            //validation credentials, algorithm to use for securing the creds
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
             //building the token
