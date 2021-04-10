@@ -11,7 +11,7 @@ using SweatSpace.Api.Persistence.Entities;
 
 namespace SweatSpace.Api.Business.Services
 {
-    public class TokenService : ITokenService
+    internal class TokenService : ITokenService
     {
         //key will never leave our server
         private readonly SymmetricSecurityKey _key;

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SweatSpace.Api.Extensions;
+using SweatSpace.Api.Middlewares;
 
 namespace SweatSpace.Api
 {
@@ -38,6 +39,7 @@ namespace SweatSpace.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SweatSpace.Api v1"));
             }
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 

@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +21,7 @@ namespace SweatSpace.Api.Extensions
         {
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddAutoMapper(typeof(UserProfiles).Assembly);
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(config.GetConnectionString("Default")));
@@ -47,6 +48,10 @@ namespace SweatSpace.Api.Extensions
             {
                 opt.Password.RequireNonAlphanumeric = false;
             })
+               .AddRoles<AppRole>()
+               .AddRoleManager<RoleManager<AppRole>>()
+               .AddSignInManager<SignInManager<AppUser>>()
+               .AddRoleValidator<RoleValidator<AppRole>>()
                .AddEntityFrameworkStores<DataContext>();
 
             return services;

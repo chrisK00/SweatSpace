@@ -1,6 +1,8 @@
-﻿namespace SweatSpace.Api.Business.Exceptions
+﻿using System;
+
+namespace SweatSpace.Api.Business.Exceptions
 {
-    public class AppException
+    public class AppException : Exception
     {
     }
 }
