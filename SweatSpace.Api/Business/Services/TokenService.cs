@@ -28,6 +28,7 @@ namespace SweatSpace.Api.Business.Services
             {
                 new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
             };
+            //select - map. Map role name to a new claim's name
             claims.AddRange(user.Roles.Select(r => new Claim(ClaimTypes.Role, r.Name)));
 
             //validation credentials, algorithm to use for securing the creds
