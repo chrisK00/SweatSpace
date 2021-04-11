@@ -22,6 +22,9 @@ namespace SweatSpace.Api.Extensions
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IWorkoutRepo, WorkoutRepo>();
+            services.AddScoped<IWorkoutService, WorkoutService>();
 
             services.AddAutoMapper(typeof(UserProfiles).Assembly);
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(config.GetConnectionString("Default")));

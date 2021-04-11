@@ -48,5 +48,10 @@ namespace SweatSpace.Api.Persistence.Repos
                 throw new ArgumentException(sb.ToString());
             }
         }
+
+        public Task<AppUser> GetUserByIdAsync(int id)
+        {
+            return _userManager.FindByIdAsync(id.ToString());
+        }
     }
 }

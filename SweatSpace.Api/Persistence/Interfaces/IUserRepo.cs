@@ -10,5 +10,6 @@ namespace SweatSpace.Api.Persistence.Interfaces
         Task AddUserAsync(AppUser user, string password);
         Task<IEnumerable<MemberDto>> GetMembersAsync();
         Task<AppUser> GetUserByNameAsync(string userName);
+        Task<AppUser> GetUserByIdAsync(int id);
     }
 }
