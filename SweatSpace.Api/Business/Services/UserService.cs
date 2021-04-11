@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
+using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
 
@@ -23,6 +25,11 @@ namespace SweatSpace.Api.Business.Services
             _signInManager = signInManager;
             _tokenService = tokenService;
             _userRepo = userRepo;
+        }
+
+        public Task<IEnumerable<MemberDto>> GetMembers()
+        {
+            return _userRepo.GetMembersAsync();
         }
 
         public Task Register(UserRegisterDto userRegisterDto)
@@ -49,7 +56,7 @@ namespace SweatSpace.Api.Business.Services
             }
 
             var userDto = _mapper.Map<UserDto>(user);
-            userDto.Token = _tokenService.CreateToken(user);
+            userDto.Token = await _tokenService.CreateToken(user);
             return userDto;
         }
     }

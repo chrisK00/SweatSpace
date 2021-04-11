@@ -19,16 +19,17 @@ namespace SweatSpace.Api
 
             using var scope = host.Services.CreateScope();
             try
-            {           
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();             
-                await DataSeed.SeedUsers(userManager);
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+                await DataSeed.SeedUsers(userManager, roleManager);
             }
             catch (Exception ex)
             {
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex,  "Error while seeding");
+                logger.LogError(ex, "Error while seeding");
             }
-           
+
             host.Run();
         }
 

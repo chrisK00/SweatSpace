@@ -1,9 +1,10 @@
-﻿using SweatSpace.Api.Persistence.Entities;
+﻿using System.Threading.Tasks;
+using SweatSpace.Api.Persistence.Entities;
 
 namespace SweatSpace.Api.Business.Interfaces
 {
     public interface ITokenService
     {
-        string CreateToken(AppUser user);
+        Task<string> CreateToken(AppUser user);
     }
 }
