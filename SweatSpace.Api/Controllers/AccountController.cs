@@ -1,10 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
-using SweatSpace.Api.Persistence.Entities;
-using SweatSpace.Persistence.Business;
 
 namespace SweatSpace.Api.Controllers
 {
@@ -21,7 +18,13 @@ namespace SweatSpace.Api.Controllers
         public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
         {
             await _userService.Register(userRegisterDto);
-            return Ok();
+            return NoContent();
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<UserDto>> Login(UserLoginDto userLoginDto)
+        {
+            return await _userService.Login(userLoginDto);          
         }
     }
 }

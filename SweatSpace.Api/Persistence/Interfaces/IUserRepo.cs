@@ -5,6 +5,8 @@ namespace SweatSpace.Api.Persistence.Interfaces
 {
     public interface IUserRepo
     {
-        public Task AddUserAsync(AppUser user, string password);
+        Task AddUserAsync(AppUser user, string password);
+
+        Task<AppUser> GetUserByNameAsync(string userName);
     }
 }

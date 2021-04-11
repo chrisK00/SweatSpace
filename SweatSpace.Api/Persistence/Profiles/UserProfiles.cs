@@ -9,6 +9,7 @@ namespace SweatSpace.Api.Persistence.Profiles
         public UserProfiles()
         {
             CreateMap<UserRegisterDto, AppUser>();
+            CreateMap<AppUser, UserDto>();
         }
     }
 }

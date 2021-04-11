@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using SweatSpace.Api.Business.Dtos;
@@ -26,7 +27,30 @@ namespace SweatSpace.Api.Business.Services
 
         public Task Register(UserRegisterDto userRegisterDto)
         {
-           return _userRepo.AddUserAsync(_mapper.Map<AppUser>(userRegisterDto), userRegisterDto.Password);
+            return _userRepo.AddUserAsync(_mapper.Map<AppUser>(userRegisterDto), userRegisterDto.Password);
+        }
+
+        public async Task<UserDto> Login(UserLoginDto userLoginDto)
+        {
+            var user = await _userRepo.GetUserByNameAsync(userLoginDto.UserName);
+
+            if (user == null)
+            {
+                //we dont want to tell the user if a user with this username actually exists
+                throw new UnauthorizedAccessException("Invalid username or password");
+            }
+
+            //try and sign-in the user by comparing the passwords
+            var result = await _signInManager.CheckPasswordSignInAsync(user, userLoginDto.Password, false);
+
+            if (!result.Succeeded)
+            {
+                throw new UnauthorizedAccessException("Invalid username or password");
+            }
+
+            var userDto = _mapper.Map<UserDto>(user);
+            userDto.Token = _tokenService.CreateToken(user);
+            return userDto;
         }
     }
 }

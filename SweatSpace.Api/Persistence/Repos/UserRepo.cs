@@ -16,6 +16,11 @@ namespace SweatSpace.Api.Persistence.Repos
             _userManager = userManager;
         }
 
+        public Task<AppUser> GetUserByNameAsync(string userName)
+        {
+            return _userManager.FindByNameAsync(userName);
+        }
+
         public async Task AddUserAsync(AppUser user, string password)
         {
             //creates and saves user to db

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -38,6 +39,8 @@ namespace SweatSpace.Api.Middlewares
                 {
                     ArgumentException => (int)HttpStatusCode.BadRequest,
                     AppException => (int)HttpStatusCode.BadRequest,
+                    KeyNotFoundException => (int)HttpStatusCode.NotFound,
+                    UnauthorizedAccessException => (int)HttpStatusCode.Unauthorized,
                     _ => (int)HttpStatusCode.InternalServerError
                 };
 
