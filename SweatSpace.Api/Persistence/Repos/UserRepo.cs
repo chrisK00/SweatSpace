@@ -17,7 +17,7 @@ namespace SweatSpace.Api.Persistence.Repos
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
 
-        public UserRepo(UserManager<AppUser> userManager,IMapper mapper)
+        public UserRepo(UserManager<AppUser> userManager, IMapper mapper)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -43,7 +43,7 @@ namespace SweatSpace.Api.Persistence.Repos
                 var sb = new StringBuilder();
                 foreach (var error in result.Errors)
                 {
-                    sb.Append(error.Description);                   
+                    sb.Append(error.Description);
                 }
                 throw new ArgumentException(sb.ToString());
             }

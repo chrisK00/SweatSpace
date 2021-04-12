@@ -17,6 +17,7 @@ namespace SweatSpace.Api.Business.Services
     {
         //key will never leave our server
         private readonly SymmetricSecurityKey _key;
+
         private readonly UserManager<AppUser> _userManager;
 
         public TokenService(IConfiguration config, UserManager<AppUser> userManager)

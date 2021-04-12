@@ -8,6 +8,7 @@ namespace SweatSpace.Api.Business.Dtos
 
         [Required]
         public string UserName { get => _userName; set => _userName = value.Trim(); }
+
         [Required, MinLength(6)]
         public string Password { get; set; }
     }

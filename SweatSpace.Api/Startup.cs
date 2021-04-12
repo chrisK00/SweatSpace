@@ -12,6 +12,7 @@ namespace SweatSpace.Api
     public class Startup
     {
         private readonly IConfiguration _config;
+
         public Startup(IConfiguration configuration)
         {
             _config = configuration;
@@ -47,7 +48,6 @@ namespace SweatSpace.Api
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
 
             app.UseEndpoints(endpoints =>
             {

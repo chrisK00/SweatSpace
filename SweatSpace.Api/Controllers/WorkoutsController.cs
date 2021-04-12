@@ -18,7 +18,7 @@ namespace SweatSpace.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> AddWorkout(WorkoutAddDto workoutAddDto)
+        public async Task<IActionResult> AddWorkout(WorkoutAddDto workoutAddDto)
         {
             var workoutId = await _workoutService.AddWorkoutAsync(workoutAddDto, User.GetUserId());
             return CreatedAtRoute(nameof(GetWorkout), new { id = workoutId }, new { id = workoutId });

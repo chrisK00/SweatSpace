@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
@@ -22,6 +19,7 @@ namespace SweatSpace.Api.Business.Services
             _mapper = mapper;
             _userRepo = userRepo;
         }
+
         public async Task<int> AddWorkoutAsync(WorkoutAddDto workoutAddDto, int userId)
         {
             var workout = _mapper.Map<Workout>(workoutAddDto);

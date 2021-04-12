@@ -24,7 +24,7 @@ namespace SweatSpace.Api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(UserLoginDto userLoginDto)
         {
-            return await _userService.Login(userLoginDto);          
+            return await _userService.Login(userLoginDto);
         }
     }
 }

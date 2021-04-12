@@ -16,6 +16,7 @@ namespace SweatSpace.Api.Business.Interfaces
         /// <returns>UserDto with a token</returns>
         /// <exception cref="UnauthorizedAccessException"></exception>
         Task<UserDto> Login(UserLoginDto userLoginDto);
+
         Task<IEnumerable<MemberDto>> GetMembers();
     }
 }
