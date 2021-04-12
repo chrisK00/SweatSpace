@@ -20,13 +20,12 @@ namespace SweatSpace.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> AddWorkout(WorkoutAddDto workoutAddDto)
         {
-           var workoutId = await _workoutService.AddWorkoutAsync(workoutAddDto, User.GetUserId());
-            return CreatedAtRoute(nameof(GetWorkout), new { id = workoutId });
+            var workoutId = await _workoutService.AddWorkoutAsync(workoutAddDto, User.GetUserId());
+            return CreatedAtRoute(nameof(GetWorkout), new { id = workoutId }, new { id = workoutId });
         }
 
-      
-        [HttpGet(Name = nameof(GetWorkout))]
-        public async Task<ActionResult> GetWorkout()
+        [HttpGet("{id}", Name = nameof(GetWorkout))]
+        public async Task<ActionResult> GetWorkout(int id)
         {
             return Ok("");
         }
