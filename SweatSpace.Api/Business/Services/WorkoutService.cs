@@ -2,6 +2,7 @@
 using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
+using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
 
@@ -25,6 +26,11 @@ namespace SweatSpace.Api.Business.Services
             var workout = _mapper.Map<Workout>(workoutAddDto);
             workout.User = await _userRepo.GetUserByIdAsync(userId);
             return await _workoutRepo.AddWorkoutAsync(workout);
+        }
+
+        public Task<WorkoutDto> GetWorkoutDtoAsync(int id)
+        {
+            return _workoutRepo.GetWorkoutDtoAsync(id);
         }
     }
 }
