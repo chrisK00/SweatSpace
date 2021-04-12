@@ -30,5 +30,6 @@ namespace SweatSpace.Api.Controllers
         {
             return await _workoutService.GetWorkoutDtoAsync(id);
         }
+
     }
 }
