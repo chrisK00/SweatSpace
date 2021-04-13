@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SweatSpace.Persistence.Business;
@@ -9,9 +10,10 @@ using SweatSpace.Persistence.Business;
 namespace SweatSpace.Api.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210412174227_CompletedExercises")]
+    partial class CompletedExercises
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +49,21 @@ namespace SweatSpace.Api.Persistence.Migrations
                     b.HasIndex("UsersThatLikedId");
 
                     b.ToTable("AppUserWorkout");
+                });
+
+            modelBuilder.Entity("ExerciseWorkout", b =>
+                {
+                    b.Property<int>("ExercisesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("WorkoutsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ExercisesId", "WorkoutsId");
+
+                    b.HasIndex("WorkoutsId");
+
+                    b.ToTable("ExerciseWorkout");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -256,7 +273,18 @@ namespace SweatSpace.Api.Persistence.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<int>("Reps")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Sets")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("WorkoutId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WorkoutId");
 
                     b.ToTable("Exercises");
                 });
@@ -292,37 +320,6 @@ namespace SweatSpace.Api.Persistence.Migrations
                     b.ToTable("Workouts");
                 });
 
-            modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.WorkoutExercise", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("ExerciseId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("Reps")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Sets")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("WorkoutId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExerciseId");
-
-                    b.HasIndex("WorkoutId");
-
-                    b.ToTable("WorkoutExercise");
-                });
-
             modelBuilder.Entity("AppRoleAppUser", b =>
                 {
                     b.HasOne("SweatSpace.Api.Persistence.Entities.AppRole", null)
@@ -349,6 +346,21 @@ namespace SweatSpace.Api.Persistence.Migrations
                     b.HasOne("SweatSpace.Api.Persistence.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UsersThatLikedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ExerciseWorkout", b =>
+                {
+                    b.HasOne("SweatSpace.Api.Persistence.Entities.Exercise", null)
+                        .WithMany()
+                        .HasForeignKey("ExercisesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SweatSpace.Api.Persistence.Entities.Workout", null)
+                        .WithMany()
+                        .HasForeignKey("WorkoutsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -404,6 +416,15 @@ namespace SweatSpace.Api.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.Exercise", b =>
+                {
+                    b.HasOne("SweatSpace.Api.Persistence.Entities.Workout", "Workout")
+                        .WithMany("CompletedExercises")
+                        .HasForeignKey("WorkoutId");
+
+                    b.Navigation("Workout");
+                });
+
             modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.Workout", b =>
                 {
                     b.HasOne("SweatSpace.Api.Persistence.Entities.AppUser", "User")
@@ -415,19 +436,6 @@ namespace SweatSpace.Api.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.WorkoutExercise", b =>
-                {
-                    b.HasOne("SweatSpace.Api.Persistence.Entities.Exercise", "Exercise")
-                        .WithMany()
-                        .HasForeignKey("ExerciseId");
-
-                    b.HasOne("SweatSpace.Api.Persistence.Entities.Workout", null)
-                        .WithMany("Exercises")
-                        .HasForeignKey("WorkoutId");
-
-                    b.Navigation("Exercise");
-                });
-
             modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.AppUser", b =>
                 {
                     b.Navigation("Workouts");
@@ -435,7 +443,7 @@ namespace SweatSpace.Api.Persistence.Migrations
 
             modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.Workout", b =>
                 {
-                    b.Navigation("Exercises");
+                    b.Navigation("CompletedExercises");
                 });
 #pragma warning restore 612, 618
         }

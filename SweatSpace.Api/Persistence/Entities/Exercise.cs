@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SweatSpace.Api.Persistence.Entities
 {
@@ -9,10 +8,5 @@ namespace SweatSpace.Api.Persistence.Entities
 
         [Required, MaxLength(255)]
         public string Name { get; set; }
-
-        public int Sets { get; set; }
-        public int Reps { get; set; }
-
-        public ICollection<Workout> Workouts { get; set; } = new List<Workout>();
     }
 }

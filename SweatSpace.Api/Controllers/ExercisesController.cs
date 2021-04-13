@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SweatSpace.Api.Business.Dtos;
 
 namespace SweatSpace.Api.Controllers
 {
@@ -16,7 +17,13 @@ namespace SweatSpace.Api.Controllers
     {
 
         [HttpPost]
-        public IActionResult AddExercise()
+        public IActionResult AddExercise(ExerciseAddDto exerciseAddDto)
+        {
+            return Created("Hi", "Hi");
+        }
+
+        [HttpPost("exercise-completed")]
+        public IActionResult ExerciseCompleted()
         {
             return Created("Hi", "Hi");
         }

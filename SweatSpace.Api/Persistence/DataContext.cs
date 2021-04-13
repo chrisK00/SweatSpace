@@ -13,12 +13,12 @@ namespace SweatSpace.Persistence.Business
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<AppUser>().HasMany(x => x.Workouts).WithOne(x => x.User).HasForeignKey(x => x.UserId);
-            modelBuilder.Entity<AppUser>().HasMany(x => x.LikedWorkouts).WithMany(x => x.UsersThatLiked);
+            builder.Entity<AppUser>().HasMany(x => x.Workouts).WithOne(x => x.User).HasForeignKey(x => x.UserId);
+            builder.Entity<AppUser>().HasMany(x => x.LikedWorkouts).WithMany(x => x.UsersThatLiked);
 
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
         }
     }
 }
