@@ -12,7 +12,6 @@ namespace SweatSpace.Api.Persistence.Profiles
             CreateMap<UserRegisterDto, AppUser>();
             CreateMap<AppUser, UserDto>();
             CreateMap<AppUser, MemberDto>();
-            CreateMap<Exercise, ExerciseDto>();
             CreateMap<Workout, WorkoutDto>();
         }
     }

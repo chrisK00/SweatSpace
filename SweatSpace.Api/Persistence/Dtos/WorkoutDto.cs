@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using SweatSpace.Api.Persistence.Entities;
 
 namespace SweatSpace.Api.Persistence.Dtos
 {
@@ -15,7 +16,6 @@ namespace SweatSpace.Api.Persistence.Dtos
         public int Rating { get; set; }
         public DateTime Date { get; set; }
 
-        public ICollection<ExerciseDto> Exercises { get; set; } = new List<ExerciseDto>();
-        public ICollection<ExerciseDto> CompletedExercises { get; set; } = new List<ExerciseDto>();
+        public ICollection<WorkoutExercise> Exercises { get; set; } = new List<WorkoutExercise>();
     }
 }
