@@ -9,5 +9,7 @@ namespace SweatSpace.Api.Persistence.Interfaces
         Task<int> AddWorkoutAsync(Workout workout);
 
         Task<WorkoutDto> GetWorkoutDtoAsync(int id);
+
+        Task<Workout> GetWorkoutByIdAsync(int id);
     }
 }

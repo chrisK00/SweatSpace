@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
+using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
 
 namespace SweatSpace.Api.Business.Services
@@ -12,24 +11,36 @@ namespace SweatSpace.Api.Business.Services
     {
         private readonly IWorkoutRepo _workoutRepo;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly IExerciseRepo _exerciseRepo;
 
-        public ExerciseService(IWorkoutRepo workoutRepo, IUnitOfWork unitOfWork)
+        public ExerciseService(IWorkoutRepo workoutRepo, IUnitOfWork unitOfWork, IMapper mapper, IExerciseRepo exerciseRepo)
         {
             _workoutRepo = workoutRepo;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            _exerciseRepo = exerciseRepo;
         }
 
-        public Task AddExerciseToWorkout(ExerciseAddDto exerciseAddDto, int workoutId)
+        public async Task AddExerciseToWorkout(ExerciseAddDto exerciseAddDto, int workoutId)
         {
-            return Task.CompletedTask;
-            //see if an exercise with this name exists in the db
-            //  var exercise = exerciserepo.getexercisebyname
-            //map exerciseadddto to workoutexercise
-            //if exercise null make new one with the name and add it to repository tolower name then chain it on the workoutexercise
-            //else just add it to the workoutexercise            
-            //   var workout = _workoutRepo.getworkoutbyid
-            //workout.add workoutexercise
-            //savechanges
+            var exercise = await _exerciseRepo.GetExerciseByNameAsync(exerciseAddDto.Name);
+            var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
+
+            var workoutExercise = _mapper.Map<WorkoutExercise>(exerciseAddDto);
+
+            //make a new exercise if it doesnt already exist
+            if (exercise == null)
+            {
+                exercise = new Exercise { Name = exerciseAddDto.Name };
+                await _exerciseRepo.AddExerciseAsync(exercise);
+            }
+
+            //add the exercise to the workout
+            workoutExercise.Exercise = exercise;
+            workout.Exercises.Add(workoutExercise);
+
+            await _unitOfWork.SaveAllAsync();
         }
     }
 }

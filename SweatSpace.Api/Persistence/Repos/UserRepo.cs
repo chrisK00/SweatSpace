@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
+using SweatSpace.Persistence.Business;
 
 namespace SweatSpace.Api.Persistence.Repos
 {
@@ -16,11 +17,13 @@ namespace SweatSpace.Api.Persistence.Repos
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
+        private readonly DataContext _context;
 
-        public UserRepo(UserManager<AppUser> userManager, IMapper mapper)
+        public UserRepo(UserManager<AppUser> userManager, IMapper mapper, DataContext context)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _context = context;
         }
 
         public async Task<IEnumerable<MemberDto>> GetMembersAsync()
@@ -51,7 +54,7 @@ namespace SweatSpace.Api.Persistence.Repos
 
         public Task<AppUser> GetUserByIdAsync(int id)
         {
-            return _userManager.FindByIdAsync(id.ToString());
+            return _context.Users.Include(w => w.Workouts).FirstOrDefaultAsync(u => u.Id == id);
         }
     }
 }

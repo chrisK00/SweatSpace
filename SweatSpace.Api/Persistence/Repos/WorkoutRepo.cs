@@ -26,6 +26,11 @@ namespace SweatSpace.Api.Persistence.Repos
             return workout.Id;
         }
 
+        public Task<Workout> GetWorkoutByIdAsync(int id)
+        {
+            return _context.Workouts.FirstOrDefaultAsync(w => w.Id == id);
+        }
+
         public async Task<WorkoutDto> GetWorkoutDtoAsync(int id)
         {
             return await _context.Workouts.ProjectTo<WorkoutDto>(_mapper.ConfigurationProvider)

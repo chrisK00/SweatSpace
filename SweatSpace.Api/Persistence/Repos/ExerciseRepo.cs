@@ -21,5 +21,10 @@ namespace SweatSpace.Api.Persistence.Repos
         {
             return _context.Exercises.SingleOrDefaultAsync(e => e.Name == name.ToLower());
         }
+
+        public Task AddExerciseAsync(Exercise exercise)
+        {
+            return _context.Exercises.AddAsync(exercise).AsTask();
+        }
     }
 }
