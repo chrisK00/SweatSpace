@@ -17,7 +17,5 @@ namespace SweatSpace.Api.Persistence.Entities
 
         public ICollection<WorkoutExercise> Exercises { get; set; } = new List<WorkoutExercise>();
         public ICollection<AppUser> UsersThatLiked { get; set; } = new List<AppUser>();
-        public AppUser User { get; set; }
-        public int UserId { get; set; }
     }
 }

@@ -13,19 +13,24 @@ namespace SweatSpace.Api.Business.Services
         private readonly IWorkoutRepo _workoutRepo;
         private readonly IMapper _mapper;
         private readonly IUserRepo _userRepo;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public WorkoutService(IWorkoutRepo workoutRepo, IMapper mapper, IUserRepo userRepo)
+        public WorkoutService(IWorkoutRepo workoutRepo, IMapper mapper, IUserRepo userRepo, IUnitOfWork unitOfWork)
         {
             _workoutRepo = workoutRepo;
             _mapper = mapper;
             _userRepo = userRepo;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<int> AddWorkoutAsync(WorkoutAddDto workoutAddDto, int userId)
         {
+            var user = await _userRepo.GetUserByIdAsync(userId);
             var workout = _mapper.Map<Workout>(workoutAddDto);
-            workout.User = await _userRepo.GetUserByIdAsync(userId);
-            return await _workoutRepo.AddWorkoutAsync(workout);
+            //we got the user from db so he is being tracked by ef
+            user.Workouts.Add(workout);
+            await _unitOfWork.SaveAllAsync();
+            return workout.Id;
         }
 
         public Task<WorkoutDto> GetWorkoutDtoAsync(int id)
