@@ -8,5 +8,6 @@ namespace SweatSpace.Api.Business.Interfaces
     {
         Task<int> AddWorkoutAsync(WorkoutAddDto workoutAddDto, int userId);
         Task<WorkoutDto> GetWorkoutDtoAsync(int id);
+        Task<bool> UserHasWorkout(int userId, int workoutId);
     }
 }

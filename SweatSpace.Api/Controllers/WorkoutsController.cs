@@ -30,11 +30,5 @@ namespace SweatSpace.Api.Controllers
         {
             return await _workoutService.GetWorkoutDtoAsync(id);
         }
-
-        [HttpPost("reset-completed-workouts")]
-        public async Task<IActionResult> ResetCompletedWorkouts()
-        {            
-            return NoContent();
-        }
     }
 }

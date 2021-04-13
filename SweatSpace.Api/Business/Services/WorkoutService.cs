@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
@@ -36,6 +37,12 @@ namespace SweatSpace.Api.Business.Services
         public Task<WorkoutDto> GetWorkoutDtoAsync(int id)
         {
             return _workoutRepo.GetWorkoutDtoAsync(id);
+        }
+
+        public async Task<bool> UserHasWorkout(int userId, int workoutId)
+        {
+            var user = await _userRepo.GetUserByIdAsync(userId);
+            return user.Workouts.Any(w => w.Id == workoutId);
         }
     }
 }

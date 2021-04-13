@@ -12,20 +12,17 @@ namespace SweatSpace.Api.Persistence.Repos
     internal class WorkoutRepo : IWorkoutRepo
     {
         private readonly DataContext _context;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public WorkoutRepo(DataContext context, IUnitOfWork unitOfWork, IMapper mapper)
+        public WorkoutRepo(DataContext context, IMapper mapper)
         {
             _context = context;
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         public async Task<int> AddWorkoutAsync(Workout workout)
         {
             await _context.Workouts.AddAsync(workout);
-            await _unitOfWork.SaveAllAsync();
             return workout.Id;
         }
 
