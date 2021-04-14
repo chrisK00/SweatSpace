@@ -1,11 +1,14 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Entities;
+using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Interfaces;
+using SweatSpace.Api.Persistence.Params;
 
 namespace SweatSpace.Api.Business.Services
 {
@@ -37,6 +40,11 @@ namespace SweatSpace.Api.Business.Services
         public Task<WorkoutDto> GetWorkoutDtoAsync(int id)
         {
             return _workoutRepo.GetWorkoutDtoAsync(id);
+        }
+
+        public Task<PagedList<WorkoutDto>> GetWorkoutDtos(WorkoutParams workoutParams)
+        {
+            return _workoutRepo.GetWorkoutsDtos(workoutParams);
         }
 
         public async Task<bool> UserHasWorkout(int userId, int workoutId)
