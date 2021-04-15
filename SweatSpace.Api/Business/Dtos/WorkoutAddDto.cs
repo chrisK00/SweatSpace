@@ -8,6 +8,6 @@ namespace SweatSpace.Api.Business.Dtos
         [Required, MaxLength(255)]
         public string Name { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
     }
 }

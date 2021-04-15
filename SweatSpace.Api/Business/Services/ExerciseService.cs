@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Persistence.Entities;
+using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Interfaces;
+using SweatSpace.Api.Persistence.Params;
 
 namespace SweatSpace.Api.Business.Services
 {
@@ -41,6 +44,11 @@ namespace SweatSpace.Api.Business.Services
             workout.Exercises.Add(workoutExercise);
 
             await _unitOfWork.SaveAllAsync();
+        }
+
+        public Task<PagedList<Exercise>> FindExercises(ExerciseParams exerciseParams)
+        {
+            return _exerciseRepo.GetExercises(exerciseParams);
         }
     }
 }

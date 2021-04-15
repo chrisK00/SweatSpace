@@ -26,6 +26,11 @@
             </summary>
             <param name="userLoginDto"></param>
         </member>
+        <member name="T:SweatSpace.Api.Controllers.FindExercisesController">
+            <summary>
+            Search controller - For the shared exercises
+            </summary>
+        </member>
         <member name="T:SweatSpace.Api.Persistence.Helpers.PagedList`1">
             <summary>
             Use the generic static method to create a PagedList
