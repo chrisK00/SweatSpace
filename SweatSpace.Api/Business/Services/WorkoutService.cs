@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
+using SweatSpace.Api.Business.Exceptions;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Entities;
@@ -45,6 +46,20 @@ namespace SweatSpace.Api.Business.Services
         public Task<PagedList<WorkoutDto>> GetWorkoutDtos(WorkoutParams workoutParams)
         {
             return _workoutRepo.GetWorkoutsDtos(workoutParams);
+        }
+
+        public async Task ToggleCompleted(int workoutId)
+        {
+            var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
+
+            //a not completed workout with remaining exercises cannot be marked completed
+            if (!workout.IsCompleted && workout.Exercises.Any(e => !e.IsCompleted))
+            {
+                throw new AppException("All exercises must be completed");
+            }
+
+            workout.IsCompleted = !workout.IsCompleted;
+            await _unitOfWork.SaveAllAsync();
         }
 
         public async Task<bool> UserHasWorkout(int userId, int workoutId)

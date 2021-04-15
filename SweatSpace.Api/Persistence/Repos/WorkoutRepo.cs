@@ -30,7 +30,7 @@ namespace SweatSpace.Api.Persistence.Repos
 
         public Task<Workout> GetWorkoutByIdAsync(int id)
         {
-            return _context.Workouts.FirstOrDefaultAsync(w => w.Id == id);
+            return _context.Workouts.Include(e => e.Exercises).FirstOrDefaultAsync(w => w.Id == id);
         }
 
         public async Task<WorkoutDto> GetWorkoutDtoAsync(int id)

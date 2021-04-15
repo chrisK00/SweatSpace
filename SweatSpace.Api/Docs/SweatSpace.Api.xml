@@ -22,11 +22,9 @@
         </member>
         <member name="M:SweatSpace.Api.Controllers.AccountController.Login(SweatSpace.Api.Business.Dtos.UserLoginDto)">
             <summary>
-            Tries to login a existing user 
+            Tries to login a existing user
             </summary>
             <param name="userLoginDto"></param>
-            <returns>A jwt token</returns>
-            <exception cref="T:System.UnauthorizedAccessException"></exception>
         </member>
         <member name="T:SweatSpace.Api.Persistence.Helpers.PagedList`1">
             <summary>

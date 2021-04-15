@@ -41,5 +41,18 @@ namespace SweatSpace.Api.Controllers
             Response.AddPaginationHeader(workouts.TotalItems, workouts.ItemsPerPage, workouts.PageNumber, workouts.TotalPages);
             return workouts;
         }
+
+        [HttpPost("{workoutId}/toggle-completed")]
+        public async Task<IActionResult> ToggleCompleted(int workoutId)
+        {
+            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId))
+            {
+                return Unauthorized("You dont own this workout");
+            }
+
+            await _workoutService.ToggleCompleted(workoutId);
+            return NoContent();
+        }
+
     }
 }
