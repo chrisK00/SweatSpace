@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
@@ -46,6 +45,19 @@ namespace SweatSpace.Api.Business.Services
         public Task<PagedList<WorkoutDto>> GetWorkoutDtos(WorkoutParams workoutParams)
         {
             return _workoutRepo.GetWorkoutsDtos(workoutParams);
+        }
+
+        public async Task ResetWorkout(int workoutId)
+        {
+            var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
+            workout.IsCompleted = false;
+            workout.Date = null;
+            
+            foreach (var exercise in workout.Exercises)
+            {
+                exercise.IsCompleted = false;
+            };
+            await _unitOfWork.SaveAllAsync();
         }
 
         public async Task ToggleCompleted(int workoutId)

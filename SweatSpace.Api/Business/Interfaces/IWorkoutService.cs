@@ -15,5 +15,6 @@ namespace SweatSpace.Api.Business.Interfaces
         Task<bool> UserHasWorkout(int userId, int workoutId);
         Task<PagedList<WorkoutDto>> GetWorkoutDtos(WorkoutParams workoutParams);
         Task ToggleCompleted(int workoutId);
+        Task ResetWorkout(int workoutId);
     }
 }
