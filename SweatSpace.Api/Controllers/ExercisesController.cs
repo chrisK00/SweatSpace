@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Extensions;
@@ -11,7 +7,7 @@ using SweatSpace.Api.Business.Interfaces;
 
 namespace SweatSpace.Api.Controllers
 {
-   
+
     [Authorize]
     [Route("workouts/{workoutId}/[controller]")]
     [ApiController]
