@@ -34,7 +34,7 @@ namespace SweatSpace.Api.Persistence.Helpers
         /// </summary>
         /// <param name="query"></param>
         /// <param name="pageNumber"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="itemsPerPage"></param>
         /// <returns>A paged list</returns>
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> query, int pageNumber, int itemsPerPage)
         {

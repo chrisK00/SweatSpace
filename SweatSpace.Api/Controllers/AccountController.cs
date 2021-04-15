@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
@@ -21,6 +22,12 @@ namespace SweatSpace.Api.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Tries to login a existing user 
+        /// </summary>
+        /// <param name="userLoginDto"></param>
+        /// <returns>A jwt token</returns>
+        /// <exception cref="UnauthorizedAccessException"></exception>
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(UserLoginDto userLoginDto)
         {

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SweatSpace.Api</name>
+    </assembly>
+    <members>
+        <member name="M:SweatSpace.Api.Business.Interfaces.IExerciseService.AddExerciseToWorkout(SweatSpace.Api.Business.Dtos.ExerciseAddDto,System.Int32)">
+            <summary>
+            Adds an exercise to an existing workout
+            </summary>
+            <param name="exerciseAddDto"></param>
+            <param name="workoutId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SweatSpace.Api.Business.Interfaces.IUserService.Login(SweatSpace.Api.Business.Dtos.UserLoginDto)">
+            <summary>
+            Tries to login a user with the specified username and password
+            </summary>
+            <param name="userLoginDto"></param>
+            <returns>UserDto with a token</returns>
+            <exception cref="T:System.UnauthorizedAccessException"></exception>
+        </member>
+        <member name="M:SweatSpace.Api.Controllers.AccountController.Login(SweatSpace.Api.Business.Dtos.UserLoginDto)">
+            <summary>
+            Tries to login a existing user 
+            </summary>
+            <param name="userLoginDto"></param>
+            <returns>A jwt token</returns>
+            <exception cref="T:System.UnauthorizedAccessException"></exception>
+        </member>
+        <member name="T:SweatSpace.Api.Persistence.Helpers.PagedList`1">
+            <summary>
+            Use the generic static method to create a PagedList
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:SweatSpace.Api.Persistence.Helpers.PagedList`1.CreateAsync(System.Linq.IQueryable{`0},System.Int32,System.Int32)">
+            <summary>
+            Creates a paged list with the items returned from executing the query
+            </summary>
+            <param name="query"></param>
+            <param name="pageNumber"></param>
+            <param name="itemsPerPage"></param>
+            <returns>A paged list</returns>
+        </member>
+    </members>
+</doc>

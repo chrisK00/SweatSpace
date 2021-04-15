@@ -7,7 +7,6 @@ using SweatSpace.Api.Business.Extensions;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Extensions;
 using SweatSpace.Api.Persistence.Dtos;
-using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Params;
 
 namespace SweatSpace.Api.Controllers
