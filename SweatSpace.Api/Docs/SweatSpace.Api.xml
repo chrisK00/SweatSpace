@@ -20,16 +20,54 @@
             <returns>UserDto with a token</returns>
             <exception cref="T:System.UnauthorizedAccessException"></exception>
         </member>
+        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.UserHasWorkout(System.Int32,System.Int32)">
+            <summary>
+            Checks if the user owns the specified workout
+            </summary>
+            <param name="userId"></param>
+            <param name="workoutId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.GetWorkoutDtos(SweatSpace.Api.Persistence.Params.WorkoutParams)">
+            <summary>
+            Returns a paged list of all the workout dtos
+            </summary>
+            <param name="workoutParams"></param>
+            <returns></returns>
+        </member>
         <member name="M:SweatSpace.Api.Controllers.AccountController.Login(SweatSpace.Api.Business.Dtos.UserLoginDto)">
             <summary>
             Tries to login a existing user
             </summary>
             <param name="userLoginDto"></param>
         </member>
+        <member name="M:SweatSpace.Api.Controllers.ExercisesController.AddExerciseAsync(SweatSpace.Api.Business.Dtos.ExerciseAddDto,System.Int32)">
+            <summary>
+            Adds a exercise to the specified workout
+            </summary>
+            <param name="exerciseAddDto"></param>
+            <param name="workoutId"></param>
+            <returns></returns>
+        </member>
         <member name="T:SweatSpace.Api.Controllers.FindExercisesController">
             <summary>
             Search controller - For the shared exercises
             </summary>
+        </member>
+        <member name="M:SweatSpace.Api.Controllers.WorkoutsController.ToggleCompleted(System.Int32)">
+            <summary>
+            Toggles the completed state of a workout
+            </summary>
+            <param name="workoutId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SweatSpace.Api.Controllers.WorkoutsController.UpdateWorkout(System.Int32,SweatSpace.Api.Business.Dtos.WorkoutUpdateDto)">
+            <summary>
+            Fully updates an existing workout
+            </summary>
+            <param name="workoutId"></param>
+            <param name="workoutUpdateDto"></param>
+            <returns></returns>
         </member>
         <member name="T:SweatSpace.Api.Persistence.Helpers.PagedList`1">
             <summary>

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
@@ -41,9 +42,14 @@ namespace SweatSpace.Api.Persistence.Repos
 
         public Task<PagedList<WorkoutDto>> GetWorkoutsDtos(WorkoutParams workoutParams)
         {
-            var query = _context.Workouts.ProjectTo<WorkoutDto>(_mapper.ConfigurationProvider).AsNoTracking();
+            var query = _context.Workouts.AsQueryable();
+            if (workoutParams.MyWorkouts)
+            {
+                query = query.Where(w => w.AppUserId == workoutParams.UserId);
+            }
 
-            return PagedList<WorkoutDto>.CreateAsync(query, workoutParams.PageNumber, workoutParams.ItemsPerPage);
+            return PagedList<WorkoutDto>.CreateAsync(query.ProjectTo<WorkoutDto>(_mapper.ConfigurationProvider).AsNoTracking(),
+                workoutParams.PageNumber, workoutParams.ItemsPerPage);
         }
     }
 }

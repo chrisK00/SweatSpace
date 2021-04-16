@@ -18,7 +18,7 @@ namespace SweatSpace.Persistence.Business
             builder.Entity<AppUser>().HasMany(x => x.LikedWorkouts).WithMany(x => x.UsersThatLiked);
 
             builder.Entity<AppUser>().HasMany(x => x.Workouts).WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(x => x.AppUserId).OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(builder);
         }

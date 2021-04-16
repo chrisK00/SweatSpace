@@ -83,8 +83,12 @@ namespace SweatSpace.Api.Business.Services
 
         public async Task<bool> UserHasWorkout(int userId, int workoutId)
         {
-            var user = await _userRepo.GetUserByIdAsync(userId);
-            return user.Workouts.Any(w => w.Id == workoutId);
+            var workouts = await _workoutRepo.GetWorkoutsDtos(new WorkoutParams
+            {
+                UserId = userId,
+                MyWorkouts = true
+            });
+            return workouts.TotalItems > 0;
         }
     }
 }

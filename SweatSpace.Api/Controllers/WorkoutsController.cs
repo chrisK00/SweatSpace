@@ -37,6 +37,7 @@ namespace SweatSpace.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkouts([FromQuery]WorkoutParams workoutParams)
         {
+            workoutParams.UserId = User.GetUserId();
             var workouts = await _workoutService.GetWorkoutDtos(workoutParams);
             Response.AddPaginationHeader(workouts.TotalItems, workouts.ItemsPerPage, workouts.PageNumber, workouts.TotalPages);
             return workouts;
