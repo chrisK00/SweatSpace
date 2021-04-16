@@ -42,12 +42,15 @@ namespace SweatSpace.Api.Persistence.Repos
 
         public Task<PagedList<WorkoutDto>> GetWorkoutsDtos(WorkoutParams workoutParams)
         {
-            var query = _context.Workouts.AsQueryable();
-            if (workoutParams.MyWorkouts)
-            {
-                query = query.Where(w => w.AppUserId == workoutParams.UserId);
-            }
+            var query = _context.Workouts.Include(e => e.Exercises).AsQueryable();
 
+            query = workoutParams.FilterBy switch
+            {
+                "myWorkouts" => query.Where(w => w.AppUserId == workoutParams.UserId),
+                "liked" => query.Where(w => w.UsersThatLiked.Any(u => u.Id == workoutParams.UserId)),
+                _ => query
+            };
+       
             return PagedList<WorkoutDto>.CreateAsync(query.ProjectTo<WorkoutDto>(_mapper.ConfigurationProvider).AsNoTracking(),
                 workoutParams.PageNumber, workoutParams.ItemsPerPage);
         }

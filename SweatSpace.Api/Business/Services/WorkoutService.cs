@@ -86,7 +86,7 @@ namespace SweatSpace.Api.Business.Services
             var workouts = await _workoutRepo.GetWorkoutsDtos(new WorkoutParams
             {
                 UserId = userId,
-                MyWorkouts = true
+                FilterBy = "myWorkouts"
             });
             return workouts.TotalItems > 0;
         }
