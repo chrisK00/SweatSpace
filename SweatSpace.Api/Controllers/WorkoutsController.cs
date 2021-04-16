@@ -42,6 +42,11 @@ namespace SweatSpace.Api.Controllers
             return workouts;
         }
 
+        /// <summary>
+        /// Toggles the completed state of a workout
+        /// </summary>
+        /// <param name="workoutId"></param>
+        /// <returns></returns>
         [HttpPost("{workoutId}/toggle-completed")]
         public async Task<IActionResult> ToggleCompleted(int workoutId)
         {
@@ -66,6 +71,12 @@ namespace SweatSpace.Api.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Fully updates an existing workout
+        /// </summary>
+        /// <param name="workoutId"></param>
+        /// <param name="workoutUpdateDto"></param>
+        /// <returns></returns>
         [HttpPut("{workoutId}")]
         public async Task<IActionResult> UpdateWorkout(int workoutId, WorkoutUpdateDto workoutUpdateDto)
         {

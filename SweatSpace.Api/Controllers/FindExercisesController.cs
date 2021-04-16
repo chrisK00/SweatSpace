@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Extensions;
 using SweatSpace.Api.Persistence.Entities;
-using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Params;
 
 namespace SweatSpace.Api.Controllers
@@ -26,7 +24,8 @@ namespace SweatSpace.Api.Controllers
         public async Task<IEnumerable<Exercise>> GetExercises([FromQuery]ExerciseParams exerciseParams)
         {
             var exercises = await _exerciseService.FindExercises(exerciseParams);
-            Response.AddPaginationHeader(exercises.TotalItems, exercises.ItemsPerPage, exercises.PageNumber, exercises.TotalPages);
+            Response.AddPaginationHeader(exercises.TotalItems, exercises.ItemsPerPage, exercises.PageNumber,
+                exercises.TotalPages);
             return exercises;
         }
     }

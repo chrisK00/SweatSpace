@@ -22,6 +22,12 @@ namespace SweatSpace.Api.Controllers
             _exerciseService = exerciseService;
         }
 
+        /// <summary>
+        /// Adds a exercise to the specified workout
+        /// </summary>
+        /// <param name="exerciseAddDto"></param>
+        /// <param name="workoutId"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> AddExerciseAsync(ExerciseAddDto exerciseAddDto,int workoutId)
         {
@@ -30,14 +36,9 @@ namespace SweatSpace.Api.Controllers
                 return Unauthorized("You dont own this workout");
             }
 
-            await _exerciseService.AddExerciseToWorkout(exerciseAddDto, workoutId);            
+            await _exerciseService.AddExerciseToWorkout(exerciseAddDto, workoutId);   
+            //createdatroute? create a httpget getexercises
             return NoContent();
-        }
-
-        [HttpPost("exercise-completed")]
-        public IActionResult ExerciseCompleted()
-        {
-            return Created("Hi", "Hi");
         }
     }
 }
