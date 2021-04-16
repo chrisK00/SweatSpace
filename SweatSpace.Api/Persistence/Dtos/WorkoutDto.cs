@@ -17,6 +17,6 @@ namespace SweatSpace.Api.Persistence.Dtos
         public DateTime? Date { get; set; }
 
         public int AppUserId { get; set; }
-        public ICollection<WorkoutExercise> Exercises { get; set; } = new List<WorkoutExercise>();
+        public ICollection<ExerciseDto> Exercises { get; set; } = new List<ExerciseDto>();
     }
 }
