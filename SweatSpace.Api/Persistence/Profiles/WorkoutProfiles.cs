@@ -9,6 +9,7 @@ namespace SweatSpace.Api.Persistence.Profiles
         public WorkoutProfiles()
         {
             CreateMap<WorkoutAddDto, Workout>();
+            CreateMap<WorkoutUpdateDto, Workout>();
         }
     }
 }

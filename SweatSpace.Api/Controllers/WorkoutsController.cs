@@ -65,5 +65,16 @@ namespace SweatSpace.Api.Controllers
             await _workoutService.ResetWorkout(workoutId);
             return NoContent();
         }
+
+        [HttpPut("{workoutId}")]
+        public async Task<IActionResult> UpdateWorkout(int workoutId, WorkoutUpdateDto workoutUpdateDto)
+        {
+            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId))
+            {
+                return Unauthorized("You dont own this workout");
+            }
+            await _workoutService.UpdateWorkoutAsync(workoutId, workoutUpdateDto);
+            return NoContent();
+        }
     }
 }

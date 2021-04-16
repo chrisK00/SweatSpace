@@ -52,7 +52,7 @@ namespace SweatSpace.Api.Business.Services
             var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
             workout.IsCompleted = false;
             workout.Date = null;
-            
+
             foreach (var exercise in workout.Exercises)
             {
                 exercise.IsCompleted = false;
@@ -71,6 +71,13 @@ namespace SweatSpace.Api.Business.Services
             }
 
             workout.IsCompleted = !workout.IsCompleted;
+            await _unitOfWork.SaveAllAsync();
+        }
+
+        public async Task UpdateWorkoutAsync(int workoutId, WorkoutUpdateDto workoutUpdateDto)
+        {
+            Workout workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
+            _mapper.Map(workoutUpdateDto, workout);
             await _unitOfWork.SaveAllAsync();
         }
 
