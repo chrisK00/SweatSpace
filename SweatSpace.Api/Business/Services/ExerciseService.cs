@@ -18,13 +18,16 @@ namespace SweatSpace.Api.Business.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IExerciseRepo _exerciseRepo;
+        private readonly IShuffleService _shuffleService;
 
-        public ExerciseService(IWorkoutRepo workoutRepo, IUnitOfWork unitOfWork, IMapper mapper, IExerciseRepo exerciseRepo)
+        public ExerciseService(IWorkoutRepo workoutRepo, IUnitOfWork unitOfWork, IMapper mapper, IExerciseRepo exerciseRepo,
+            IShuffleService shuffleService)
         {
             _workoutRepo = workoutRepo;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _exerciseRepo = exerciseRepo;
+            _shuffleService = shuffleService;
         }
 
         public async Task AddExerciseToWorkout(ExerciseAddDto exerciseAddDto, int workoutId)
@@ -53,12 +56,18 @@ namespace SweatSpace.Api.Business.Services
             return _exerciseRepo.GetExercisesAsync(exerciseParams);
         }
 
-        public async Task<IEnumerable<ExerciseDto>> GetExerciseDtosForWorkoutAsync(int workoutId)
+        public async Task<IEnumerable<ExerciseDto>> GetExerciseDtosForWorkoutAsync(int workoutId, 
+            WorkoutExerciseParams workoutExerciseParams)
         {
             var workout = await _workoutRepo.GetWorkoutDtoAsync(workoutId);
             if (workout == null)
             {
                 throw new KeyNotFoundException("Workout doesnt exist");
+            }
+
+            if (workoutExerciseParams.Shuffle)
+            {
+                return _shuffleService.ShuffleList(workout.Exercises);
             }
             return workout.Exercises;
         }

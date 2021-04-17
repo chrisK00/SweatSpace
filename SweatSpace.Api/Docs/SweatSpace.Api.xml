@@ -12,6 +12,14 @@
             <param name="workoutId"></param>
             <returns></returns>
         </member>
+        <member name="M:SweatSpace.Api.Business.Interfaces.IShuffleService.ShuffleList``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Returns a list with the items in random order
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="items"></param>
+            <returns></returns>
+        </member>
         <member name="M:SweatSpace.Api.Business.Interfaces.IUserService.Login(SweatSpace.Api.Business.Dtos.UserLoginDto)">
             <summary>
             Tries to login a user with the specified username and password

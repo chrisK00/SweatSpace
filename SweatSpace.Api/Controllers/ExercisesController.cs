@@ -6,6 +6,7 @@ using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Extensions;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Params;
 
 namespace SweatSpace.Api.Controllers
 {
@@ -69,9 +70,10 @@ namespace SweatSpace.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExerciseDto>>> GetExercises(int workoutId)
+        public async Task<ActionResult<IEnumerable<ExerciseDto>>> GetExercises(int workoutId,
+            [FromQuery]WorkoutExerciseParams workoutExerciseParams)
         {
-            var exercises = await _exerciseService.GetExerciseDtosForWorkoutAsync(workoutId);
+            var exercises = await _exerciseService.GetExerciseDtosForWorkoutAsync(workoutId, workoutExerciseParams);
             return Ok(exercises);
         }
     }
