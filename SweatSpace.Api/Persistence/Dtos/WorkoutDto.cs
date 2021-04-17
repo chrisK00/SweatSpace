@@ -13,6 +13,8 @@ namespace SweatSpace.Api.Persistence.Dtos
         public string Name { get; set; }
 
         public bool IsCompleted { get; set; }
+
+        [Range(0, 5)]
         public int Rating { get; set; }
         public DateTime? Date { get; set; }
 
