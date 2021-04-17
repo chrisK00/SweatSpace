@@ -40,9 +40,9 @@ namespace SweatSpace.Api.Persistence.Repos
                  .FirstOrDefaultAsync(w => w.Id == id);
         }
 
-        public Task<PagedList<WorkoutDto>> GetWorkoutsDtos(WorkoutParams workoutParams)
+        public async Task<PagedList<WorkoutDto>> GetWorkoutsDtos(WorkoutParams workoutParams)
         {
-            var query = _context.Workouts.OrderByDescending(w => w.Date).AsQueryable();
+            var query = _context.Workouts.OrderByDescending(w => w.Date).AsQueryable().AsNoTracking();
 
             query = workoutParams.FilterBy switch
             {
@@ -50,9 +50,9 @@ namespace SweatSpace.Api.Persistence.Repos
                 "liked" => query.Where(w => w.UsersThatLiked.Any(u => u.Id == workoutParams.UserId)),
                 _ => query
             };
-       
-            return PagedList<WorkoutDto>.CreateAsync(query.ProjectTo<WorkoutDto>(_mapper.ConfigurationProvider).AsNoTracking(),
-                workoutParams.PageNumber, workoutParams.ItemsPerPage);
+
+            var workouts = query.ProjectTo<WorkoutDto>(_mapper.ConfigurationProvider);
+            return await PagedList<WorkoutDto>.CreateAsync(workouts, workoutParams.PageNumber, workoutParams.ItemsPerPage);
         }
     }
 }
