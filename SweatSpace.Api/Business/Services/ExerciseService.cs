@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
+using SweatSpace.Api.Business.Exceptions;
 using SweatSpace.Api.Business.Interfaces;
+using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Interfaces;
@@ -49,6 +51,16 @@ namespace SweatSpace.Api.Business.Services
         public Task<PagedList<Exercise>> FindExercises(ExerciseParams exerciseParams)
         {
             return _exerciseRepo.GetExercisesAsync(exerciseParams);
+        }
+
+        public async Task<IEnumerable<ExerciseDto>> GetExerciseDtosForWorkoutAsync(int workoutId)
+        {
+            var workout = await _workoutRepo.GetWorkoutDtoAsync(workoutId);
+            if (workout == null)
+            {
+                throw new KeyNotFoundException("Workout doesnt exist");
+            }
+            return workout.Exercises;
         }
 
         public async Task RemoveExerciseAsync(int id)

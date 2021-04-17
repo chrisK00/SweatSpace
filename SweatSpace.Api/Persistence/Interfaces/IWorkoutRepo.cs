@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Helpers;

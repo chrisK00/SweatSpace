@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Extensions;
 using SweatSpace.Api.Business.Interfaces;
+using SweatSpace.Api.Persistence.Dtos;
 
 namespace SweatSpace.Api.Controllers
 {
@@ -29,27 +31,27 @@ namespace SweatSpace.Api.Controllers
         /// <param name="workoutId"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddExercise(ExerciseAddDto exerciseAddDto,int workoutId)
+        public async Task<IActionResult> AddExercise(ExerciseAddDto exerciseAddDto, int workoutId)
         {
-            if (!await _workoutService.UserHasWorkout(User.GetUserId(),workoutId))
+            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId))
             {
                 return Unauthorized("You dont own this workout");
             }
 
-            await _exerciseService.AddExerciseToWorkout(exerciseAddDto, workoutId);   
+            await _exerciseService.AddExerciseToWorkout(exerciseAddDto, workoutId);
             //createdatroute? create a httpget getexercises
             return NoContent();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateExercise(int workoutId,ExerciseUpdateDto exerciceUpdateDto)
+        public async Task<IActionResult> UpdateExercise(int workoutId, ExerciseUpdateDto exerciceUpdateDto)
         {
-            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId) && 
+            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId) &&
                 !await _workoutService.ExerciseExistsOnWorkout(workoutId, exerciceUpdateDto.Id))
             {
                 return Unauthorized("You dont own this exercise");
             }
-          
+
             await _exerciseService.UpdateExercise(exerciceUpdateDto);
             return NoContent();
         }
@@ -64,6 +66,13 @@ namespace SweatSpace.Api.Controllers
             }
             await _exerciseService.RemoveExerciseAsync(exerciseId);
             return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ExerciseDto>>> GetExercises(int workoutId)
+        {
+            var exercises = await _exerciseService.GetExerciseDtosForWorkoutAsync(workoutId);
+            return Ok(exercises);
         }
     }
 }

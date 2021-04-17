@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using SweatSpace.Api.Business.Dtos;
+using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Params;
@@ -19,5 +20,6 @@ namespace SweatSpace.Api.Business.Interfaces
         Task<PagedList<Exercise>> FindExercises(ExerciseParams exerciseParams);
         Task UpdateExercise(ExerciseUpdateDto exerciceUpdateDto);
         Task RemoveExerciseAsync(int id);
+        Task<IEnumerable<ExerciseDto>> GetExerciseDtosForWorkoutAsync(int workoutId);
     }
 }
