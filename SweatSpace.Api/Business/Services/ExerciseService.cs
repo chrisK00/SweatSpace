@@ -48,7 +48,14 @@ namespace SweatSpace.Api.Business.Services
 
         public Task<PagedList<Exercise>> FindExercises(ExerciseParams exerciseParams)
         {
-            return _exerciseRepo.GetExercises(exerciseParams);
+            return _exerciseRepo.GetExercisesAsync(exerciseParams);
+        }
+
+        public async Task UpdateExercise(ExerciseUpdateDto exerciceUpdateDto)
+        {
+            var exercise = await _exerciseRepo.GetWorkoutExerciseByIdAsync(exerciceUpdateDto.Id);
+            _mapper.Map(exerciceUpdateDto, exercise);
+            await _unitOfWork.SaveAllAsync();
         }
     }
 }

@@ -90,5 +90,11 @@ namespace SweatSpace.Api.Business.Services
             });
             return workouts.TotalItems > 0;
         }
+
+        public async Task<bool> ExerciseExistsOnWorkout(int workoutId, int exerciseId)
+        {
+            var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
+            return workout.Exercises.Any(e => e.Id == exerciseId);
+        }
     }
 }

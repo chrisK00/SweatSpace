@@ -16,6 +16,7 @@ namespace SweatSpace.Api.Business.Interfaces
         /// <param name="workoutId"></param>
         /// <returns></returns>
         Task AddExerciseToWorkout(ExerciseAddDto exerciseAddDto, int workoutId);       
-        Task<PagedList<Exercise>> FindExercises(ExerciseParams exerciseParams);       
+        Task<PagedList<Exercise>> FindExercises(ExerciseParams exerciseParams);
+        Task UpdateExercise(ExerciseUpdateDto exerciceUpdateDto);
     }
 }

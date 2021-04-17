@@ -41,7 +41,7 @@
             </summary>
             <param name="userLoginDto"></param>
         </member>
-        <member name="M:SweatSpace.Api.Controllers.ExercisesController.AddExerciseAsync(SweatSpace.Api.Business.Dtos.ExerciseAddDto,System.Int32)">
+        <member name="M:SweatSpace.Api.Controllers.ExercisesController.AddExercise(SweatSpace.Api.Business.Dtos.ExerciseAddDto,System.Int32)">
             <summary>
             Adds a exercise to the specified workout
             </summary>

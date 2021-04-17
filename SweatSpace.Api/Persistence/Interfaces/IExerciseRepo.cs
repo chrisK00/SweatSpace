@@ -12,7 +12,8 @@ namespace SweatSpace.Api.Persistence.Interfaces
     public interface IExerciseRepo
     {
         Task<Exercise> GetExerciseByNameAsync(string name);
-        Task<PagedList<Exercise>> GetExercises(ExerciseParams exerciseParams);
+        Task<PagedList<Exercise>> GetExercisesAsync(ExerciseParams exerciseParams);
         Task AddExerciseAsync(Exercise exercise);
+        Task<WorkoutExercise> GetWorkoutExerciseByIdAsync(int id);
     }
 }

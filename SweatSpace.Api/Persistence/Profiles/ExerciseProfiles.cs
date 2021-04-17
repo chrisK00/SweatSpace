@@ -14,6 +14,7 @@ namespace SweatSpace.Api.Persistence.Profiles
         public ExerciseProfiles() 
         {
             CreateMap<ExerciseAddDto, WorkoutExercise>();
+            CreateMap<ExerciseUpdateDto, WorkoutExercise>();
 
             CreateMap<WorkoutExercise, ExerciseDto>().ForMember(d => d.Name, opt =>
             opt.MapFrom(s => s.Exercise.Name));

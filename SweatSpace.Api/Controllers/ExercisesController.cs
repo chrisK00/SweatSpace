@@ -29,7 +29,7 @@ namespace SweatSpace.Api.Controllers
         /// <param name="workoutId"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddExerciseAsync(ExerciseAddDto exerciseAddDto,int workoutId)
+        public async Task<IActionResult> AddExercise(ExerciseAddDto exerciseAddDto,int workoutId)
         {
             if (!await _workoutService.UserHasWorkout(User.GetUserId(),workoutId))
             {
@@ -38,6 +38,21 @@ namespace SweatSpace.Api.Controllers
 
             await _exerciseService.AddExerciseToWorkout(exerciseAddDto, workoutId);   
             //createdatroute? create a httpget getexercises
+            return NoContent();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateExercise(int workoutId,ExerciseUpdateDto exerciceUpdateDto)
+        {
+            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId))
+            {
+                return Unauthorized("You dont own this workout");
+            }
+            if (!await _workoutService.ExerciseExistsOnWorkout(workoutId, exerciceUpdateDto.Id))
+            {
+                return Unauthorized("You dont own this workout");
+            }
+            await _exerciseService.UpdateExercise(exerciceUpdateDto);
             return NoContent();
         }
     }

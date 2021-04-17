@@ -29,10 +29,15 @@ namespace SweatSpace.Api.Persistence.Repos
             return _context.Exercises.AddAsync(exercise).AsTask();
         }
 
-        public Task<PagedList<Exercise>> GetExercises(ExerciseParams exerciseParams)
+        public Task<PagedList<Exercise>> GetExercisesAsync(ExerciseParams exerciseParams)
         {
             var query = _context.Exercises.AsNoTracking();
             return PagedList<Exercise>.CreateAsync(query, exerciseParams.PageNumber, exerciseParams.ItemsPerPage);
+        }
+
+        public Task<WorkoutExercise> GetWorkoutExerciseByIdAsync(int id)
+        {
+            return _context.WorkoutExercises.FindAsync(id).AsTask();
         }
     }
 }

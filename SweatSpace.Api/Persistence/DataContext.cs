@@ -12,6 +12,7 @@ namespace SweatSpace.Persistence.Business
 
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
+        public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
