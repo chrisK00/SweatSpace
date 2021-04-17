@@ -44,15 +44,25 @@ namespace SweatSpace.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateExercise(int workoutId,ExerciseUpdateDto exerciceUpdateDto)
         {
-            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId))
+            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId) && 
+                !await _workoutService.ExerciseExistsOnWorkout(workoutId, exerciceUpdateDto.Id))
             {
-                return Unauthorized("You dont own this workout");
+                return Unauthorized("You dont own this exercise");
             }
-            if (!await _workoutService.ExerciseExistsOnWorkout(workoutId, exerciceUpdateDto.Id))
-            {
-                return Unauthorized("You dont own this workout");
-            }
+          
             await _exerciseService.UpdateExercise(exerciceUpdateDto);
+            return NoContent();
+        }
+
+        [HttpPost("{exerciseId}/remove-exercise")]
+        public async Task<IActionResult> RemoveExercise(int workoutId, int exerciseId)
+        {
+            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId) &&
+               !await _workoutService.ExerciseExistsOnWorkout(workoutId, exerciseId))
+            {
+                return Unauthorized("You dont own this exercise");
+            }
+            await _exerciseService.RemoveExerciseAsync(exerciseId);
             return NoContent();
         }
     }

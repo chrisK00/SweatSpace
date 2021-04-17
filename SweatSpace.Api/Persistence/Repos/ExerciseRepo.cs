@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Helpers;
@@ -19,6 +16,7 @@ namespace SweatSpace.Api.Persistence.Repos
         {
             _context = context;
         }
+
         public Task<Exercise> GetExerciseByNameAsync(string name)
         {
             return _context.Exercises.SingleOrDefaultAsync(e => e.Name == name.ToLower());
@@ -39,5 +37,9 @@ namespace SweatSpace.Api.Persistence.Repos
         {
             return _context.WorkoutExercises.FindAsync(id).AsTask();
         }
+
+        public void RemoveWorkoutExercise(WorkoutExercise workoutExercise) =>
+            _context.WorkoutExercises.Remove(workoutExercise);
+
     }
 }

@@ -51,6 +51,13 @@ namespace SweatSpace.Api.Business.Services
             return _exerciseRepo.GetExercisesAsync(exerciseParams);
         }
 
+        public async Task RemoveExerciseAsync(int id)
+        {
+            var exercise = await _exerciseRepo.GetWorkoutExerciseByIdAsync(id);
+            _exerciseRepo.RemoveWorkoutExercise(exercise);
+            await _unitOfWork.SaveAllAsync();
+        }
+
         public async Task UpdateExercise(ExerciseUpdateDto exerciceUpdateDto)
         {
             var exercise = await _exerciseRepo.GetWorkoutExerciseByIdAsync(exerciceUpdateDto.Id);
