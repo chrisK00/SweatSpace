@@ -1,2 +1,7 @@
 ﻿First migration:
  add-migration Init -o Foldername/Migrations
+
+Other commands:
+add-migration
+update-database
+drop-database
