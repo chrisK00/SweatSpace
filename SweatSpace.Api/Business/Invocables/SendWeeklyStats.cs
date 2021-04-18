@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Coravel.Invocable;
 using Coravel.Mailer.Mail.Interfaces;
 using Microsoft.Extensions.Logging;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Business.Mailables;
-using SweatSpace.Api.Business.Services;
+using SweatSpace.Api.Persistence.Interfaces;
 
 namespace SweatSpace.Api.Business.Invocables
 {
@@ -15,14 +14,16 @@ namespace SweatSpace.Api.Business.Invocables
         private readonly ILogger<SendWeeklyStats> _logger;
         private readonly IUserService _userService;
         private readonly IStatsService _statsService;
+        private readonly IUnitOfWork _unitOfWork;
 
         public SendWeeklyStats(IMailer mailer, ILogger<SendWeeklyStats> logger, IUserService userService,
-            IStatsService statsService)
+            IStatsService statsService, IUnitOfWork unitOfWork)
         {
             _mailer = mailer;
             _logger = logger;
             _userService = userService;
             _statsService = statsService;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task Invoke()
@@ -36,18 +37,11 @@ namespace SweatSpace.Api.Business.Invocables
                     Content = _statsService.GetWeeklyMemberStats(member)
                 });
 
-                try
-                {
-                    await _mailer.SendAsync(statsMailable);
-                    _statsService.ResetWeeklyMemberStats(member);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, ex.Message);
-                }
+                await _mailer.SendAsync(statsMailable);
+                _logger.LogInformation($"Mail sent");
+                _statsService.ResetWeeklyMemberStats(member);
+                await _unitOfWork.SaveAllAsync();
             }
-
-
         }
     }
 }
