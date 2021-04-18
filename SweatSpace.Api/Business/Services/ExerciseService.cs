@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
@@ -56,10 +57,12 @@ namespace SweatSpace.Api.Business.Services
             return _exerciseRepo.GetExercisesAsync(exerciseParams);
         }
 
-        public async Task<IEnumerable<ExerciseDto>> GetExerciseDtosForWorkoutAsync(int workoutId, 
+        public async Task<IEnumerable<ExerciseDto>> GetExerciseDtosForWorkoutAsync(int workoutId,
             WorkoutExerciseParams workoutExerciseParams)
         {
             var workout = await _workoutRepo.GetWorkoutDtoAsync(workoutId);
+            IEnumerable<ExerciseDto> exercises;
+
             if (workout == null)
             {
                 throw new KeyNotFoundException("Workout doesnt exist");
@@ -67,9 +70,10 @@ namespace SweatSpace.Api.Business.Services
 
             if (workoutExerciseParams.Shuffle)
             {
-                return _shuffleService.ShuffleList(workout.Exercises);
+                exercises = _shuffleService.ShuffleList(workout.Exercises);
             }
-            return workout.Exercises;
+            exercises = workout.Exercises.OrderBy(x => x.IsCompleted);
+            return exercises;
         }
 
         public async Task RemoveExerciseAsync(int id)

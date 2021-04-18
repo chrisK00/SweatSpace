@@ -40,7 +40,7 @@ namespace SweatSpace.Api.Controllers
             }
 
             await _exerciseService.AddExerciseToWorkout(exerciseAddDto, workoutId);
-            return CreatedAtRoute(nameof(GetExercises), new { workoutId = workoutId }, new { workoutId = workoutId });
+            return CreatedAtRoute(nameof(GetExercises), new { workoutId }, new { workoutId });
         }
 
         [HttpPut]

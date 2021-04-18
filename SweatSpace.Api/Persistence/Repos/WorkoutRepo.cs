@@ -43,7 +43,8 @@ namespace SweatSpace.Api.Persistence.Repos
 
         public async Task<PagedList<WorkoutDto>> GetWorkoutsDtos(WorkoutParams workoutParams)
         {
-            var query = _context.Workouts.OrderByDescending(w => w.Date).AsQueryable().AsNoTracking();
+            var query = _context.Workouts.OrderByDescending(w => w.Date).OrderBy(w => w.IsCompleted)
+                .AsQueryable().AsNoTracking();
 
             query = workoutParams.FilterBy switch
             {
