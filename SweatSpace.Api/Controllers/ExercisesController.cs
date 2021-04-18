@@ -40,8 +40,7 @@ namespace SweatSpace.Api.Controllers
             }
 
             await _exerciseService.AddExerciseToWorkout(exerciseAddDto, workoutId);
-            //createdatroute? create a httpget getexercises
-            return NoContent();
+            return CreatedAtRoute(nameof(GetExercises), new { workoutId = workoutId }, new { workoutId = workoutId });
         }
 
         [HttpPut]
@@ -69,9 +68,9 @@ namespace SweatSpace.Api.Controllers
             return NoContent();
         }
 
-        [HttpGet]
+        [HttpGet(Name = nameof(GetExercises))]
         public async Task<ActionResult<IEnumerable<ExerciseDto>>> GetExercises(int workoutId,
-            [FromQuery]WorkoutExerciseParams workoutExerciseParams)
+            [FromQuery] WorkoutExerciseParams workoutExerciseParams)
         {
             var exercises = await _exerciseService.GetExerciseDtosForWorkoutAsync(workoutId, workoutExerciseParams);
             return Ok(exercises);
