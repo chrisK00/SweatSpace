@@ -93,7 +93,7 @@ namespace SweatSpace.Api.Business.Services
                 UserId = userId,
                 FilterBy = "myWorkouts"
             });
-            return workouts.TotalItems > 0;
+            return workouts.Any(x => x.Id == workoutId);
         }
 
         public async Task<bool> ExerciseExistsOnWorkout(int workoutId, int exerciseId)
