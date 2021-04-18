@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -92,6 +93,7 @@ namespace SweatSpace.Api.Business.Services
         {
             var exercise = await _exerciseRepo.GetWorkoutExerciseByIdAsync(exerciceUpdateDto.Id);
             _mapper.Map(exerciceUpdateDto, exercise);
+            _logger.LogInformation($"Updated: {JsonSerializer.Serialize(exercise)}");
             await _unitOfWork.SaveAllAsync();
         }
     }

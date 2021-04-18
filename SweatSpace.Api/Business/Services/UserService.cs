@@ -46,7 +46,7 @@ namespace SweatSpace.Api.Business.Services
 
             if (user == null)
             {
-                _logger.LogError($"User with the specified username: {userLoginDto.UserName} was not found");
+                _logger.LogError($"{nameof(Login)} user with the specified username: {userLoginDto.UserName} was not found");
                 //we dont want to tell the user if a user with this username actually exists
                 throw new UnauthorizedAccessException("Invalid username or password");
             }
