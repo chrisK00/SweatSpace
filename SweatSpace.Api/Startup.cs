@@ -1,11 +1,15 @@
 using System;
 using System.IO;
+using Coravel;
+using Coravel.Scheduling.Schedule.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SweatSpace.Api.Business.Invocables;
 using SweatSpace.Api.Extensions;
 using SweatSpace.Api.Middlewares;
 
@@ -37,8 +41,15 @@ namespace SweatSpace.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var serviceProvider = app.ApplicationServices;
             if (env.IsDevelopment())
             {
+                serviceProvider.UseScheduler(scheduler =>
+                scheduler
+                .Schedule<SendWeeklyStats>()
+                .EveryFiveSeconds())
+                    .LogScheduledTaskProgress(serviceProvider.GetRequiredService<ILogger<IScheduler>>());
+
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SweatSpace.Api v1"));
@@ -56,6 +67,11 @@ namespace SweatSpace.Api
             {
                 endpoints.MapControllers();
             });
+
+            serviceProvider.UseScheduler(scheduler =>
+               scheduler
+               .Schedule<SendWeeklyStats>()
+               .Weekly());
         }
     }
 }

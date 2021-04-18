@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Coravel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SweatSpace.Api.Business.Interfaces;
+using SweatSpace.Api.Business.Invocables;
 using SweatSpace.Api.Business.Services;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
@@ -29,6 +31,9 @@ namespace SweatSpace.Api.Extensions
             services.AddScoped<IExerciseService, ExerciseService>();
             services.AddScoped<IShuffleService, ShuffleService>();
 
+            services.AddScheduler();
+            services.AddTransient<SendWeeklyStats>();
+            services.AddMailer(config);
             services.AddAutoMapper(typeof(UserProfiles).Assembly);
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(config.GetConnectionString("Default")));
             return services;
