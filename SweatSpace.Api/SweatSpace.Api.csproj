@@ -6,7 +6,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;1591</NoWarn>
-    <DocumentationFile>Docs\SweatSpace.Api.xml</DocumentationFile>
+    <DocumentationFile>..\Docs\SweatSpace.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
