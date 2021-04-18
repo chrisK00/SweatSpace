@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SweatSpace.Api.Business.Interfaces;
+﻿using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Persistence.Dtos;
 
 namespace SweatSpace.Api.Business.Services

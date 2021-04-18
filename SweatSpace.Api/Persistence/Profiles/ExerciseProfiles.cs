@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Entities;
