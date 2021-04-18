@@ -10,8 +10,8 @@ using SweatSpace.Persistence.Business;
 namespace SweatSpace.Api.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210416180320_UserIdOnWorkout")]
-    partial class UserIdOnWorkout
+    [Migration("20210418122620_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -325,7 +325,7 @@ namespace SweatSpace.Api.Persistence.Migrations
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("WorkoutExercise");
+                    b.ToTable("WorkoutExercises");
                 });
 
             modelBuilder.Entity("AppRoleAppUser", b =>
