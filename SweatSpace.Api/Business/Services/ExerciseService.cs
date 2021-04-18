@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Exceptions;
 using SweatSpace.Api.Business.Interfaces;
@@ -20,15 +21,17 @@ namespace SweatSpace.Api.Business.Services
         private readonly IMapper _mapper;
         private readonly IExerciseRepo _exerciseRepo;
         private readonly IShuffleService _shuffleService;
+        private readonly ILogger<ExerciseService> _logger;
 
         public ExerciseService(IWorkoutRepo workoutRepo, IUnitOfWork unitOfWork, IMapper mapper, IExerciseRepo exerciseRepo,
-            IShuffleService shuffleService)
+            IShuffleService shuffleService, ILogger<ExerciseService> logger)
         {
             _workoutRepo = workoutRepo;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _exerciseRepo = exerciseRepo;
             _shuffleService = shuffleService;
+            _logger = logger;
         }
 
         public async Task AddExerciseToWorkout(ExerciseAddDto exerciseAddDto, int workoutId)
@@ -41,6 +44,7 @@ namespace SweatSpace.Api.Business.Services
             //make a new exercise if it doesnt already exist
             if (exercise == null)
             {
+                _logger.LogError($"Creating a new exercise with the name:{exerciseAddDto.Name}");
                 exercise = new Exercise { Name = exerciseAddDto.Name };
                 await _exerciseRepo.AddExerciseAsync(exercise);
             }
@@ -65,6 +69,7 @@ namespace SweatSpace.Api.Business.Services
 
             if (workout == null)
             {
+                _logger.LogError($"Workout {workoutId} doesnt exist");
                 throw new KeyNotFoundException("Workout doesnt exist");
             }
 

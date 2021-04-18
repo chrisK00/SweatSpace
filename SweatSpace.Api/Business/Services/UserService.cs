@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Persistence.Dtos;
@@ -15,14 +16,16 @@ namespace SweatSpace.Api.Business.Services
     {
         private readonly IMapper _mapper;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly ILogger<UserService> _logger;
         private readonly ITokenService _tokenService;
         private readonly IUserRepo _userRepo;
 
-        public UserService(IMapper mapper, SignInManager<AppUser> signInManager,
+        public UserService(IMapper mapper, SignInManager<AppUser> signInManager, ILogger<UserService> logger,
             ITokenService tokenService, IUserRepo userRepo)
         {
             _mapper = mapper;
             _signInManager = signInManager;
+            _logger = logger;
             _tokenService = tokenService;
             _userRepo = userRepo;
         }
@@ -43,6 +46,7 @@ namespace SweatSpace.Api.Business.Services
 
             if (user == null)
             {
+                _logger.LogError($"User with the specified username: {userLoginDto.UserName} was not found");
                 //we dont want to tell the user if a user with this username actually exists
                 throw new UnauthorizedAccessException("Invalid username or password");
             }
@@ -52,6 +56,7 @@ namespace SweatSpace.Api.Business.Services
 
             if (!result.Succeeded)
             {
+                _logger.LogError($"Failed to login user: Bad credentials");
                 throw new UnauthorizedAccessException("Invalid username or password");
             }
 

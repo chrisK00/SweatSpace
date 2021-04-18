@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Exceptions;
 using SweatSpace.Api.Business.Interfaces;
@@ -18,13 +19,16 @@ namespace SweatSpace.Api.Business.Services
         private readonly IMapper _mapper;
         private readonly IUserRepo _userRepo;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<WorkoutService> _logger;
 
-        public WorkoutService(IWorkoutRepo workoutRepo, IMapper mapper, IUserRepo userRepo, IUnitOfWork unitOfWork)
+        public WorkoutService(IWorkoutRepo workoutRepo, IMapper mapper, IUserRepo userRepo, IUnitOfWork unitOfWork,
+            ILogger<WorkoutService> logger)
         {
             _workoutRepo = workoutRepo;
             _mapper = mapper;
             _userRepo = userRepo;
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         public async Task<int> AddWorkoutAsync(WorkoutAddDto workoutAddDto, int userId)
@@ -67,6 +71,7 @@ namespace SweatSpace.Api.Business.Services
             //a not completed workout with remaining exercises cannot be marked completed
             if (!workout.IsCompleted && workout.Exercises.Any(e => !e.IsCompleted))
             {
+                _logger.LogError($"Not all exercises in workout: {workoutId} are completed");
                 throw new AppException("All exercises must be completed");
             }
 
