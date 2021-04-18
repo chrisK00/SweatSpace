@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace SweatSpace.Api.Business.Extensions
+namespace SweatSpace.Api.Extensions
 {
     public static class ClaimsPrincipalExtensions
     {

@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SweatSpace.Api.Business.Dtos;
-using SweatSpace.Api.Business.Extensions;
 using SweatSpace.Api.Business.Interfaces;
+using SweatSpace.Api.Extensions;
 using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Params;
 
