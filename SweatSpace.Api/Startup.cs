@@ -47,8 +47,7 @@ namespace SweatSpace.Api
                 serviceProvider.UseScheduler(scheduler =>
                 scheduler
                 .Schedule<SendWeeklyStats>()
-                .EveryFiveSeconds())
-                    .LogScheduledTaskProgress(serviceProvider.GetRequiredService<ILogger<IScheduler>>());
+                .EveryFifteenSeconds());
 
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
