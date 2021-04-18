@@ -27,7 +27,7 @@ namespace SweatSpace.Api.Business.Interfaces
         /// <param name="workoutParams"></param>
         /// <returns></returns>
         Task<PagedList<WorkoutDto>> GetWorkoutDtos(WorkoutParams workoutParams);
-        Task ToggleCompleted(int workoutId);
+        Task WorkoutCompleted(int workoutId);
         Task ResetWorkout(int workoutId);
         Task UpdateWorkoutAsync(int workoutId, WorkoutUpdateDto workoutUpdateDto);
         Task<bool> ExerciseExistsOnWorkout(int workoutId, int exerciseId);

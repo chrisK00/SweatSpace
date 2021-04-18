@@ -47,15 +47,15 @@ namespace SweatSpace.Api.Controllers
         /// </summary>
         /// <param name="workoutId"></param>
         /// <returns></returns>
-        [HttpPost("{workoutId}/toggle-completed")]
-        public async Task<IActionResult> ToggleCompleted(int workoutId)
+        [HttpPost("{workoutId}/completed")]
+        public async Task<IActionResult> WorkoutCompleted(int workoutId)
         {
             if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId))
             {
                 return Unauthorized("You dont own this workout");
             }
 
-            await _workoutService.ToggleCompleted(workoutId);
+            await _workoutService.WorkoutCompleted(workoutId);
             return NoContent();
         }
 

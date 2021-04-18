@@ -64,23 +64,19 @@ namespace SweatSpace.Api.Business.Services
             await _unitOfWork.SaveAllAsync();
         }
 
-        public async Task ToggleCompleted(int workoutId)
+        public async Task WorkoutCompleted(int workoutId)
         {
             var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
 
             //a not completed workout with remaining exercises cannot be marked completed
-            if (!workout.IsCompleted && workout.Exercises.Any(e => !e.IsCompleted))
+            if (workout.Exercises.Any(e => !e.IsCompleted))
             {
                 _logger.LogError($"Not all exercises in workout: {workoutId} are completed");
                 throw new AppException("All exercises must be completed");
             }
 
-            if (workout.IsCompleted)
-            {
-                workout.TimesCompletedThisWeek++;
-            }
-
-            workout.IsCompleted = !workout.IsCompleted;
+            workout.IsCompleted = true;
+            workout.TimesCompletedThisWeek++;
             await _unitOfWork.SaveAllAsync();
         }
 
