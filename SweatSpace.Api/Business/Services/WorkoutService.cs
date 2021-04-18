@@ -75,6 +75,11 @@ namespace SweatSpace.Api.Business.Services
                 throw new AppException("All exercises must be completed");
             }
 
+            if (workout.IsCompleted)
+            {
+                workout.TimesCompletedThisWeek++;
+            }
+
             workout.IsCompleted = !workout.IsCompleted;
             await _unitOfWork.SaveAllAsync();
         }

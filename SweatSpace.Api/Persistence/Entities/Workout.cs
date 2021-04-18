@@ -12,6 +12,7 @@ namespace SweatSpace.Api.Persistence.Entities
         public string Name { get; set; }
 
         public bool IsCompleted { get; set; }
+        public int TimesCompletedThisWeek { get; set; }
 
         [Range(0, 5)]
         public int Rating { get; set; }

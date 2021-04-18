@@ -11,7 +11,7 @@ namespace SweatSpace.Api.Persistence.Dtos
 
         [Required, MaxLength(255)]
         public string Name { get; set; }
-
+        public int TimesCompletedThisWeek { get; set; }
         public bool IsCompleted { get; set; }
 
         [Range(0, 5)]

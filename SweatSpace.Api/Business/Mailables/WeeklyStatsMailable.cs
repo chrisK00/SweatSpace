@@ -13,8 +13,10 @@ namespace SweatSpace.Api.Business.Mailables
 
         public override void Build()
         {
-            To(_weeklyStatsModel.Mail)
-                .From("Dr.me")
+            //TODO
+            // change from to a real mail 
+            To(_weeklyStatsModel.Email)
+                .From("chris@gmail.com")
                 .Subject(_weeklyStatsModel.Title)
                 .Html(_weeklyStatsModel.Content);
         }

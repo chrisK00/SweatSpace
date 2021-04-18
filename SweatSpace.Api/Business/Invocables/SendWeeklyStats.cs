@@ -5,6 +5,7 @@ using Coravel.Mailer.Mail.Interfaces;
 using Microsoft.Extensions.Logging;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Business.Mailables;
+using SweatSpace.Api.Business.Services;
 
 namespace SweatSpace.Api.Business.Invocables
 {
@@ -12,33 +13,41 @@ namespace SweatSpace.Api.Business.Invocables
     {
         private readonly IMailer _mailer;
         private readonly ILogger<SendWeeklyStats> _logger;
-        private readonly IWorkoutService _workoutService;
+        private readonly IUserService _userService;
+        private readonly IStatsService _statsService;
 
-        public SendWeeklyStats(IMailer mailer, ILogger<SendWeeklyStats> logger, IWorkoutService workoutService)
+        public SendWeeklyStats(IMailer mailer, ILogger<SendWeeklyStats> logger, IUserService userService,
+            IStatsService statsService)
         {
             _mailer = mailer;
             _logger = logger;
-            _workoutService = workoutService;
+            _userService = userService;
+            _statsService = statsService;
         }
 
         public async Task Invoke()
         {
-            var workout = await _workoutService.GetWorkoutDtoAsync(1);
-            var mailable = new WeeklyStatsMailable(new WeeklyStatsModel
+            foreach (var member in await _userService.GetMembers())
             {
-                Title = workout.Name,
-                Content = workout.Name,
-                Mail = workout.Name
-            });
+                var statsMailable = new WeeklyStatsMailable(new WeeklyStatsModel
+                {
+                    Email = member.Email,
+                    Title = "Your weekly stats has arrived from SweatSpace",
+                    Content = _statsService.GetWeeklyMemberStats(member)
+                });
 
-            try
-            {
-                await _mailer.SendAsync(mailable);
+                try
+                {
+                    await _mailer.SendAsync(statsMailable);
+                    _statsService.ResetWeeklyMemberStats(member);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "but why");
-            }
+
+
         }
     }
 }
