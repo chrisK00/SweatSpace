@@ -8,7 +8,7 @@ namespace SweatSpace.Api.Business.Interfaces
 {
     public interface IUserService
     {
-        Task Register(UserRegisterDto userRegisterDto);
+        Task RegisterAsync(UserRegisterDto userRegisterDto);
 
         /// <summary>
         /// Tries to login a user with the specified username and password
@@ -16,8 +16,8 @@ namespace SweatSpace.Api.Business.Interfaces
         /// <param name="userLoginDto"></param>
         /// <returns>UserDto with a token</returns>
         /// <exception cref="UnauthorizedAccessException"></exception>
-        Task<UserDto> Login(UserLoginDto userLoginDto);
+        Task<UserDto> LoginAsync(UserLoginDto userLoginDto);
 
-        Task<IEnumerable<MemberDto>> GetMembers();
+        Task<IEnumerable<MemberDto>> GetMembersAsync();
     }
 }

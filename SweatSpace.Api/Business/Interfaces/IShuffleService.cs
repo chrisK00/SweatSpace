@@ -10,6 +10,6 @@ namespace SweatSpace.Api.Business.Interfaces
         /// <typeparam name="T"></typeparam>
         /// <param name="items"></param>
         /// <returns></returns>
-        IEnumerable<T> ShuffleList<T>(IEnumerable<T> items);
+        IEnumerable<T> ShuffleListAsync<T>(IEnumerable<T> items);
     }
 }

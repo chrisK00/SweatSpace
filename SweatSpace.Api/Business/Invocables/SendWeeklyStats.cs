@@ -28,7 +28,7 @@ namespace SweatSpace.Api.Business.Invocables
 
         public async Task Invoke()
         {
-            foreach (var member in await _userService.GetMembers())
+            foreach (var member in await _userService.GetMembersAsync())
             {
                 var statsMailable = new WeeklyStatsMailable(new WeeklyStatsModel
                 {

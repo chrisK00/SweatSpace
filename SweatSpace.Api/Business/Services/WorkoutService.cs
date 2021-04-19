@@ -46,12 +46,12 @@ namespace SweatSpace.Api.Business.Services
             return _workoutRepo.GetWorkoutDtoAsync(id);
         }
 
-        public Task<PagedList<WorkoutDto>> GetWorkoutDtos(WorkoutParams workoutParams)
+        public Task<PagedList<WorkoutDto>> GetWorkoutDtosAsync(WorkoutParams workoutParams)
         {
-            return _workoutRepo.GetWorkoutsDtos(workoutParams);
+            return _workoutRepo.GetWorkoutsDtosAsync(workoutParams);
         }
 
-        public async Task ResetWorkout(int workoutId)
+        public async Task ResetWorkoutAsync(int workoutId)
         {
             var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
             workout.IsCompleted = false;
@@ -64,7 +64,7 @@ namespace SweatSpace.Api.Business.Services
             await _unitOfWork.SaveAllAsync();
         }
 
-        public async Task WorkoutCompleted(int workoutId)
+        public async Task WorkoutCompletedAsync(int workoutId)
         {
             var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
 
@@ -87,9 +87,9 @@ namespace SweatSpace.Api.Business.Services
             await _unitOfWork.SaveAllAsync();
         }
 
-        public async Task<bool> UserHasWorkout(int userId, int workoutId)
+        public async Task<bool> UserHasWorkoutAsync(int userId, int workoutId)
         {
-            var workouts = await _workoutRepo.GetWorkoutsDtos(new WorkoutParams
+            var workouts = await _workoutRepo.GetWorkoutsDtosAsync(new WorkoutParams
             {
                 UserId = userId,
                 FilterBy = "myWorkouts"
@@ -97,7 +97,7 @@ namespace SweatSpace.Api.Business.Services
             return workouts.Any(x => x.Id == workoutId);
         }
 
-        public async Task<bool> ExerciseExistsOnWorkout(int workoutId, int exerciseId)
+        public async Task<bool> ExerciseExistsOnWorkoutAsync(int workoutId, int exerciseId)
         {
             var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
             return workout.Exercises.Any(e => e.Id == exerciseId);

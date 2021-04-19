@@ -14,6 +14,6 @@ namespace SweatSpace.Api.Persistence.Interfaces
         Task<WorkoutDto> GetWorkoutDtoAsync(int id);
 
         Task<Workout> GetWorkoutByIdAsync(int id);
-        Task<PagedList<WorkoutDto>> GetWorkoutsDtos(WorkoutParams workoutParams);
+        Task<PagedList<WorkoutDto>> GetWorkoutsDtosAsync(WorkoutParams workoutParams);
     }
 }

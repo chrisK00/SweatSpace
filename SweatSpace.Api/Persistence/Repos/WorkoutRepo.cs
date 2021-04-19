@@ -40,7 +40,7 @@ namespace SweatSpace.Api.Persistence.Repos
                  .FirstOrDefaultAsync(w => w.Id == id);
         }
 
-        public async Task<PagedList<WorkoutDto>> GetWorkoutsDtos(WorkoutParams workoutParams)
+        public async Task<PagedList<WorkoutDto>> GetWorkoutsDtosAsync(WorkoutParams workoutParams)
         {
             var query = _context.Workouts.OrderByDescending(w => w.Date).OrderBy(w => w.IsCompleted)
                 .AsQueryable().AsNoTracking();

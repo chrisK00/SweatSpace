@@ -30,23 +30,23 @@ namespace SweatSpace.Api.Business.Services
             _userRepo = userRepo;
         }
 
-        public Task<IEnumerable<MemberDto>> GetMembers()
+        public Task<IEnumerable<MemberDto>> GetMembersAsync()
         {
             return _userRepo.GetMembersAsync();
         }
 
-        public Task Register(UserRegisterDto userRegisterDto)
+        public Task RegisterAsync(UserRegisterDto userRegisterDto)
         {
             return _userRepo.AddUserAsync(_mapper.Map<AppUser>(userRegisterDto), userRegisterDto.Password);
         }
 
-        public async Task<UserDto> Login(UserLoginDto userLoginDto)
+        public async Task<UserDto> LoginAsync(UserLoginDto userLoginDto)
         {
             var user = await _userRepo.GetUserByNameAsync(userLoginDto.UserName);
 
             if (user == null)
             {
-                _logger.LogError($"{nameof(Login)} user with the specified username: {userLoginDto.UserName} was not found");
+                _logger.LogError($"{nameof(LoginAsync)} user with the specified username: {userLoginDto.UserName} was not found");
                 //we dont want to tell the user if a user with this username actually exists
                 throw new UnauthorizedAccessException("Invalid username or password");
             }
@@ -61,7 +61,7 @@ namespace SweatSpace.Api.Business.Services
             }
 
             var userDto = _mapper.Map<UserDto>(user);
-            userDto.Token = await _tokenService.CreateToken(user);
+            userDto.Token = await _tokenService.CreateTokenAsync(user);
             return userDto;
         }
     }

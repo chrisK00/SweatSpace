@@ -35,7 +35,7 @@ namespace SweatSpace.Api.Business.Services
             _logger = logger;
         }
 
-        public async Task AddExerciseToWorkout(ExerciseAddDto exerciseAddDto, int workoutId)
+        public async Task AddExerciseToWorkoutAsync(ExerciseAddDto exerciseAddDto, int workoutId)
         {
             var exercise = await _exerciseRepo.GetExerciseByNameAsync(exerciseAddDto.Name);
             var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
@@ -57,7 +57,7 @@ namespace SweatSpace.Api.Business.Services
             await _unitOfWork.SaveAllAsync();
         }
 
-        public Task<PagedList<Exercise>> FindExercises(ExerciseParams exerciseParams)
+        public Task<PagedList<Exercise>> FindExercisesAsync(ExerciseParams exerciseParams)
         {
             return _exerciseRepo.GetExercisesAsync(exerciseParams);
         }
@@ -76,7 +76,7 @@ namespace SweatSpace.Api.Business.Services
 
             if (workoutExerciseParams.Shuffle)
             {
-                exercises = _shuffleService.ShuffleList(workout.Exercises);
+                exercises = _shuffleService.ShuffleListAsync(workout.Exercises);
             }
             exercises = workout.Exercises.OrderBy(x => x.IsCompleted);
             return exercises;
@@ -89,7 +89,7 @@ namespace SweatSpace.Api.Business.Services
             await _unitOfWork.SaveAllAsync();
         }
 
-        public async Task UpdateExercise(ExerciseUpdateDto exerciceUpdateDto)
+        public async Task UpdateExerciseAsync(ExerciseUpdateDto exerciceUpdateDto)
         {
             var exercise = await _exerciseRepo.GetWorkoutExerciseByIdAsync(exerciceUpdateDto.Id);
             _mapper.Map(exerciceUpdateDto, exercise);

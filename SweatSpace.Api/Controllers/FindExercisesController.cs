@@ -23,7 +23,7 @@ namespace SweatSpace.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<Exercise>> GetExercises([FromQuery]ExerciseParams exerciseParams)
         {
-            var exercises = await _exerciseService.FindExercises(exerciseParams);
+            var exercises = await _exerciseService.FindExercisesAsync(exerciseParams);
             Response.AddPaginationHeader(exercises.TotalItems, exercises.ItemsPerPage, exercises.PageNumber,
                 exercises.TotalPages);
             return exercises;

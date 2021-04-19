@@ -4,7 +4,7 @@
         <name>SweatSpace.Api</name>
     </assembly>
     <members>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IExerciseService.AddExerciseToWorkout(SweatSpace.Api.Business.Dtos.ExerciseAddDto,System.Int32)">
+        <member name="M:SweatSpace.Api.Business.Interfaces.IExerciseService.AddExerciseToWorkoutAsync(SweatSpace.Api.Business.Dtos.ExerciseAddDto,System.Int32)">
             <summary>
             Adds an exercise to an existing workout
             </summary>
@@ -12,7 +12,7 @@
             <param name="workoutId"></param>
             <returns></returns>
         </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IShuffleService.ShuffleList``1(System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:SweatSpace.Api.Business.Interfaces.IShuffleService.ShuffleListAsync``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Returns a list with the items in random order
             </summary>
@@ -20,7 +20,7 @@
             <param name="items"></param>
             <returns></returns>
         </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IUserService.Login(SweatSpace.Api.Business.Dtos.UserLoginDto)">
+        <member name="M:SweatSpace.Api.Business.Interfaces.IUserService.LoginAsync(SweatSpace.Api.Business.Dtos.UserLoginDto)">
             <summary>
             Tries to login a user with the specified username and password
             </summary>
@@ -28,7 +28,7 @@
             <returns>UserDto with a token</returns>
             <exception cref="T:System.UnauthorizedAccessException"></exception>
         </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.UserHasWorkout(System.Int32,System.Int32)">
+        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.UserHasWorkoutAsync(System.Int32,System.Int32)">
             <summary>
             Checks if the user owns the specified workout
             </summary>
@@ -36,7 +36,7 @@
             <param name="workoutId"></param>
             <returns></returns>
         </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.GetWorkoutDtos(SweatSpace.Api.Persistence.Params.WorkoutParams)">
+        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.GetWorkoutDtosAsync(SweatSpace.Api.Persistence.Params.WorkoutParams)">
             <summary>
             Returns a paged list of all the workout dtos
             </summary>
@@ -62,7 +62,7 @@
             Search controller - For the shared exercises
             </summary>
         </member>
-        <member name="M:SweatSpace.Api.Controllers.WorkoutsController.ToggleCompleted(System.Int32)">
+        <member name="M:SweatSpace.Api.Controllers.WorkoutsController.WorkoutCompleted(System.Int32)">
             <summary>
             Toggles the completed state of a workout
             </summary>

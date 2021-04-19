@@ -19,17 +19,17 @@ namespace SweatSpace.Api.Business.Interfaces
         /// <param name="userId"></param>
         /// <param name="workoutId"></param>
         /// <returns></returns>
-        Task<bool> UserHasWorkout(int userId, int workoutId);
+        Task<bool> UserHasWorkoutAsync(int userId, int workoutId);
 
         /// <summary>
         /// Returns a paged list of all the workout dtos
         /// </summary>
         /// <param name="workoutParams"></param>
         /// <returns></returns>
-        Task<PagedList<WorkoutDto>> GetWorkoutDtos(WorkoutParams workoutParams);
-        Task WorkoutCompleted(int workoutId);
-        Task ResetWorkout(int workoutId);
+        Task<PagedList<WorkoutDto>> GetWorkoutDtosAsync(WorkoutParams workoutParams);
+        Task WorkoutCompletedAsync(int workoutId);
+        Task ResetWorkoutAsync(int workoutId);
         Task UpdateWorkoutAsync(int workoutId, WorkoutUpdateDto workoutUpdateDto);
-        Task<bool> ExerciseExistsOnWorkout(int workoutId, int exerciseId);
+        Task<bool> ExerciseExistsOnWorkoutAsync(int workoutId, int exerciseId);
     }
 }

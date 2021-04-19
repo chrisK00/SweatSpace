@@ -17,7 +17,7 @@ namespace SweatSpace.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
         {
-            await _userService.Register(userRegisterDto);
+            await _userService.RegisterAsync(userRegisterDto);
             return NoContent();
         }
 
@@ -28,7 +28,7 @@ namespace SweatSpace.Api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(UserLoginDto userLoginDto)
         {
-            return await _userService.Login(userLoginDto);
+            return await _userService.LoginAsync(userLoginDto);
         }
     }
 }

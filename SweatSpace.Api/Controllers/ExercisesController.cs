@@ -34,33 +34,33 @@ namespace SweatSpace.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddExercise(ExerciseAddDto exerciseAddDto, int workoutId)
         {
-            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId))
+            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId))
             {
                 return Unauthorized("You dont own this workout");
             }
 
-            await _exerciseService.AddExerciseToWorkout(exerciseAddDto, workoutId);
+            await _exerciseService.AddExerciseToWorkoutAsync(exerciseAddDto, workoutId);
             return CreatedAtRoute(nameof(GetExercises), new { workoutId }, new { workoutId });
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateExercise(int workoutId, ExerciseUpdateDto exerciceUpdateDto)
         {
-            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId) &&
-                !await _workoutService.ExerciseExistsOnWorkout(workoutId, exerciceUpdateDto.Id))
+            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId) &&
+                !await _workoutService.ExerciseExistsOnWorkoutAsync(workoutId, exerciceUpdateDto.Id))
             {
                 return Unauthorized("You dont own this exercise");
             }
 
-            await _exerciseService.UpdateExercise(exerciceUpdateDto);
+            await _exerciseService.UpdateExerciseAsync(exerciceUpdateDto);
             return NoContent();
         }
 
         [HttpPost("{exerciseId}/remove-exercise")]
         public async Task<IActionResult> RemoveExercise(int workoutId, int exerciseId)
         {
-            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId) &&
-               !await _workoutService.ExerciseExistsOnWorkout(workoutId, exerciseId))
+            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId) &&
+               !await _workoutService.ExerciseExistsOnWorkoutAsync(workoutId, exerciseId))
             {
                 return Unauthorized("You dont own this exercise");
             }

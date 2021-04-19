@@ -37,7 +37,7 @@ namespace SweatSpace.Api.Controllers
         public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkouts([FromQuery]WorkoutParams workoutParams)
         {
             workoutParams.UserId = User.GetUserId();
-            var workouts = await _workoutService.GetWorkoutDtos(workoutParams);
+            var workouts = await _workoutService.GetWorkoutDtosAsync(workoutParams);
             Response.AddPaginationHeader(workouts.TotalItems, workouts.ItemsPerPage, workouts.PageNumber, workouts.TotalPages);
             return workouts;
         }
@@ -50,24 +50,24 @@ namespace SweatSpace.Api.Controllers
         [HttpPost("{workoutId}/completed")]
         public async Task<IActionResult> WorkoutCompleted(int workoutId)
         {
-            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId))
+            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId))
             {
                 return Unauthorized("You dont own this workout");
             }
 
-            await _workoutService.WorkoutCompleted(workoutId);
+            await _workoutService.WorkoutCompletedAsync(workoutId);
             return NoContent();
         }
 
         [HttpPost("{workoutId}/reset")]
         public async Task<IActionResult> ResetWorkout(int workoutId)
         {
-            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId))
+            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId))
             {
                 return Unauthorized("You dont own this workout");
             }
 
-            await _workoutService.ResetWorkout(workoutId);
+            await _workoutService.ResetWorkoutAsync(workoutId);
             return NoContent();
         }
 
@@ -80,7 +80,7 @@ namespace SweatSpace.Api.Controllers
         [HttpPut("{workoutId}")]
         public async Task<IActionResult> UpdateWorkout(int workoutId, WorkoutUpdateDto workoutUpdateDto)
         {
-            if (!await _workoutService.UserHasWorkout(User.GetUserId(), workoutId))
+            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId))
             {
                 return Unauthorized("You dont own this workout");
             }
