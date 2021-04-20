@@ -54,7 +54,8 @@ namespace SweatSpace.Api.Persistence.Repos
 
         public Task<AppUser> GetUserByIdAsync(int id)
         {
-            return _context.Users.Include(w => w.Workouts).FirstOrDefaultAsync(u => u.Id == id);
+            return _context.Users.Include(w => w.Workouts).Include(w => w.LikedWorkouts)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
     }
 }

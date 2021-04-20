@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Persistence.Dtos;
@@ -31,5 +32,6 @@ namespace SweatSpace.Api.Business.Interfaces
         Task ResetWorkoutAsync(int workoutId);
         Task UpdateWorkoutAsync(int workoutId, WorkoutUpdateDto workoutUpdateDto);
         Task<bool> ExerciseExistsOnWorkoutAsync(int workoutId, int exerciseId);
+        Task ToggleLikeWorkout(int workoutId, int userId);
     }
 }

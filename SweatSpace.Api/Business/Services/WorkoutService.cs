@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -12,7 +13,7 @@ using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Interfaces;
 using SweatSpace.Api.Persistence.Params;
 
-[assembly:InternalsVisibleToAttribute("SweatSpace.Tests")]
+[assembly: InternalsVisibleToAttribute("SweatSpace.Tests")]
 namespace SweatSpace.Api.Business.Services
 {
     internal class WorkoutService : IWorkoutService
@@ -103,6 +104,32 @@ namespace SweatSpace.Api.Business.Services
         {
             var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
             return workout.Exercises.Any(e => e.Id == exerciseId);
+        }
+
+        public async Task ToggleLikeWorkout(int workoutId, int userId)
+        {
+            var user = await _userRepo.GetUserByIdAsync(userId);
+            var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
+            if (workout == null)
+            {
+                _logger.LogError($"Workout: {workoutId} was not found");
+                throw new KeyNotFoundException("Workout doesnt exist");
+            }
+
+            var likedWorkout = user.LikedWorkouts.FirstOrDefault(w => w.Id == workoutId);
+
+            //if the user has already liked the workout
+            if (likedWorkout != null)
+            {
+                _logger.LogInformation($"Removing like from user: {userId} on workout: {workoutId}");
+                user.LikedWorkouts.Remove(likedWorkout);
+            }
+            else
+            {
+                user.LikedWorkouts.Add(workout);
+            }
+
+            await _unitOfWork.SaveAllAsync();
         }
     }
 }

@@ -87,5 +87,12 @@ namespace SweatSpace.Api.Controllers
             await _workoutService.UpdateWorkoutAsync(workoutId, workoutUpdateDto);
             return NoContent();
         }
+
+        [HttpPost("{workoutId}/toggle-like")]
+        public async Task<IActionResult> ToggleLikeWorkout(int workoutId)
+        {            
+            await _workoutService.ToggleLikeWorkout(workoutId, User.GetUserId());
+            return NoContent();
+        }
     }
 }
