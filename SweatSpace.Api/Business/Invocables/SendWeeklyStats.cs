@@ -37,11 +37,11 @@ namespace SweatSpace.Api.Business.Invocables
                     Content = _statsService.GetWeeklyMemberStats(member)
                 });
 
-                await _mailer.SendAsync(statsMailable);
-                _logger.LogInformation($"Mail sent");
+                await _mailer.SendAsync(statsMailable);               
                 _statsService.ResetWeeklyMemberStats(member);
                 await _unitOfWork.SaveAllAsync();
             }
+            _logger.LogInformation($"Weekly mails sent");
         }
     }
 }

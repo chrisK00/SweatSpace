@@ -14,8 +14,8 @@ namespace SweatSpace.Api.Business.Services
             }
 
             return amountOfCompletedWorkouts > 0 ?
-                $"You have completed {amountOfCompletedWorkouts} workouts this week!" :
-                "You have no completed workouts this week. Not liking your workouts? Check out others!";
+                $"<strong>{amountOfCompletedWorkouts}</strong> workouts completed this week" :
+                "<strong>You have no completed workouts this week.</strong> <p>Not liking your workouts? Check out others!</p>";
         }
 
         public void ResetWeeklyMemberStats(MemberDto memberDto)
