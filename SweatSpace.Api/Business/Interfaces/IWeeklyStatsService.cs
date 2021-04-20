@@ -2,7 +2,7 @@
 
 namespace SweatSpace.Api.Business.Interfaces
 {
-    public interface IStatsService
+    public interface IWeeklyStatsService
     {
         string GetWeeklyMemberStats(MemberDto memberDto);
         void ResetWeeklyMemberStats(MemberDto memberDto);

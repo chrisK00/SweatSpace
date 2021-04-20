@@ -3,7 +3,7 @@ using SweatSpace.Api.Persistence.Dtos;
 
 namespace SweatSpace.Api.Business.Services
 {
-    public class StatsService : IStatsService
+    public class WeeklyStatsService : IWeeklyStatsService
     {
         public string GetWeeklyMemberStats(MemberDto memberDto)
         {

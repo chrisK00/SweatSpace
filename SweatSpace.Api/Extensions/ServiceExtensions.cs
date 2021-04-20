@@ -30,7 +30,7 @@ namespace SweatSpace.Api.Extensions
             services.AddScoped<IExerciseRepo, ExerciseRepo>();
             services.AddScoped<IExerciseService, ExerciseService>();
             services.AddScoped<IShuffleService, ShuffleService>();
-            services.AddScoped<IStatsService, StatsService>();
+            services.AddScoped<IWeeklyStatsService, WeeklyStatsService>();
 
             services.AddScheduler();
             services.AddTransient<SendWeeklyStats>();

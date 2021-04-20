@@ -13,11 +13,11 @@ namespace SweatSpace.Api.Business.Invocables
         private readonly IMailer _mailer;
         private readonly ILogger<SendWeeklyStats> _logger;
         private readonly IUserService _userService;
-        private readonly IStatsService _statsService;
+        private readonly IWeeklyStatsService _statsService;
         private readonly IUnitOfWork _unitOfWork;
 
         public SendWeeklyStats(IMailer mailer, ILogger<SendWeeklyStats> logger, IUserService userService,
-            IStatsService statsService, IUnitOfWork unitOfWork)
+            IWeeklyStatsService statsService, IUnitOfWork unitOfWork)
         {
             _mailer = mailer;
             _logger = logger;
