@@ -17,13 +17,19 @@ namespace SweatSpace.Persistence.Business
         public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<AppUser>().HasMany(x => x.LikedWorkouts).WithMany(x => x.UsersThatLiked);
+        {         
+            base.OnModelCreating(builder);
+            //need to override identity default
+            builder.Entity<AppUser>().HasMany(r => r.Roles).WithOne()
+                .HasForeignKey(u => u.UserId).IsRequired();
+            builder.Entity<AppRole>().HasMany(u => u.Users).WithOne()
+               .HasForeignKey(r => r.RoleId).IsRequired();
+
+            builder.Entity<AppUser>().HasMany(x => x.LikedWorkouts)
+                .WithMany(x => x.UsersThatLiked);
 
             builder.Entity<AppUser>().HasMany(x => x.Workouts).WithOne()
                 .HasForeignKey(x => x.AppUserId).OnDelete(DeleteBehavior.Cascade);
-
-            base.OnModelCreating(builder);
         }
     }
 }

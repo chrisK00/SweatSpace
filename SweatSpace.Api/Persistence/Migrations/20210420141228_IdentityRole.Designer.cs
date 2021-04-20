@@ -10,8 +10,8 @@ using SweatSpace.Persistence.Business;
 namespace SweatSpace.Api.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210420123248_IdentityRoles")]
-    partial class IdentityRoles
+    [Migration("20210420141228_IdentityRole")]
+    partial class IdentityRole
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -380,23 +380,23 @@ namespace SweatSpace.Api.Persistence.Migrations
             modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.AppUserRole", b =>
                 {
                     b.HasOne("SweatSpace.Api.Persistence.Entities.AppRole", null)
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SweatSpace.Api.Persistence.Entities.AppRole", "Role")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("RoleId1");
 
                     b.HasOne("SweatSpace.Api.Persistence.Entities.AppUser", null)
-                        .WithMany()
+                        .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SweatSpace.Api.Persistence.Entities.AppUser", "User")
-                        .WithMany("Roles")
+                        .WithMany()
                         .HasForeignKey("UserId1");
 
                     b.Navigation("Role");
