@@ -5,6 +5,6 @@ namespace SweatSpace.Api.Persistence.Entities
 {
     public class AppRole : IdentityRole<int>
     {
-        public ICollection<AppUser> Users { get; set; } = new List<AppUser>();
+        public ICollection<AppUserRole> Users { get; set; } = new List<AppUserRole>();
     }
 }
