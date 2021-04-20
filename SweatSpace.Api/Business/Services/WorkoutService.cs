@@ -106,7 +106,7 @@ namespace SweatSpace.Api.Business.Services
             return workout.Exercises.Any(e => e.Id == exerciseId);
         }
 
-        public async Task ToggleLikeWorkout(int workoutId, int userId)
+        public async Task ToggleLikeWorkoutAsync(int workoutId, int userId)
         {
             var user = await _userRepo.GetUserByIdAsync(userId);
             var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
@@ -129,6 +129,21 @@ namespace SweatSpace.Api.Business.Services
                 user.LikedWorkouts.Add(workout);
             }
 
+            await _unitOfWork.SaveAllAsync();
+        }
+
+        public async Task RemoveWorkoutAsync(int workoutId)
+        {
+            var workout = await _workoutRepo.GetWorkoutWithLikesAsync(workoutId);
+            if (workout.UsersThatLiked.Count > 0)
+            {
+                var deletedUser = await _userRepo.GetUserByNameAsync("deleted");
+                workout.AppUserId = deletedUser.Id;
+            }
+            else
+            {
+                _workoutRepo.RemoveWorkout(workout);
+            }
             await _unitOfWork.SaveAllAsync();
         }
     }

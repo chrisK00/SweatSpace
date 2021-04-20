@@ -32,6 +32,7 @@ namespace SweatSpace.Api.Business.Interfaces
         Task ResetWorkoutAsync(int workoutId);
         Task UpdateWorkoutAsync(int workoutId, WorkoutUpdateDto workoutUpdateDto);
         Task<bool> ExerciseExistsOnWorkoutAsync(int workoutId, int exerciseId);
-        Task ToggleLikeWorkout(int workoutId, int userId);
+        Task ToggleLikeWorkoutAsync(int workoutId, int userId);
+        Task RemoveWorkoutAsync(int workoutId);
     }
 }

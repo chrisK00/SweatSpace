@@ -91,7 +91,19 @@ namespace SweatSpace.Api.Controllers
         [HttpPost("{workoutId}/toggle-like")]
         public async Task<IActionResult> ToggleLikeWorkout(int workoutId)
         {            
-            await _workoutService.ToggleLikeWorkout(workoutId, User.GetUserId());
+            await _workoutService.ToggleLikeWorkoutAsync(workoutId, User.GetUserId());
+            return NoContent();
+        }
+
+        [HttpDelete("{workoutId}")]
+        public async Task<IActionResult> RemoveWorkout(int workoutId)
+        {
+            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId))
+            {
+                return Unauthorized("You dont own this workout");
+            }
+
+            await _workoutService.RemoveWorkoutAsync(workoutId);
             return NoContent();
         }
     }

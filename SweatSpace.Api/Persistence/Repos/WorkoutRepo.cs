@@ -49,11 +49,22 @@ namespace SweatSpace.Api.Persistence.Repos
             {
                 "myWorkouts" => query.Where(w => w.AppUserId == workoutParams.UserId),
                 "liked" => query.Where(w => w.UsersThatLiked.Any(u => u.Id == workoutParams.UserId)),
-                _ => query
+                _ => query.OrderByDescending(w => w.UsersThatLiked.Count)
             };
 
             var workouts = query.ProjectTo<WorkoutDto>(_mapper.ConfigurationProvider);
             return await PagedList<WorkoutDto>.CreateAsync(workouts, workoutParams.PageNumber, workoutParams.ItemsPerPage);
+        }
+
+        public void RemoveWorkout(Workout workout)
+        {
+            _context.Workouts.Remove(workout);
+        }
+
+        public Task<Workout> GetWorkoutWithLikesAsync(int workoutId)
+        {
+            return _context.Workouts.Include(l => l.UsersThatLiked)
+                .FirstOrDefaultAsync(w => w.Id == workoutId);
         }
     }
 }

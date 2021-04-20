@@ -11,5 +11,9 @@
   {
     "UserName": "username",
     "Email": "mail@gmail.com"
+  },
+  {
+    "UserName": "deleted",
+    "Email": "deleted"
   }
 ]
