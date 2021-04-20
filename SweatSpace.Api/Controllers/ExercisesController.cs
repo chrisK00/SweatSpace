@@ -56,7 +56,7 @@ namespace SweatSpace.Api.Controllers
             return NoContent();
         }
 
-        [HttpPost("{exerciseId}/remove-exercise")]
+        [HttpDelete("{exerciseId}")]
         public async Task<IActionResult> RemoveExercise(int workoutId, int exerciseId)
         {
             if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId) &&
