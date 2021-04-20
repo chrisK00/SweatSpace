@@ -1,7 +1,6 @@
-﻿First migration:
- add-migration Init -o Foldername/Migrations
-
-Other commands:
-add-migration
+﻿EF commands: 
+First migration: add-migration Init -o Foldername/Migrations
+add-migration 
 update-database
 drop-database
+-verbose

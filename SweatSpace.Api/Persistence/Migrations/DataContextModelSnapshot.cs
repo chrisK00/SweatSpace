@@ -225,19 +225,9 @@ namespace SweatSpace.Api.Persistence.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("RoleId1")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("integer");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles");
                 });
@@ -377,25 +367,17 @@ namespace SweatSpace.Api.Persistence.Migrations
 
             modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.AppUserRole", b =>
                 {
-                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppRole", null)
+                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppRole", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppRole", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId1");
-
-                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppUser", null)
+                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppUser", "User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("Role");
 

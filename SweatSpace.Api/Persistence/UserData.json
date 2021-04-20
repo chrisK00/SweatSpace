@@ -1,8 +1,15 @@
 [
   {
-    "UserName": "chris"
+    "UserName": "chris",
+    "Email": "chrisk@gmail.com",
+    "Workouts": [
+      {
+        "Name": "super core strengthening"
+      }
+    ]
   },
   {
-    "UserName": "username"
+    "UserName": "username",
+    "Email": "mail@gmail.com"
   }
 ]

@@ -2,12 +2,14 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SweatSpace.Api.Persistence;
 using SweatSpace.Api.Persistence.Entities;
+using SweatSpace.Persistence.Business;
 
 namespace SweatSpace.Api
 {
@@ -20,7 +22,10 @@ namespace SweatSpace.Api
             using var scope = host.Services.CreateScope();
             try
             {
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+                var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+                await context.Database.MigrateAsync();
+
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();               
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
                 await DataSeed.SeedUsers(userManager, roleManager);
             }

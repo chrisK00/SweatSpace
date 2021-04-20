@@ -85,30 +85,6 @@ namespace SweatSpace.Api.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppRoleAppUser",
-                columns: table => new
-                {
-                    RolesId = table.Column<int>(type: "integer", nullable: false),
-                    UsersId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppRoleAppUser", x => new { x.RolesId, x.UsersId });
-                    table.ForeignKey(
-                        name: "FK_AppRoleAppUser_AspNetRoles_RolesId",
-                        column: x => x.RolesId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AppRoleAppUser_AspNetUsers_UsersId",
-                        column: x => x.UsersId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -201,6 +177,7 @@ namespace SweatSpace.Api.Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     IsCompleted = table.Column<bool>(type: "boolean", nullable: false),
+                    TimesCompletedThisWeek = table.Column<int>(type: "integer", nullable: false),
                     Rating = table.Column<int>(type: "integer", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     AppUserId = table.Column<int>(type: "integer", nullable: false)
@@ -270,11 +247,6 @@ namespace SweatSpace.Api.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppRoleAppUser_UsersId",
-                table: "AppRoleAppUser",
-                column: "UsersId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AppUserWorkout_UsersThatLikedId",
                 table: "AppUserWorkout",
                 column: "UsersThatLikedId");
@@ -334,9 +306,6 @@ namespace SweatSpace.Api.Persistence.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AppRoleAppUser");
-
             migrationBuilder.DropTable(
                 name: "AppUserWorkout");
 

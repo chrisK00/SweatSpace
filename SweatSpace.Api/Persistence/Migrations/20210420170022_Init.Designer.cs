@@ -10,7 +10,7 @@ using SweatSpace.Persistence.Business;
 namespace SweatSpace.Api.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210418122620_Init")]
+    [Migration("20210420170022_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,21 +20,6 @@ namespace SweatSpace.Api.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-            modelBuilder.Entity("AppRoleAppUser", b =>
-                {
-                    b.Property<int>("RolesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("RolesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("AppRoleAppUser");
-                });
 
             modelBuilder.Entity("AppUserWorkout", b =>
                 {
@@ -116,21 +101,6 @@ namespace SweatSpace.Api.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserLogins");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -249,6 +219,21 @@ namespace SweatSpace.Api.Persistence.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.AppUserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
             modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.Exercise", b =>
                 {
                     b.Property<int>("Id")
@@ -290,6 +275,9 @@ namespace SweatSpace.Api.Persistence.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
 
+                    b.Property<int>("TimesCompletedThisWeek")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
@@ -326,21 +314,6 @@ namespace SweatSpace.Api.Persistence.Migrations
                     b.HasIndex("WorkoutId");
 
                     b.ToTable("WorkoutExercises");
-                });
-
-            modelBuilder.Entity("AppRoleAppUser", b =>
-                {
-                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppRole", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("AppUserWorkout", b =>
@@ -385,21 +358,6 @@ namespace SweatSpace.Api.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
-                {
-                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
                     b.HasOne("SweatSpace.Api.Persistence.Entities.AppUser", null)
@@ -407,6 +365,25 @@ namespace SweatSpace.Api.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.AppUserRole", b =>
+                {
+                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppRole", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SweatSpace.Api.Persistence.Entities.AppUser", "User")
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.Workout", b =>
@@ -431,8 +408,15 @@ namespace SweatSpace.Api.Persistence.Migrations
                     b.Navigation("Exercise");
                 });
 
+            modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.AppRole", b =>
+                {
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("SweatSpace.Api.Persistence.Entities.AppUser", b =>
                 {
+                    b.Navigation("Roles");
+
                     b.Navigation("Workouts");
                 });
 

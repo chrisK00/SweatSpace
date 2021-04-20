@@ -20,9 +20,8 @@ namespace SweatSpace.Api.Controllers
         [HttpGet("members")]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetMembers()
         {
-            // return Ok(await _userService.GetMembersAsync());
-            //return members with roles
-            return Ok();
+            var users = await _userService.GetMembersAsync();
+            return Ok(users);
         }
     }
 }

@@ -19,27 +19,19 @@ namespace SweatSpace.Api.Persistence
 
             var userData = await File.ReadAllTextAsync("Persistence/UserData.json");
             var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
-            var roles = new List<AppRole>
-            {
-                new AppRole {Name = "Admin"},
-                new AppRole {Name = "Member"}
-            };
 
-            foreach (var role in roles)
-            {
-                await roleManager.CreateAsync(role);
-            }
+            var adminRole = new AppRole { Name = "Admin" };
+            await roleManager.CreateAsync(adminRole);
 
             foreach (var user in users)
             {
                 //creates and saves the user in Db
                 await userManager.CreateAsync(user, "Password123.");
-                await userManager.AddToRoleAsync(user, "Member");
             }
 
             var adminUser = new AppUser { UserName = "admin" };
             await userManager.CreateAsync(adminUser, "Password123.");
-            await userManager.AddToRoleAsync(adminUser, "Admin");
+            await userManager.AddToRoleAsync(adminUser, adminRole.Name);
         }
     }
 }

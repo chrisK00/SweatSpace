@@ -20,9 +20,9 @@ namespace SweatSpace.Persistence.Business
         {         
             base.OnModelCreating(builder);
             //need to override identity default
-            builder.Entity<AppUser>().HasMany(r => r.Roles).WithOne()
+            builder.Entity<AppUser>().HasMany(r => r.Roles).WithOne(u => u.User)
                 .HasForeignKey(u => u.UserId).IsRequired();
-            builder.Entity<AppRole>().HasMany(u => u.Users).WithOne()
+            builder.Entity<AppRole>().HasMany(u => u.Users).WithOne(r => r.Role)
                .HasForeignKey(r => r.RoleId).IsRequired();
 
             builder.Entity<AppUser>().HasMany(x => x.LikedWorkouts)
