@@ -36,10 +36,10 @@ namespace SweatSpace.Api.Business.Services
 
         public async Task<int> AddWorkoutAsync(WorkoutAddDto workoutAddDto, int userId)
         {
-            var user = await _userRepo.GetUserByIdAsync(userId);
             var workout = _mapper.Map<Workout>(workoutAddDto);
-            //we got the user from db so he is being tracked by ef
-            user.Workouts.Add(workout);
+            workout.AppUserId = userId;
+
+            await _workoutRepo.AddWorkoutAsync(workout);
             await _unitOfWork.SaveAllAsync();
             return workout.Id;
         }
