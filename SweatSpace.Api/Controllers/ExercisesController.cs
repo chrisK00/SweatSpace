@@ -6,6 +6,7 @@ using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Extensions;
 using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Params;
 
 namespace SweatSpace.Api.Controllers
@@ -18,11 +19,14 @@ namespace SweatSpace.Api.Controllers
     {
         private readonly IWorkoutService _workoutService;
         private readonly IExerciseService _exerciseService;
+        private readonly IOwnedAuthService _ownedAuthService;
 
-        public ExercisesController(IWorkoutService workoutService, IExerciseService exerciseService)
+        public ExercisesController(IWorkoutService workoutService, IExerciseService exerciseService,
+            IOwnedAuthService ownedAuthService)
         {
             _workoutService = workoutService;
             _exerciseService = exerciseService;
+            _ownedAuthService = ownedAuthService;
         }
 
         /// <summary>
@@ -35,36 +39,26 @@ namespace SweatSpace.Api.Controllers
         public async Task<IActionResult> AddExercise(ExerciseAddDto exerciseAddDto, int workoutId)
         {
             exerciseAddDto.AppUserId = User.GetUserId();
-            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId))
-            {
-                return Unauthorized("You dont own this workout");
-            }
+            await _ownedAuthService.OwnsAsync<Workout>(workoutId, exerciseAddDto.AppUserId);
 
             await _exerciseService.AddExerciseToWorkoutAsync(exerciseAddDto, workoutId);
             return CreatedAtRoute(nameof(GetExercises), new { workoutId }, new { workoutId });
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateExercise(int workoutId, ExerciseUpdateDto exerciceUpdateDto)
+        public async Task<IActionResult> UpdateExercise(int workoutId, ExerciseUpdateDto exerciseUpdateDto)
         {
-            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId) &&
-                !await _workoutService.ExerciseExistsOnWorkoutAsync(workoutId, exerciceUpdateDto.Id))
-            {
-                return Unauthorized("You dont own this exercise");
-            }
+            await _ownedAuthService.OwnsAsync<WorkoutExercise>(exerciseUpdateDto.Id, User.GetUserId());
 
-            await _exerciseService.UpdateExerciseAsync(exerciceUpdateDto);
+            await _exerciseService.UpdateExerciseAsync(exerciseUpdateDto);
             return NoContent();
         }
 
         [HttpDelete("{exerciseId}")]
-        public async Task<IActionResult> RemoveExercise(int workoutId, int exerciseId)
+        public async Task<IActionResult> RemoveExercise(int exerciseId)
         {
-            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId) &&
-               !await _workoutService.ExerciseExistsOnWorkoutAsync(workoutId, exerciseId))
-            {
-                return Unauthorized("You dont own this exercise");
-            }
+            await _ownedAuthService.OwnsAsync<WorkoutExercise>(exerciseId, User.GetUserId());
+
             await _exerciseService.RemoveExerciseAsync(exerciseId);
             return NoContent();
         }

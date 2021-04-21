@@ -89,27 +89,6 @@ namespace SweatSpace.Api.Business.Services
             await _unitOfWork.SaveAllAsync();
         }
 
-        public async Task<bool> UserHasWorkoutAsync(int userId, int workoutId)
-        {
-            //a better approach would be to have a method inside workoutrepo or user repo  named (GetWorkoutsForUser)
-            //and GetWorkoutForUser.
-            //then maybe on every service just check it and log, could use this method for that instead.
-            //Pass in the workout, if(), log, throw exception
-            var workouts = await _workoutRepo.GetWorkoutsDtosAsync(new WorkoutParams
-            {
-                UserId = userId,
-                FilterBy = "myWorkouts",
-                ItemsPerPage = 50
-            });
-            return workouts.Any(x => x.Id == workoutId);
-        }
-
-        public async Task<bool> ExerciseExistsOnWorkoutAsync(int workoutId, int exerciseId)
-        {
-            var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
-            return workout.Exercises.Any(e => e.Id == exerciseId);
-        }
-
         public async Task ToggleLikeWorkoutAsync(int workoutId, int userId)
         {
             var user = await _userRepo.GetUserByIdAsync(userId);

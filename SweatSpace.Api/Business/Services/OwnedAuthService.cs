@@ -10,7 +10,7 @@ using SweatSpace.Persistence.Business;
 
 namespace SweatSpace.Api.Business.Services
 {
-    public class OwnedAuthService : IOwnedAuthService
+    internal class OwnedAuthService : IOwnedAuthService
     {
         private readonly DataContext _context;
         private readonly ILogger<OwnedAuthService> _logger;
@@ -27,7 +27,7 @@ namespace SweatSpace.Api.Business.Services
 
             if (!exists)
             {
-                _logger.LogError($"User {userId} does not own {entityId} of type {typeof(T)}");
+                _logger.LogError($"User: {userId} does not own: {entityId} of type {typeof(T)}");
                 throw new UnauthorizedAccessException("You dont own this item"); 
             }
         }

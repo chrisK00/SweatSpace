@@ -63,10 +63,7 @@ namespace SweatSpace.Api.Controllers
         [HttpPost("{workoutId}/reset")]
         public async Task<IActionResult> ResetWorkout(int workoutId)
         {
-            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId))
-            {
-                return Unauthorized("You dont own this workout");
-            }
+            await _ownedAuthService.OwnsAsync<Workout>(workoutId, User.GetUserId());
 
             await _workoutService.ResetWorkoutAsync(workoutId);
             return NoContent();
@@ -81,10 +78,7 @@ namespace SweatSpace.Api.Controllers
         [HttpPut("{workoutId}")]
         public async Task<IActionResult> UpdateWorkout(int workoutId, WorkoutUpdateDto workoutUpdateDto)
         {
-            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId))
-            {
-                return Unauthorized("You dont own this workout");
-            }
+            await _ownedAuthService.OwnsAsync<Workout>(workoutId, User.GetUserId());
             await _workoutService.UpdateWorkoutAsync(workoutId, workoutUpdateDto);
             return NoContent();
         }
@@ -99,10 +93,7 @@ namespace SweatSpace.Api.Controllers
         [HttpDelete("{workoutId}")]
         public async Task<IActionResult> RemoveWorkout(int workoutId)
         {
-            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId))
-            {
-                return Unauthorized("You dont own this workout");
-            }
+            await _ownedAuthService.OwnsAsync<Workout>(workoutId, User.GetUserId());
 
             await _workoutService.RemoveWorkoutAsync(workoutId);
             return NoContent();

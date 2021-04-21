@@ -15,14 +15,6 @@ namespace SweatSpace.Api.Business.Interfaces
         Task<WorkoutDto> GetWorkoutDtoAsync(int id);
 
         /// <summary>
-        /// Checks if the user owns the specified workout
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="workoutId"></param>
-        /// <returns></returns>
-        Task<bool> UserHasWorkoutAsync(int userId, int workoutId);
-
-        /// <summary>
         /// Returns a paged list of all the workout dtos
         /// </summary>
         /// <param name="workoutParams"></param>
@@ -31,7 +23,6 @@ namespace SweatSpace.Api.Business.Interfaces
         Task WorkoutCompletedAsync(int workoutId);
         Task ResetWorkoutAsync(int workoutId);
         Task UpdateWorkoutAsync(int workoutId, WorkoutUpdateDto workoutUpdateDto);
-        Task<bool> ExerciseExistsOnWorkoutAsync(int workoutId, int exerciseId);
         Task ToggleLikeWorkoutAsync(int workoutId, int userId);
         Task RemoveWorkoutAsync(int workoutId);
         Task<int> CopyWorkoutAsync(int workoutId, int userId);

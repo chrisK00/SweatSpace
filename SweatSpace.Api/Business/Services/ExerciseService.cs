@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using SweatSpace.Api.Business.Dtos;
-using SweatSpace.Api.Business.Exceptions;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Entities;
