@@ -28,14 +28,6 @@
             <returns>UserDto with a token</returns>
             <exception cref="T:System.UnauthorizedAccessException"></exception>
         </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.UserHasWorkoutAsync(System.Int32,System.Int32)">
-            <summary>
-            Checks if the user owns the specified workout
-            </summary>
-            <param name="userId"></param>
-            <param name="workoutId"></param>
-            <returns></returns>
-        </member>
         <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.GetWorkoutDtosAsync(SweatSpace.Api.Persistence.Params.WorkoutParams)">
             <summary>
             Returns a paged list of all the workout dtos
