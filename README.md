@@ -18,3 +18,23 @@ Moq tests and documentation will be made.
 Available endpoints right now (april) are available inside the Docs folder.
 The app also has task scheduling (coravel) which is currently sending a mail to a file every week.
 
+# Some topics covered in this app
+- http requests/reponses
+- global exc handler
+- ref by id and db design/relationships with EF
+- generics 
+- automapper
+- N-tier 3 layered architecture
+- coravel task scheduling+mailing 
+- Authentication and Authorization with asp identity and Jwt token
+- postman 
+- swagger documentation
+- SOLID, DRY, Repository pattern etc... 
+- extension methods 
+- logging
+- CRUD operations
+- paging and filtering
+
+
+
+
