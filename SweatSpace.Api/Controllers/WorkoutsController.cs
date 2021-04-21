@@ -6,6 +6,7 @@ using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Extensions;
 using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Params;
 
 namespace SweatSpace.Api.Controllers
@@ -14,10 +15,12 @@ namespace SweatSpace.Api.Controllers
     public class WorkoutsController : BaseApiController
     {
         private readonly IWorkoutService _workoutService;
+        private readonly IOwnedAuthService _ownedAuthService;
 
-        public WorkoutsController(IWorkoutService workoutService)
+        public WorkoutsController(IWorkoutService workoutService, IOwnedAuthService ownedAuthService)
         {
             _workoutService = workoutService;
+            _ownedAuthService = ownedAuthService;
         }
 
         [HttpPost]
@@ -51,10 +54,7 @@ namespace SweatSpace.Api.Controllers
         [HttpPost("{workoutId}/completed")]
         public async Task<IActionResult> WorkoutCompleted(int workoutId)
         {
-            if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId))
-            {
-                return Unauthorized("You dont own this workout");
-            }
+            await _ownedAuthService.OwnsAsync<Workout>(workoutId, User.GetUserId());
 
             await _workoutService.WorkoutCompletedAsync(workoutId);
             return NoContent();
