@@ -11,7 +11,7 @@ namespace SweatSpace.Api.Business.Interfaces
 {
     public interface IWorkoutService
     {
-        Task<int> AddWorkoutAsync(WorkoutAddDto workoutAddDto, int userId);
+        Task<int> AddWorkoutAsync(WorkoutAddDto workoutAddDto);
         Task<WorkoutDto> GetWorkoutDtoAsync(int id);
 
         /// <summary>

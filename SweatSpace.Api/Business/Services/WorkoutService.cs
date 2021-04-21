@@ -34,10 +34,9 @@ namespace SweatSpace.Api.Business.Services
             _logger = logger;
         }
 
-        public async Task<int> AddWorkoutAsync(WorkoutAddDto workoutAddDto, int userId)
+        public async Task<int> AddWorkoutAsync(WorkoutAddDto workoutAddDto)
         {
             var workout = _mapper.Map<Workout>(workoutAddDto);
-            workout.AppUserId = userId;
 
             await _workoutRepo.AddWorkoutAsync(workout);
             await _unitOfWork.SaveAllAsync();

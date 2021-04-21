@@ -9,5 +9,6 @@ namespace SweatSpace.Api.Business.Dtos
         public string Name { get; set; }
 
         public DateTime? Date { get; set; }
+        public int AppUserId { get; set; }
     }
 }
