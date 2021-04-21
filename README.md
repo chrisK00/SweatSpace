@@ -14,7 +14,7 @@ Sort of folder structured N-tier for loose coupling.
     }`
 
 # Project info
-Moq tests and documentation will be made
+Moq tests and documentation will be made.
 Available endpoints right now (april) are available inside the Docs folder.
-The app also has task scheduling (coravel) which is currently sending a mail to a fail every week.
+The app also has task scheduling (coravel) which is currently sending a mail to a file every week.
 
