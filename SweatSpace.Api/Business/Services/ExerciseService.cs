@@ -45,7 +45,7 @@ namespace SweatSpace.Api.Business.Services
             //make a new exercise if it doesnt already exist
             if (exercise == null)
             {
-                _logger.LogError($"Creating a new exercise with the name:{exerciseAddDto.Name}");
+                _logger.LogInformation($"Creating a new exercise with the name:{exerciseAddDto.Name}");
                 exercise = new Exercise { Name = exerciseAddDto.Name };
                 await _exerciseRepo.AddExerciseAsync(exercise);
             }

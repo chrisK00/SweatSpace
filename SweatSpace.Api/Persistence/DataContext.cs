@@ -19,17 +19,21 @@ namespace SweatSpace.Persistence.Business
         protected override void OnModelCreating(ModelBuilder builder)
         {         
             base.OnModelCreating(builder);
-            //need to override identity default
-            builder.Entity<AppUser>().HasMany(r => r.Roles).WithOne(u => u.User)
-                .HasForeignKey(u => u.UserId).IsRequired();
-            builder.Entity<AppRole>().HasMany(u => u.Users).WithOne(r => r.Role)
-               .HasForeignKey(r => r.RoleId).IsRequired();
+
+            builder.Entity<WorkoutExercise>().HasOne<AppUser>()
+                .WithMany().HasForeignKey(x => x.AppUserId).OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<AppUser>().HasMany(x => x.LikedWorkouts)
                 .WithMany(x => x.UsersThatLiked);
 
             builder.Entity<AppUser>().HasMany(x => x.Workouts).WithOne()
                 .HasForeignKey(x => x.AppUserId).OnDelete(DeleteBehavior.Cascade);
+
+            //need to override identity default
+            builder.Entity<AppUser>().HasMany(r => r.Roles).WithOne(u => u.User)
+                .HasForeignKey(u => u.UserId).IsRequired();
+            builder.Entity<AppRole>().HasMany(u => u.Users).WithOne(r => r.Role)
+               .HasForeignKey(r => r.RoleId).IsRequired();
         }
     }
 }

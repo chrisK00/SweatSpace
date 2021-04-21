@@ -9,5 +9,6 @@ namespace SweatSpace.Api.Business.Dtos
 
         public int Sets { get; set; }
         public int Reps { get; set; }
+        public int AppUserId { get; set; }
     }
 }

@@ -34,6 +34,7 @@ namespace SweatSpace.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddExercise(ExerciseAddDto exerciseAddDto, int workoutId)
         {
+            exerciseAddDto.AppUserId = User.GetUserId();
             if (!await _workoutService.UserHasWorkoutAsync(User.GetUserId(), workoutId))
             {
                 return Unauthorized("You dont own this workout");

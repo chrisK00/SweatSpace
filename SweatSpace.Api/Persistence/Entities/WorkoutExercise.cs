@@ -1,8 +1,7 @@
 ﻿namespace SweatSpace.Api.Persistence.Entities
 {
-    public class WorkoutExercise
+    public class WorkoutExercise : BaseOwnedEntity
     {
-        public int Id { get; set; }
         public Exercise Exercise { get; set; }
         public int Sets { get; set; }
         public int Reps { get; set; }
