@@ -34,5 +34,6 @@ namespace SweatSpace.Api.Business.Interfaces
         Task<bool> ExerciseExistsOnWorkoutAsync(int workoutId, int exerciseId);
         Task ToggleLikeWorkoutAsync(int workoutId, int userId);
         Task RemoveWorkoutAsync(int workoutId);
+        Task<int> CopyWorkoutAsync(int workoutId, int userId);
     }
 }

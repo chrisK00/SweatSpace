@@ -34,7 +34,7 @@ namespace SweatSpace.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkouts([FromQuery]WorkoutParams workoutParams)
+        public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkouts([FromQuery] WorkoutParams workoutParams)
         {
             workoutParams.UserId = User.GetUserId();
             var workouts = await _workoutService.GetWorkoutDtosAsync(workoutParams);
@@ -90,7 +90,7 @@ namespace SweatSpace.Api.Controllers
 
         [HttpPost("{workoutId}/toggle-like")]
         public async Task<IActionResult> ToggleLikeWorkout(int workoutId)
-        {            
+        {
             await _workoutService.ToggleLikeWorkoutAsync(workoutId, User.GetUserId());
             return NoContent();
         }
@@ -105,6 +105,13 @@ namespace SweatSpace.Api.Controllers
 
             await _workoutService.RemoveWorkoutAsync(workoutId);
             return NoContent();
+        }
+
+        [HttpPost("{workoutId}/copy")]
+        public async Task<IActionResult> CopyWorkout(int workoutId)
+        {
+            var newWorkoutId = await _workoutService.CopyWorkoutAsync(workoutId, User.GetUserId());
+            return CreatedAtRoute(nameof(GetWorkout), new { id = newWorkoutId }, new { id = newWorkoutId });
         }
     }
 }

@@ -23,15 +23,15 @@ namespace SweatSpace.Api.Persistence.Repos
             _mapper = mapper;
         }
 
-        public async Task<int> AddWorkoutAsync(Workout workout)
+        public Task AddWorkoutAsync(Workout workout)
         {
-            await _context.Workouts.AddAsync(workout);
-            return workout.Id;
+            return _context.Workouts.AddAsync(workout).AsTask();
         }
 
         public Task<Workout> GetWorkoutByIdAsync(int id)
         {
-            return _context.Workouts.Include(e => e.Exercises).FirstOrDefaultAsync(w => w.Id == id);
+            return _context.Workouts.Include(e => e.Exercises).ThenInclude(e => e.Exercise)
+                .FirstOrDefaultAsync(w => w.Id == id);
         }
 
         public async Task<WorkoutDto> GetWorkoutDtoAsync(int id)
