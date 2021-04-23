@@ -19,5 +19,6 @@ namespace SweatSpace.Api.Business.Interfaces
         Task<UserDto> LoginAsync(UserLoginDto userLoginDto);
 
         Task<IEnumerable<MemberDto>> GetMembersAsync();
+        Task EditRolesAsync(int userId, string[] roles);
     }
 }

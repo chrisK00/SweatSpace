@@ -23,5 +23,12 @@ namespace SweatSpace.Api.Controllers
             var users = await _userService.GetMembersAsync();
             return Ok(users);
         }
+
+        [HttpPost("roles/{userId}")]
+        public async Task<IActionResult> EditRoles(int userId, [FromQuery] string roles)
+        {
+           await _userService.EditRolesAsync(userId, roles.Split(","));
+            return NoContent();
+        }
     }
 }
