@@ -40,7 +40,7 @@ namespace SweatSpace.Api.Middlewares
                     ArgumentException => (int)HttpStatusCode.BadRequest,
                     AppException => (int)HttpStatusCode.BadRequest,
                     KeyNotFoundException => (int)HttpStatusCode.NotFound,
-                    UnauthorizedAccessException => (int)HttpStatusCode.Unauthorized,
+                    UnauthorizedAccessException => (int)HttpStatusCode.Forbidden,
                     _ => (int)HttpStatusCode.InternalServerError
                 };
 
