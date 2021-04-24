@@ -65,7 +65,7 @@ namespace SweatSpace.Api.Business.Services
             WorkoutExerciseParams workoutExerciseParams)
         {
             var workout = await _workoutRepo.GetWorkoutDtoAsync(workoutId);
-            IEnumerable<ExerciseDto> exercises;
+            IEnumerable<ExerciseDto> exercises = new List<ExerciseDto>();
 
             if (workout == null)
             {
@@ -77,7 +77,8 @@ namespace SweatSpace.Api.Business.Services
             {
                 exercises = _shuffleService.ShuffleListAsync(workout.Exercises);
             }
-            exercises = workout.Exercises.OrderBy(x => x.IsCompleted);
+
+            exercises = exercises.OrderBy(x => x.IsCompleted);
             return exercises;
         }
 

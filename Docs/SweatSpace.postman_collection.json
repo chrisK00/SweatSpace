@@ -47,6 +47,44 @@
 					"response": []
 				},
 				{
+					"name": "add user to roles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/admin/members",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"admin",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "login",
 					"event": [
 						{
@@ -131,6 +169,41 @@
 				},
 				{
 					"name": "Add workout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"ohmy\"\r\n \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/workouts/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"workouts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "copy workout",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -352,6 +425,15 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get workout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
 				}
 			]
 		},
@@ -442,7 +524,7 @@
 				{
 					"name": "update exercise",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
@@ -452,7 +534,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"situps\"\r\n}",
+							"raw": "{\r\n    \"id\":\"7\",\r\n    \"sets\":\"5\",\r\n    \"isCompleted\":true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -460,7 +542,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/workouts/2/exercises",
+							"raw": "https://localhost:5001/workouts/12/Exercises/7",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -468,8 +550,9 @@
 							"port": "5001",
 							"path": [
 								"workouts",
-								"2",
-								"exercises"
+								"12",
+								"Exercises",
+								"7"
 							]
 						}
 					},
