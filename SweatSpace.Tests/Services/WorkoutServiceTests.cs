@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Moq;
 using SweatSpace.Api.Business.Services;
+using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Interfaces;
 using SweatSpace.Api.Persistence.Profiles;
 using Xunit;
@@ -26,19 +27,24 @@ namespace SweatSpace.Tests.Services
             _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<WorkoutProfiles>()));
         }
 
+        
         [Fact]
-        public async Task GetWorkoutDtoById_Returns_Workout_If_Exists()
+        public async Task GetWorkoutDto_Returns_Workout_If_Exists()
         {
             //arrange
-            // _mockUserRepo.Setup().returnsasync
+            var workoutDto = new WorkoutDto { Id = 2 };
+            _mockWorkoutRepo.Setup(x => x.GetWorkoutDtoAsync(workoutDto.Id)).ReturnsAsync(workoutDto);
+
             var workoutService = new WorkoutService(_mockWorkoutRepo.Object, _mapper, _mockUserRepo.Object,
                _mockUnitOfWork.Object, _mockLogger.Object);
 
             //act
-            //get workout
+            var workoutDtoNotNull = await workoutService.GetWorkoutDtoAsync(workoutDto.Id);
+            var workoutDtoNull = await workoutService.GetWorkoutDtoAsync(2222);
 
             //assert
-            //notnull
+            Assert.NotNull(workoutDtoNotNull);
+            Assert.Null(workoutDtoNull);
         }
     }
 }

@@ -13,7 +13,6 @@ using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Interfaces;
 using SweatSpace.Api.Persistence.Params;
 
-[assembly: InternalsVisibleToAttribute("SweatSpace.Tests")]
 namespace SweatSpace.Api.Business.Services
 {
     internal class WorkoutService : IWorkoutService
