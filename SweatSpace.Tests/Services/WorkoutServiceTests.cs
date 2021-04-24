@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Moq;
+using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Business.Services;
 using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Interfaces;
@@ -16,6 +17,7 @@ namespace SweatSpace.Tests.Services
         private readonly Mock<IWorkoutRepo> _mockWorkoutRepo;
         private readonly Mock<ILogger<WorkoutService>> _mockLogger;
         private readonly IMapper _mapper;
+        private readonly IWorkoutService _workoutService;
         private readonly Mock<IUnitOfWork> _mockUnitOfWork;
 
         public WorkoutServiceTests()
@@ -25,9 +27,11 @@ namespace SweatSpace.Tests.Services
             _mockLogger = new Mock<ILogger<WorkoutService>>();
             _mockUnitOfWork = new Mock<IUnitOfWork>();
             _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<WorkoutProfiles>()));
+            _workoutService = new WorkoutService(_mockWorkoutRepo.Object, _mapper, _mockUserRepo.Object,
+              _mockUnitOfWork.Object, _mockLogger.Object);
         }
 
-        
+
         [Fact]
         public async Task GetWorkoutDto_Returns_Workout_If_Exists()
         {
@@ -35,12 +39,9 @@ namespace SweatSpace.Tests.Services
             var workoutDto = new WorkoutDto { Id = 2 };
             _mockWorkoutRepo.Setup(x => x.GetWorkoutDtoAsync(workoutDto.Id)).ReturnsAsync(workoutDto);
 
-            var workoutService = new WorkoutService(_mockWorkoutRepo.Object, _mapper, _mockUserRepo.Object,
-               _mockUnitOfWork.Object, _mockLogger.Object);
-
             //act
-            var workoutDtoNotNull = await workoutService.GetWorkoutDtoAsync(workoutDto.Id);
-            var workoutDtoNull = await workoutService.GetWorkoutDtoAsync(2222);
+            var workoutDtoNotNull = await _workoutService.GetWorkoutDtoAsync(workoutDto.Id);
+            var workoutDtoNull = await _workoutService.GetWorkoutDtoAsync(2222);
 
             //assert
             Assert.NotNull(workoutDtoNotNull);
