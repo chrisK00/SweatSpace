@@ -21,7 +21,8 @@ The app also has task scheduling (coravel) which is currently sending a mail to 
 # Some topics covered in this app
 - http requests/reponses
 - global exc handler
-- ref by id and db design/relationships with EF
+- ref by id
+- db design/relationships with EF and fluent api
 - generics 
 - automapper
 - N-tier 3 layered architecture
@@ -34,6 +35,7 @@ The app also has task scheduling (coravel) which is currently sending a mail to 
 - logging
 - CRUD operations
 - paging and filtering
+
 
 
 
