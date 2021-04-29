@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SweatSpace.Api.Business.Dtos;
+using SweatSpace.Api.Persistence.Dtos;
 using SweatSpace.Api.Persistence.Entities;
 
 namespace SweatSpace.Api.Persistence.Profiles
@@ -10,6 +11,7 @@ namespace SweatSpace.Api.Persistence.Profiles
         {
             CreateMap<WorkoutAddDto, Workout>();
             CreateMap<WorkoutUpdateDto, Workout>();
+            CreateMap<Workout, WorkoutDto>();
         }
     }
 }
