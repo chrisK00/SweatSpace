@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using AutoMapper;
 using FluentAssertions;
@@ -39,26 +40,41 @@ namespace SweatSpace.Tests.Services
         public async Task AddWorkout_Returns_NewWorkoutDto(WorkoutAddDto workoutDto)
         {
             var newWorkoutDto = await _workoutService.AddWorkoutAsync(workoutDto);
+
             _mockUnitOfWork.Verify(x => x.SaveAllAsync());
+
             newWorkoutDto.Should().NotBeNull();
         }
 
         [Fact]
-        public async Task CopyWorkout_Saves_Changes()
+        public async Task ToggleLikeWorkout_Throws_KeyNotFound_If_Workout_Doesnt_Exist()
         {
+            await _workoutService.Invoking(x => x.ToggleLikeWorkoutAsync(1, 1))
+                .Should().ThrowAsync<KeyNotFoundException>();
+        }
+
+        [Fact]
+        public async Task CopyWorkout_Makes_A_New_Copied_Workout()
+        {
+            //arrange
             Workout savedWorkout = null;
-            var workout = new Workout { Id = 2, Name = "potato" };
+            var workoutToCopy = new Workout { Id = 2, Name = "potato", IsCompleted = false, AppUserId = 1 };
 
-            _mockWorkoutRepo.Setup(x => x.AddWorkoutAsync(It.IsAny<Workout>())).Callback<Workout>(x =>
-                savedWorkout = x);
+            _mockWorkoutRepo.Setup(x => x.GetWorkoutByIdAsync(workoutToCopy.Id)).ReturnsAsync(workoutToCopy);
 
-            _mockWorkoutRepo.Setup(x => x.GetWorkoutByIdAsync(workout.Id)).ReturnsAsync(workout);
+            _mockWorkoutRepo.Setup(x => x.AddWorkoutAsync(It.IsAny<Workout>()))
+                .Callback<Workout>(x => savedWorkout = x);
 
-            await _workoutService.CopyWorkoutAsync(workout.Id, 2);
+            //act
+            await _workoutService.CopyWorkoutAsync(workoutToCopy.Id, 2);
 
+            //assert
             _mockUnitOfWork.Verify(x => x.SaveAllAsync());
-            savedWorkout.Name.Should().BeEquivalentTo(workout.Name);
-            savedWorkout.Id.Should().NotBe(workout.Id);
+
+            savedWorkout.Name.Should().BeEquivalentTo(workoutToCopy.Name);
+            savedWorkout.IsCompleted.Should().BeFalse();
+            savedWorkout.Id.Should().NotBe(workoutToCopy.Id);
+            savedWorkout.AppUserId.Should().NotBe(workoutToCopy.AppUserId);
         }
 
 
@@ -74,8 +90,8 @@ namespace SweatSpace.Tests.Services
             var workoutDtoNull = await _workoutService.GetWorkoutDtoAsync(2222);
 
             //assert
-            Assert.NotNull(workoutDtoNotNull);
-            Assert.Null(workoutDtoNull);
+            workoutDtoNotNull.Should().NotBeNull();
+            workoutDtoNull.Should().BeNull();
         }
     }
 }

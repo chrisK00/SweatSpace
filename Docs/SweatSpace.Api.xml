@@ -93,6 +93,13 @@
             Search controller - For the shared exercises
             </summary>
         </member>
+        <member name="M:SweatSpace.Api.Controllers.WorkoutsController.GetWorkouts(SweatSpace.Api.Persistence.Params.WorkoutParams)">
+            <summary>
+            Gets workouts paginated
+            </summary>
+            <param name="workoutParams"></param>
+            <returns></returns>
+        </member>
         <member name="M:SweatSpace.Api.Controllers.WorkoutsController.WorkoutCompleted(System.Int32)">
             <summary>
             Toggles the completed state of a workout
