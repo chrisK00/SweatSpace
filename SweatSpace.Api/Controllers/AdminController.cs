@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SweatSpace.Api.Business.Interfaces;
+using SweatSpace.Api.Helpers;
 using SweatSpace.Api.Persistence.Dtos;
 
 namespace SweatSpace.Api.Controllers
 {
-    [Authorize(Policy = "RequireAdminRole")]
+    [Authorize(Policy = PolicyConstants.AdminPolicy)]
     public class AdminController : BaseApiController
     {
         private readonly IUserService _userService;

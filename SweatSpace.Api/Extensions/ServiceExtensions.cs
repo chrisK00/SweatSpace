@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Business.Invocables;
 using SweatSpace.Api.Business.Services;
+using SweatSpace.Api.Helpers;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
 using SweatSpace.Api.Persistence.Profiles;
@@ -72,7 +73,7 @@ namespace SweatSpace.Api.Extensions
                .AddEntityFrameworkStores<DataContext>();
             services.AddAuthorization(opt =>
             {
-                opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+                opt.AddPolicy(PolicyConstants.AdminPolicy, policy => policy.RequireRole("Admin"));
             });
             return services;
         }
