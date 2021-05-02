@@ -7,6 +7,7 @@ namespace SweatSpace.Api.Persistence.Interfaces
 {
     public interface IExerciseRepo
     {
+        void RemoveExercise(Exercise exercise);
         Task<Exercise> GetExerciseByNameAsync(string name);
         Task<PagedList<Exercise>> GetExercisesAsync(ExerciseParams exerciseParams);
         Task AddExerciseAsync(Exercise exercise);

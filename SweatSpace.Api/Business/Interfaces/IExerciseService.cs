@@ -19,7 +19,8 @@ namespace SweatSpace.Api.Business.Interfaces
         Task AddExerciseToWorkoutAsync(ExerciseAddDto exerciseAddDto, int workoutId);       
         Task<PagedList<Exercise>> FindExercisesAsync(ExerciseParams exerciseParams);
         Task UpdateExerciseAsync(ExerciseUpdateDto exerciceUpdateDto);
-        Task RemoveExerciseAsync(int id);
+        Task RemoveWorkoutExerciseAsync(int id);
+        Task RemoveExerciseAsync(string name);
         Task<IEnumerable<ExerciseDto>> GetExerciseDtosForWorkoutAsync(int workoutId, WorkoutExerciseParams workoutExerciseParams);
     }
 }

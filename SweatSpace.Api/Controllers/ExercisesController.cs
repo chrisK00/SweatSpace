@@ -59,7 +59,7 @@ namespace SweatSpace.Api.Controllers
         {
             await _ownedAuthService.OwnsAsync<WorkoutExercise>(exerciseId, User.GetUserId());
 
-            await _exerciseService.RemoveExerciseAsync(exerciseId);
+            await _exerciseService.RemoveWorkoutExerciseAsync(exerciseId);
             return NoContent();
         }
 

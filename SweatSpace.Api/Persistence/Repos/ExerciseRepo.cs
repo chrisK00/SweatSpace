@@ -38,6 +38,9 @@ namespace SweatSpace.Api.Persistence.Repos
             return await _context.WorkoutExercises.FindAsync(id);
         }
 
+        public void RemoveExercise(Exercise exercise) =>
+            _context.Exercises.Remove(exercise);
+
         public void RemoveWorkoutExercise(WorkoutExercise workoutExercise) =>
             _context.WorkoutExercises.Remove(workoutExercise);
 

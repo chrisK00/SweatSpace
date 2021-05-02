@@ -82,7 +82,19 @@ namespace SweatSpace.Api.Business.Services
             return exercises;
         }
 
-        public async Task RemoveExerciseAsync(int id)
+        public async Task RemoveExerciseAsync(string name)
+        {
+            var exercise = await _exerciseRepo.GetExerciseByNameAsync(name);
+            if (exercise == null)
+            {
+                _logger.LogError($"Exercise {name} does not exist");
+                throw new KeyNotFoundException("Could not find exercise");
+            }
+            _exerciseRepo.RemoveExercise(exercise);
+            await _unitOfWork.SaveAllAsync();
+        }
+
+        public async Task RemoveWorkoutExerciseAsync(int id)
         {
             var exercise = await _exerciseRepo.GetWorkoutExerciseByIdAsync(id);
             _exerciseRepo.RemoveWorkoutExercise(exercise);

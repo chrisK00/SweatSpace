@@ -21,13 +21,10 @@ namespace SweatSpace.Persistence.Business
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Exercise>()
-                .Property(x => x.Name)
-                .IsRequired().HasMaxLength(255);
-
             new AppUserEntityTypeConfig().Configure(builder.Entity<AppUser>());
             new WorkoutEntityTypeConfig().Configure(builder.Entity<Workout>());
             new WorkoutExerciseEntityTypeConfig().Configure(builder.Entity<WorkoutExercise>());
+            new ExerciseEntityTypeConfig().Configure(builder.Entity<Exercise>());
 
             // override identity default
             builder.Entity<AppRole>()
