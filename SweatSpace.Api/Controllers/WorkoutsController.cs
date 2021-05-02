@@ -37,6 +37,11 @@ namespace SweatSpace.Api.Controllers
             return await _workoutService.GetWorkoutDtoAsync(id);
         }
 
+        /// <summary>
+        /// Gets workouts paginated
+        /// </summary>
+        /// <param name="workoutParams"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkouts([FromQuery] WorkoutParams workoutParams)
         {

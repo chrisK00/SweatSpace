@@ -35,11 +35,50 @@
             <param name="workoutParams"></param>
             <returns></returns>
         </member>
+        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.WorkoutCompletedAsync(System.Int32)">
+            <summary>
+            Marks a workout completed if all exercises are completed
+            </summary>
+            <param name="workoutId"></param>
+            <returns></returns>
+            <exception cref="T:SweatSpace.Api.Business.Exceptions.AppException"></exception>
+        </member>
+        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.ToggleLikeWorkoutAsync(System.Int32,System.Int32)">
+            <summary>
+            Toggles a user's like on a workout
+            </summary>
+            <param name="workoutId"></param>
+            <param name="userId"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
+        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.CopyWorkoutAsync(System.Int32,System.Int32)">
+            <summary>
+            Creates a copy of the existing workout and adds it to the workouts owned by the specified user
+            </summary>
+            <param name="workoutId"></param>
+            <param name="userId"></param>
+            <returns>The new workout id</returns>
+        </member>
         <member name="M:SweatSpace.Api.Controllers.AccountController.Login(SweatSpace.Api.Business.Dtos.UserLoginDto)">
             <summary>
             Tries to login a existing user
             </summary>
             <param name="userLoginDto"></param>
+        </member>
+        <member name="M:SweatSpace.Api.Controllers.AdminController.GetMembers">
+            <summary>
+            Gets all members with their roles
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SweatSpace.Api.Controllers.AdminController.EditRoles(System.Int32,System.String)">
+            <summary>
+            Changes a user's roles
+            </summary>
+            <param name="userId"></param>
+            <param name="roles"></param>
+            <returns></returns>
         </member>
         <member name="M:SweatSpace.Api.Controllers.ExercisesController.AddExercise(SweatSpace.Api.Business.Dtos.ExerciseAddDto,System.Int32)">
             <summary>
