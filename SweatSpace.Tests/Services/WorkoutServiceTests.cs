@@ -58,7 +58,7 @@ namespace SweatSpace.Tests.Services
         {
             //arrange
             Workout savedWorkout = null;
-            var workoutToCopy = new Workout { Id = 2, Name = "potato", IsCompleted = false, AppUserId = 1 };
+            var workoutToCopy = new Workout { Id = 2, Name = "potato", IsCompleted = false};
 
             _mockWorkoutRepo.Setup(x => x.GetWorkoutByIdAsync(workoutToCopy.Id)).ReturnsAsync(workoutToCopy);
 
@@ -74,7 +74,6 @@ namespace SweatSpace.Tests.Services
             savedWorkout.Name.Should().BeEquivalentTo(workoutToCopy.Name);
             savedWorkout.IsCompleted.Should().BeFalse();
             savedWorkout.Id.Should().NotBe(workoutToCopy.Id);
-            savedWorkout.AppUserId.Should().NotBe(workoutToCopy.AppUserId);
         }
 
 
