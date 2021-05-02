@@ -17,25 +17,25 @@ namespace SweatSpace.Api.Persistence.Repos
             _context = context;
         }
 
-        public Task<Exercise> GetExerciseByNameAsync(string name)
+        public async Task<Exercise> GetExerciseByNameAsync(string name)
         {
-            return _context.Exercises.SingleOrDefaultAsync(e => e.Name == name.ToLower());
+            return await _context.Exercises.SingleOrDefaultAsync(e => e.Name == name.ToLower());
         }
 
-        public Task AddExerciseAsync(Exercise exercise)
+        public async Task AddExerciseAsync(Exercise exercise)
         {
-            return _context.Exercises.AddAsync(exercise).AsTask();
+            await _context.Exercises.AddAsync(exercise);
         }
 
-        public Task<PagedList<Exercise>> GetExercisesAsync(ExerciseParams exerciseParams)
+        public async Task<PagedList<Exercise>> GetExercisesAsync(ExerciseParams exerciseParams)
         {
             var query = _context.Exercises.AsNoTracking();
-            return PagedList<Exercise>.CreateAsync(query, exerciseParams.PageNumber, exerciseParams.ItemsPerPage);
+            return await PagedList<Exercise>.CreateAsync(query, exerciseParams.PageNumber, exerciseParams.ItemsPerPage);
         }
 
-        public Task<WorkoutExercise> GetWorkoutExerciseByIdAsync(int id)
+        public async Task<WorkoutExercise> GetWorkoutExerciseByIdAsync(int id)
         {
-            return _context.WorkoutExercises.FindAsync(id).AsTask();
+            return await _context.WorkoutExercises.FindAsync(id);
         }
 
         public void RemoveWorkoutExercise(WorkoutExercise workoutExercise) =>

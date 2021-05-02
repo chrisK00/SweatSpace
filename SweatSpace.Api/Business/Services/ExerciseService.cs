@@ -56,9 +56,9 @@ namespace SweatSpace.Api.Business.Services
             await _unitOfWork.SaveAllAsync();
         }
 
-        public Task<PagedList<Exercise>> FindExercisesAsync(ExerciseParams exerciseParams)
+        public async Task<PagedList<Exercise>> FindExercisesAsync(ExerciseParams exerciseParams)
         {
-            return _exerciseRepo.GetExercisesAsync(exerciseParams);
+            return await _exerciseRepo.GetExercisesAsync(exerciseParams);
         }
 
         public async Task<IEnumerable<ExerciseDto>> GetExerciseDtosForWorkoutAsync(int workoutId,

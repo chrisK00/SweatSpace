@@ -13,9 +13,9 @@ namespace SweatSpace.Api.Persistence.Repos
             _context = context;
         }
 
-        public Task SaveAllAsync()
+        public async Task SaveAllAsync()
         {
-            return _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

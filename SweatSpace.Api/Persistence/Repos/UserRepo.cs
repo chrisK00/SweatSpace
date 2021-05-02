@@ -31,9 +31,9 @@ namespace SweatSpace.Api.Persistence.Repos
             return await _userManager.Users.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
-        public Task<AppUser> GetUserByNameAsync(string userName)
+        public async Task<AppUser> GetUserByNameAsync(string userName)
         {
-            return _userManager.FindByNameAsync(userName);
+            return await _userManager.FindByNameAsync(userName);
         }
 
         public async Task AddUserAsync(AppUser user, string password)
@@ -52,9 +52,9 @@ namespace SweatSpace.Api.Persistence.Repos
             }
         }
 
-        public Task<AppUser> GetUserByIdAsync(int id)
+        public async Task<AppUser> GetUserByIdAsync(int id)
         {
-            return _context.Users.Include(w => w.Workouts).Include(w => w.LikedWorkouts)
+            return await _context.Users.Include(w => w.Workouts).Include(w => w.LikedWorkouts)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
     }

@@ -17,6 +17,10 @@ namespace SweatSpace.Api.Controllers
             _userService = userService;
         }
 
+        /// <summary>
+        /// Gets all members with their roles
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("members")]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetMembers()
         {
@@ -24,6 +28,12 @@ namespace SweatSpace.Api.Controllers
             return Ok(users);
         }
 
+        /// <summary>
+        /// Changes a user's roles
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roles"></param>
+        /// <returns></returns>
         [HttpPost("roles/{userId}")]
         public async Task<IActionResult> EditRoles(int userId, [FromQuery] string roles)
         {

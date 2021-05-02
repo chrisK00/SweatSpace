@@ -35,14 +35,14 @@ namespace SweatSpace.Api.Business.Services
             _userManager = userManager;
         }
 
-        public Task<IEnumerable<MemberDto>> GetMembersAsync()
+        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
         {
-            return _userRepo.GetMembersAsync();
+            return await _userRepo.GetMembersAsync();
         }
 
-        public Task RegisterAsync(UserRegisterDto userRegisterDto)
+        public async Task RegisterAsync(UserRegisterDto userRegisterDto)
         {
-            return _userRepo.AddUserAsync(_mapper.Map<AppUser>(userRegisterDto), userRegisterDto.Password);
+            await _userRepo.AddUserAsync(_mapper.Map<AppUser>(userRegisterDto), userRegisterDto.Password);
         }
 
         public async Task<UserDto> LoginAsync(UserLoginDto userLoginDto)

@@ -23,14 +23,14 @@ namespace SweatSpace.Api.Persistence.Repos
             _mapper = mapper;
         }
 
-        public Task AddWorkoutAsync(Workout workout)
+        public async Task AddWorkoutAsync(Workout workout)
         {
-            return _context.Workouts.AddAsync(workout).AsTask();
+            await _context.Workouts.AddAsync(workout);
         }
 
-        public Task<Workout> GetWorkoutByIdAsync(int id)
+        public async Task<Workout> GetWorkoutByIdAsync(int id)
         {
-            return _context.Workouts.Include(e => e.Exercises).ThenInclude(e => e.Exercise)
+            return await _context.Workouts.Include(e => e.Exercises).ThenInclude(e => e.Exercise)
                 .FirstOrDefaultAsync(w => w.Id == id);
         }
 
@@ -61,9 +61,9 @@ namespace SweatSpace.Api.Persistence.Repos
             _context.Workouts.Remove(workout);
         }
 
-        public Task<Workout> GetWorkoutWithLikesAsync(int workoutId)
+        public async Task<Workout> GetWorkoutWithLikesAsync(int workoutId)
         {
-            return _context.Workouts.Include(l => l.UsersThatLiked)
+            return await _context.Workouts.Include(l => l.UsersThatLiked)
                 .FirstOrDefaultAsync(w => w.Id == workoutId);
         }
     }
