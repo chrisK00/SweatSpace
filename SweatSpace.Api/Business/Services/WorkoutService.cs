@@ -42,14 +42,14 @@ namespace SweatSpace.Api.Business.Services
             return _mapper.Map<WorkoutDto>(workout);
         }
 
-        public Task<WorkoutDto> GetWorkoutDtoAsync(int id)
+        public async Task<WorkoutDto> GetWorkoutDtoAsync(int id)
         {
-            return _workoutRepo.GetWorkoutDtoAsync(id);
+            return await _workoutRepo.GetWorkoutDtoAsync(id);
         }
 
-        public Task<PagedList<WorkoutDto>> GetWorkoutDtosAsync(WorkoutParams workoutParams)
+        public async Task<PagedList<WorkoutDto>> GetWorkoutDtosAsync(WorkoutParams workoutParams)
         {
-            return _workoutRepo.GetWorkoutsDtosAsync(workoutParams);
+            return await _workoutRepo.GetWorkoutsDtosAsync(workoutParams);
         }
 
         public async Task ResetWorkoutAsync(int workoutId)
