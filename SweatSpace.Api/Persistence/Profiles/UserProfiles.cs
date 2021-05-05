@@ -10,8 +10,7 @@ namespace SweatSpace.Api.Persistence.Profiles
     {
         public UserProfiles()
         {
-            CreateMap<UserRegisterDto, AppUser>();
-            CreateMap<AppUser, UserDto>();
+            CreateMap<RegisterUserRequest, AppUser>();
             CreateMap<AppUser, MemberDto>().ForMember(dest => dest.Roles, opt => 
             opt.MapFrom(src => src.Roles.Select(r => r.Role.Name)));     
         }

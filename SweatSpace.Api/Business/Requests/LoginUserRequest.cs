@@ -2,7 +2,7 @@
 
 namespace SweatSpace.Api.Business.Dtos
 {
-    public class UserLoginDto
+    public class LoginUserRequest
     {
         private string _userName;
 

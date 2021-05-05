@@ -24,10 +24,10 @@ namespace SweatSpace.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddWorkout(WorkoutAddDto workoutAddDto)
+        public async Task<IActionResult> AddWorkout(AddWorkoutRequest addWorkoutRequest)
         {
-            workoutAddDto.AppUserId = User.GetUserId();
-            var workout = await _workoutService.AddWorkoutAsync(workoutAddDto);
+            addWorkoutRequest.AppUserId = User.GetUserId();
+            var workout = await _workoutService.AddWorkoutAsync(addWorkoutRequest);
             return CreatedAtRoute(nameof(GetWorkout), new { id = workout.Id }, workout);
         }
 
@@ -65,6 +65,11 @@ namespace SweatSpace.Api.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Resets a workouts stats including its exercises
+        /// </summary>
+        /// <param name="workoutId"></param>
+        /// <returns></returns>
         [HttpPost("{workoutId}/reset")]
         public async Task<IActionResult> ResetWorkout(int workoutId)
         {
@@ -78,13 +83,13 @@ namespace SweatSpace.Api.Controllers
         /// Fully updates an existing workout
         /// </summary>
         /// <param name="workoutId"></param>
-        /// <param name="workoutUpdateDto"></param>
+        /// <param name="updateWorkoutRequest"></param>
         /// <returns></returns>
         [HttpPut("{workoutId}")]
-        public async Task<IActionResult> UpdateWorkout(int workoutId, WorkoutUpdateDto workoutUpdateDto)
+        public async Task<IActionResult> UpdateWorkout(int workoutId, UpdateWorkoutRequest updateWorkoutRequest)
         {
             await _ownedAuthService.OwnsAsync<Workout>(workoutId, User.GetUserId());
-            await _workoutService.UpdateWorkoutAsync(workoutId, workoutUpdateDto);
+            await _workoutService.UpdateWorkoutAsync(workoutId, updateWorkoutRequest);
             return NoContent();
         }
 

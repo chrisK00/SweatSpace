@@ -32,25 +32,25 @@ namespace SweatSpace.Api.Controllers
         /// <summary>
         /// Adds a exercise to the specified workout
         /// </summary>
-        /// <param name="exerciseAddDto"></param>
+        /// <param name="addExerciseRequest"></param>
         /// <param name="workoutId"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddExercise(ExerciseAddDto exerciseAddDto, int workoutId)
+        public async Task<IActionResult> AddExercise(AddExerciseRequest addExerciseRequest, int workoutId)
         {
-            exerciseAddDto.AppUserId = User.GetUserId();
-            await _ownedAuthService.OwnsAsync<Workout>(workoutId, exerciseAddDto.AppUserId);
+            addExerciseRequest.AppUserId = User.GetUserId();
+            await _ownedAuthService.OwnsAsync<Workout>(workoutId, addExerciseRequest.AppUserId);
 
-            await _exerciseService.AddExerciseToWorkoutAsync(exerciseAddDto, workoutId);
+            await _exerciseService.AddExerciseToWorkoutAsync(addExerciseRequest, workoutId);
             return CreatedAtRoute(nameof(GetExercises), new { workoutId }, new { workoutId });
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateExercise(int workoutId, ExerciseUpdateDto exerciseUpdateDto)
+        public async Task<IActionResult> UpdateExercise(UpdateExerciseRequest updateExerciseRequest)
         {
-            await _ownedAuthService.OwnsAsync<WorkoutExercise>(exerciseUpdateDto.Id, User.GetUserId());
+            await _ownedAuthService.OwnsAsync<WorkoutExercise>(updateExerciseRequest.Id, User.GetUserId());
 
-            await _exerciseService.UpdateExerciseAsync(exerciseUpdateDto);
+            await _exerciseService.UpdateExerciseAsync(updateExerciseRequest);
             return NoContent();
         }
 

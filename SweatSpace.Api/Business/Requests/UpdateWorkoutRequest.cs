@@ -3,12 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SweatSpace.Api.Business.Dtos
 {
-    public class WorkoutAddDto
+    public class UpdateWorkoutRequest
     {
         [Required, MaxLength(255)]
         public string Name { get; set; }
 
+        [Range(0, 5)]
+        public int Rating { get; set; }
         public DateTime? Date { get; set; }
-        public int AppUserId { get; set; }
     }
 }

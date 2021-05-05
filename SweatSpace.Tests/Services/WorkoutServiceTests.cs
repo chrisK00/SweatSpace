@@ -37,7 +37,7 @@ namespace SweatSpace.Tests.Services
         }
 
         [Theory, AutoData]
-        public async Task AddWorkout_Returns_NewWorkoutDto(WorkoutAddDto workoutDto)
+        public async Task AddWorkout_Returns_NewWorkoutDto(AddWorkoutRequest workoutDto)
         {
             var newWorkoutDto = await _workoutService.AddWorkoutAsync(workoutDto);
 

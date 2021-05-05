@@ -1,14 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SweatSpace.Api.Business.Dtos
 {
-    public class ExerciseAddDto
+    public class AddWorkoutRequest
     {
         [Required, MaxLength(255)]
         public string Name { get; set; }
 
-        public int Sets { get; set; }
-        public int Reps { get; set; }
+        public DateTime? Date { get; set; }
         public int AppUserId { get; set; }
     }
 }

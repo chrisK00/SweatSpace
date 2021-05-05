@@ -2,7 +2,7 @@
 
 namespace SweatSpace.Api.Business.Dtos
 {
-    public class UserRegisterDto
+    public class RegisterUserRequest
     {
         private string _userName;
         private string _email;

@@ -34,7 +34,7 @@ namespace SweatSpace.Api.Business.Services
             _logger = logger;
         }
 
-        public async Task AddExerciseToWorkoutAsync(ExerciseAddDto exerciseAddDto, int workoutId)
+        public async Task AddExerciseToWorkoutAsync(AddExerciseRequest exerciseAddDto, int workoutId)
         {
             var exercise = await _exerciseRepo.GetExerciseByNameAsync(exerciseAddDto.Name);
             var workout = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
@@ -101,7 +101,7 @@ namespace SweatSpace.Api.Business.Services
             await _unitOfWork.SaveAllAsync();
         }
 
-        public async Task UpdateExerciseAsync(ExerciseUpdateDto exerciceUpdateDto)
+        public async Task UpdateExerciseAsync(UpdateExerciseRequest exerciceUpdateDto)
         {
             var exercise = await _exerciseRepo.GetWorkoutExerciseByIdAsync(exerciceUpdateDto.Id);
             _mapper.Map(exerciceUpdateDto, exercise);

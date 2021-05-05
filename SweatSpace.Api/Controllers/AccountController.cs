@@ -15,20 +15,21 @@ namespace SweatSpace.Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
+        public async Task<IActionResult> Register(RegisterUserRequest registerUserRequest)
         {
-            await _userService.RegisterAsync(userRegisterDto);
+            await _userService.RegisterAsync(registerUserRequest);
             return NoContent();
         }
 
         /// <summary>
         /// Tries to login a existing user
         /// </summary>
-        /// <param name="userLoginDto"></param>
+        /// <param name="loginUserRequest"></param>
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(UserLoginDto userLoginDto)
+        public async Task<ActionResult<string>> Login(LoginUserRequest loginUserRequest)
         {
-            return await _userService.LoginAsync(userLoginDto);
+            var token = await _userService.LoginAsync(loginUserRequest);
+            return Ok(new { Token = token });
         }
     }
 }

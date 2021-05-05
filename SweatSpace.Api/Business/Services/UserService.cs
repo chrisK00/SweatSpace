@@ -40,12 +40,12 @@ namespace SweatSpace.Api.Business.Services
             return await _userRepo.GetMembersAsync();
         }
 
-        public async Task RegisterAsync(UserRegisterDto userRegisterDto)
+        public async Task RegisterAsync(RegisterUserRequest userRegisterDto)
         {
             await _userRepo.AddUserAsync(_mapper.Map<AppUser>(userRegisterDto), userRegisterDto.Password);
         }
 
-        public async Task<UserDto> LoginAsync(UserLoginDto userLoginDto)
+        public async Task<string> LoginAsync(LoginUserRequest userLoginDto)
         {
             var user = await _userRepo.GetUserByNameAsync(userLoginDto.UserName);
 
@@ -65,9 +65,7 @@ namespace SweatSpace.Api.Business.Services
                 throw new UnauthorizedAccessException("Invalid username or password");
             }
 
-            var userDto = _mapper.Map<UserDto>(user);
-            userDto.Token = await _tokenService.CreateTokenAsync(user);
-            return userDto;
+            return await _tokenService.CreateTokenAsync(user);
         }
 
         public async Task EditRolesAsync(int userId, string[] roles)

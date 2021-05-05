@@ -12,7 +12,7 @@ namespace SweatSpace.Api.Business.Interfaces
 {
     public interface IWorkoutService
     {
-        Task<WorkoutDto> AddWorkoutAsync(WorkoutAddDto workoutAddDto);
+        Task<WorkoutDto> AddWorkoutAsync(AddWorkoutRequest workoutAddDto);
         Task<WorkoutDto> GetWorkoutDtoAsync(int id);
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace SweatSpace.Api.Business.Interfaces
         /// <exception cref="AppException"></exception>
         Task WorkoutCompletedAsync(int workoutId);
         Task ResetWorkoutAsync(int workoutId);
-        Task UpdateWorkoutAsync(int workoutId, WorkoutUpdateDto workoutUpdateDto);
+        Task UpdateWorkoutAsync(int workoutId, UpdateWorkoutRequest workoutUpdateDto);
 
         /// <summary>
         /// Toggles a user's like on a workout
