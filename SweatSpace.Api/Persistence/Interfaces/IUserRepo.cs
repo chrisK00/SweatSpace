@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
+using SweatSpace.Api.Persistence.Helpers;
 
 namespace SweatSpace.Api.Persistence.Interfaces
 {
@@ -14,5 +15,6 @@ namespace SweatSpace.Api.Persistence.Interfaces
         Task<AppUser> GetUserByNameAsync(string userName);
 
         Task<AppUser> GetUserByIdAsync(int id);
+        Task<IEnumerable<WeeklyStatsUserModel>> GetWeeklyStatsUserModels();
     }
 }

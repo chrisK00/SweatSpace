@@ -10,6 +10,8 @@ using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
 using SweatSpace.Persistence.Business;
+using SweatSpace.Api.Persistence.Helpers;
+using System.Linq;
 
 namespace SweatSpace.Api.Persistence.Repos
 {
@@ -56,6 +58,15 @@ namespace SweatSpace.Api.Persistence.Repos
         {
             return await _context.Users.Include(w => w.Workouts).Include(w => w.LikedWorkouts)
                 .FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<IEnumerable<WeeklyStatsUserModel>> GetWeeklyStatsUserModels()
+        {
+            return await _context.Users.Include(x => x.Workouts).Select(u => new WeeklyStatsUserModel
+            {
+                Email = u.Email,
+                Workouts = u.Workouts
+            }).ToListAsync();
         }
     }
 }

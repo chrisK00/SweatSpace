@@ -12,6 +12,7 @@ using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
+using SweatSpace.Api.Persistence.Helpers;
 
 namespace SweatSpace.Api.Business.Services
 {
@@ -93,6 +94,11 @@ namespace SweatSpace.Api.Business.Services
                 _logger.LogError($"Failed to remove user: {user.Id} from roles: {JsonSerializer.Serialize(userRoles)}");
                 throw new AppException("Failed to remove from roles");
             }
+        }
+
+        public async Task<IEnumerable<WeeklyStatsUserModel>> GetWeeklyStatsUserModels()
+        {
+            return await _userRepo.GetWeeklyStatsUserModels();
         }
     }
 }

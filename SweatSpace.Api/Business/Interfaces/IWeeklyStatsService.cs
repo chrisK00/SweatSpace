@@ -1,10 +1,10 @@
-﻿using SweatSpace.Api.Persistence.Responses;
+﻿using SweatSpace.Api.Persistence.Helpers;
 
 namespace SweatSpace.Api.Business.Interfaces
 {
     public interface IWeeklyStatsService
     {
-        string GetWeeklyMemberResponseStats(MemberResponse memberResponse);
-        void ResetWeeklyMemberResponseStats(MemberResponse memberResponse);
+        string GetWeeklyWorkoutStats(WeeklyStatsUserModel weeklyStatsUserModel);
+        void ResetWeeklyWorkoutStats(WeeklyStatsUserModel weeklyStatsUserModel);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SweatSpace.Api.Business.Requests;
+using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Responses;
 
 namespace SweatSpace.Api.Business.Interfaces
@@ -20,5 +21,7 @@ namespace SweatSpace.Api.Business.Interfaces
 
         Task<IEnumerable<MemberResponse>> GetMemberResponsesAsync();
         Task EditRolesAsync(int userId, string[] roles);
+        Task<IEnumerable<WeeklyStatsUserModel>> GetWeeklyStatsUserModels();
+
     }
 }

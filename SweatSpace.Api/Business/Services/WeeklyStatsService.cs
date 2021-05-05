@@ -1,14 +1,14 @@
 ﻿using SweatSpace.Api.Business.Interfaces;
-using SweatSpace.Api.Persistence.Responses;
+using SweatSpace.Api.Persistence.Helpers;
 
 namespace SweatSpace.Api.Business.Services
 {
     public class WeeklyStatsService : IWeeklyStatsService
     {
-        public string GetWeeklyMemberResponseStats(MemberResponse memberDto)
+        public string GetWeeklyWorkoutStats(WeeklyStatsUserModel weeklyStatsUserModel)
         {
             int amountOfCompletedWorkouts = 0;
-            foreach (var workout in memberDto.Workouts)
+            foreach (var workout in weeklyStatsUserModel.Workouts)
             {
                 amountOfCompletedWorkouts += workout.TimesCompletedThisWeek;
             }
@@ -18,9 +18,9 @@ namespace SweatSpace.Api.Business.Services
                 "<strong>You have no completed workouts this week.</strong> <p>Not liking your workouts? Check out others!</p>";
         }
 
-        public void ResetWeeklyMemberResponseStats(MemberResponse memberDto)
+        public void ResetWeeklyWorkoutStats(WeeklyStatsUserModel weeklyStatsUserModel)
         {
-            foreach (var workout in memberDto.Workouts)
+            foreach (var workout in weeklyStatsUserModel.Workouts)
             {
                 workout.TimesCompletedThisWeek = 0;
             }

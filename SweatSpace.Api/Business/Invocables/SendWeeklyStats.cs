@@ -28,17 +28,17 @@ namespace SweatSpace.Api.Business.Invocables
 
         public async Task Invoke()
         {
-            foreach (var member in await _userService.GetMemberResponsesAsync())
+            foreach (var user in await _userService.GetWeeklyStatsUserModels())
             {
                 var statsMailable = new WeeklyStatsMailable(new WeeklyStatsModel
                 {
-                    Email = member.Email,
+                    Email = user.Email,
                     Title = "Your weekly stats has arrived from SweatSpace",
-                    Content = _statsService.GetWeeklyMemberResponseStats(member)
+                    Content = _statsService.GetWeeklyWorkoutStats(user)
                 });
 
                 await _mailer.SendAsync(statsMailable);               
-                _statsService.ResetWeeklyMemberResponseStats(member);
+                _statsService.ResetWeeklyWorkoutStats(user);
                 await _unitOfWork.SaveAllAsync();
             }
             _logger.LogInformation($"Weekly mails sent");
