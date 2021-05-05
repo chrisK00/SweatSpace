@@ -4,11 +4,11 @@
         <name>SweatSpace.Api</name>
     </assembly>
     <members>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IExerciseService.AddExerciseToWorkoutAsync(SweatSpace.Api.Business.Dtos.AddExerciseRequest,System.Int32)">
+        <member name="M:SweatSpace.Api.Business.Interfaces.IExerciseService.AddExerciseToWorkoutAsync(SweatSpace.Api.Business.Requests.AddExerciseRequest,System.Int32)">
             <summary>
             Adds an exercise to an existing workout
             </summary>
-            <param name="exerciseAddDto"></param>
+            <param name="addExerciseRequest"></param>
             <param name="workoutId"></param>
             <returns></returns>
         </member>
@@ -20,15 +20,15 @@
             <param name="items"></param>
             <returns></returns>
         </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IUserService.LoginAsync(SweatSpace.Api.Business.Dtos.LoginUserRequest)">
+        <member name="M:SweatSpace.Api.Business.Interfaces.IUserService.LoginAsync(SweatSpace.Api.Business.Requests.LoginUserRequest)">
             <summary>
             Tries to login a user with the specified username and password
             </summary>
-            <param name="userLoginDto"></param>
+            <param name="loginUserRequest"></param>
             <returns>Token</returns>
             <exception cref="T:System.UnauthorizedAccessException"></exception>
         </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.GetWorkoutDtosAsync(SweatSpace.Api.Persistence.Params.WorkoutParams)">
+        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.GetWorkoutResponsesAsync(SweatSpace.Api.Persistence.Params.WorkoutParams)">
             <summary>
             Returns a paged list of all the workout dtos
             </summary>
@@ -60,7 +60,7 @@
             <param name="userId"></param>
             <returns>The new workout id</returns>
         </member>
-        <member name="M:SweatSpace.Api.Controllers.AccountController.Login(SweatSpace.Api.Business.Dtos.LoginUserRequest)">
+        <member name="M:SweatSpace.Api.Controllers.AccountController.Login(SweatSpace.Api.Business.Requests.LoginUserRequest)">
             <summary>
             Tries to login a existing user
             </summary>
@@ -80,7 +80,7 @@
             <param name="roles"></param>
             <returns></returns>
         </member>
-        <member name="M:SweatSpace.Api.Controllers.ExercisesController.AddExercise(SweatSpace.Api.Business.Dtos.AddExerciseRequest,System.Int32)">
+        <member name="M:SweatSpace.Api.Controllers.ExercisesController.AddExercise(SweatSpace.Api.Business.Requests.AddExerciseRequest,System.Int32)">
             <summary>
             Adds a exercise to the specified workout
             </summary>
@@ -114,7 +114,7 @@
             <param name="workoutId"></param>
             <returns></returns>
         </member>
-        <member name="M:SweatSpace.Api.Controllers.WorkoutsController.UpdateWorkout(System.Int32,SweatSpace.Api.Business.Dtos.UpdateWorkoutRequest)">
+        <member name="M:SweatSpace.Api.Controllers.WorkoutsController.UpdateWorkout(System.Int32,SweatSpace.Api.Business.Requests.UpdateWorkoutRequest)">
             <summary>
             Fully updates an existing workout
             </summary>

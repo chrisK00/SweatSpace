@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using SweatSpace.Api.Business.Dtos;
-using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Business.Requests;
+using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 
 namespace SweatSpace.Api.Persistence.Profiles
@@ -12,7 +12,7 @@ namespace SweatSpace.Api.Persistence.Profiles
             CreateMap<AddExerciseRequest, WorkoutExercise>();
             CreateMap<UpdateExerciseRequest, WorkoutExercise>();
 
-            CreateMap<WorkoutExercise, ExerciseDto>().ForMember(d => d.Name, opt =>
+            CreateMap<WorkoutExercise, ExerciseResponse>().ForMember(d => d.Name, opt =>
             opt.MapFrom(s => s.Exercise.Name));
         }
     }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SweatSpace.Api.Persistence.Dtos
+﻿namespace SweatSpace.Api.Persistence.Responses
 {
-    public class ExerciseDto
+    public class ExerciseResponse
     {
         public int Id { get; set; }
         public string Name { get; set; }

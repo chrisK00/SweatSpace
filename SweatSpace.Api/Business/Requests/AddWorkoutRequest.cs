@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SweatSpace.Api.Business.Dtos
+namespace SweatSpace.Api.Business.Requests
 {
     public class AddWorkoutRequest
     {

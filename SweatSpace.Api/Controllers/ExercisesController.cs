@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SweatSpace.Api.Business.Dtos;
+using SweatSpace.Api.Business.Requests;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Extensions;
-using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Params;
 
@@ -64,10 +64,10 @@ namespace SweatSpace.Api.Controllers
         }
 
         [HttpGet(Name = nameof(GetExercises))]
-        public async Task<ActionResult<IEnumerable<ExerciseDto>>> GetExercises(int workoutId,
+        public async Task<ActionResult<IEnumerable<ExerciseResponse>>> GetExercises(int workoutId,
             [FromQuery] WorkoutExerciseParams workoutExerciseParams)
         {
-            var exercises = await _exerciseService.GetExerciseDtosForWorkoutAsync(workoutId, workoutExerciseParams);
+            var exercises = await _exerciseService.GetExerciseResponsesForWorkoutAsync(workoutId, workoutExerciseParams);
             return Ok(exercises);
         }
     }

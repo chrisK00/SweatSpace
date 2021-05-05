@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 
 namespace SweatSpace.Api.Persistence.Interfaces
@@ -9,7 +9,7 @@ namespace SweatSpace.Api.Persistence.Interfaces
     {
         Task AddUserAsync(AppUser user, string password);
 
-        Task<IEnumerable<MemberDto>> GetMembersAsync();
+        Task<IEnumerable<MemberResponse>> GetMemberResponsesAsync();
 
         Task<AppUser> GetUserByNameAsync(string userName);
 

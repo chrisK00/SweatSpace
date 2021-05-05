@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SweatSpace.Api.Business.Dtos;
 using SweatSpace.Api.Business.Exceptions;
-using SweatSpace.Api.Persistence.Dtos;
-using SweatSpace.Api.Persistence.Entities;
+using SweatSpace.Api.Business.Requests;
 using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Params;
+using SweatSpace.Api.Persistence.Responses;
 
 namespace SweatSpace.Api.Business.Interfaces
 {
     public interface IWorkoutService
     {
-        Task<WorkoutDto> AddWorkoutAsync(AddWorkoutRequest workoutAddDto);
-        Task<WorkoutDto> GetWorkoutDtoAsync(int id);
+        Task<WorkoutResponse> AddWorkoutAsync(AddWorkoutRequest addWorkoutRequest);
+        Task<WorkoutResponse> GetWorkoutResponseAsync(int id);
 
         /// <summary>
         /// Returns a paged list of all the workout dtos
         /// </summary>
         /// <param name="workoutParams"></param>
         /// <returns></returns>
-        Task<PagedList<WorkoutDto>> GetWorkoutDtosAsync(WorkoutParams workoutParams);
+        Task<PagedList<WorkoutResponse>> GetWorkoutResponsesAsync(WorkoutParams workoutParams);
 
         /// <summary>
         /// Marks a workout completed if all exercises are completed
@@ -30,7 +28,7 @@ namespace SweatSpace.Api.Business.Interfaces
         /// <exception cref="AppException"></exception>
         Task WorkoutCompletedAsync(int workoutId);
         Task ResetWorkoutAsync(int workoutId);
-        Task UpdateWorkoutAsync(int workoutId, UpdateWorkoutRequest workoutUpdateDto);
+        Task UpdateWorkoutAsync(int workoutId, UpdateWorkoutRequest updateWorkoutRequest);
 
         /// <summary>
         /// Toggles a user's like on a workout

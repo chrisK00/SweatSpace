@@ -1,4 +1,4 @@
-﻿namespace SweatSpace.Api.Business.Dtos
+﻿namespace SweatSpace.Api.Business.Requests
 {
     public class UpdateExerciseRequest
     {

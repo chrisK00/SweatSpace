@@ -6,7 +6,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
 using SweatSpace.Persistence.Business;
@@ -26,9 +26,9 @@ namespace SweatSpace.Api.Persistence.Repos
             _context = context;
         }
 
-        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+        public async Task<IEnumerable<MemberResponse>> GetMemberResponsesAsync()
         {
-            return await _userManager.Users.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).ToListAsync();
+            return await _userManager.Users.ProjectTo<MemberResponse>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         public async Task<AppUser> GetUserByNameAsync(string userName)

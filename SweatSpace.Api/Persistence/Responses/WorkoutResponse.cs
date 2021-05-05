@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using SweatSpace.Api.Persistence.Entities;
 
-namespace SweatSpace.Api.Persistence.Dtos
+namespace SweatSpace.Api.Persistence.Responses
 {
-    public class WorkoutDto
+    public class WorkoutResponse
     {
         public int Id { get; set; }
 
@@ -19,6 +18,6 @@ namespace SweatSpace.Api.Persistence.Dtos
         public DateTime? Date { get; set; }
 
         public int AppUserId { get; set; }
-        public ICollection<ExerciseDto> Exercises { get; set; } = new List<ExerciseDto>();
+        public ICollection<ExerciseResponse> Exercises { get; set; } = new List<ExerciseResponse>();
     }
 }

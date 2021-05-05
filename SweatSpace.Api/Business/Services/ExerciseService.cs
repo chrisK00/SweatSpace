@@ -4,9 +4,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
-using SweatSpace.Api.Business.Dtos;
+using SweatSpace.Api.Business.Requests;
 using SweatSpace.Api.Business.Interfaces;
-using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Interfaces;
@@ -61,11 +61,11 @@ namespace SweatSpace.Api.Business.Services
             return await _exerciseRepo.GetExercisesAsync(exerciseParams);
         }
 
-        public async Task<IEnumerable<ExerciseDto>> GetExerciseDtosForWorkoutAsync(int workoutId,
+        public async Task<IEnumerable<ExerciseResponse>> GetExerciseResponsesForWorkoutAsync(int workoutId,
             WorkoutExerciseParams workoutExerciseParams)
         {
-            var workout = await _workoutRepo.GetWorkoutDtoAsync(workoutId);
-            IEnumerable<ExerciseDto> exercises = new List<ExerciseDto>();
+            var workout = await _workoutRepo.GetWorkoutResponseAsync(workoutId);
+            IEnumerable<ExerciseResponse> exercises = new List<ExerciseResponse>();
 
             if (workout == null)
             {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Interfaces;
@@ -34,13 +34,13 @@ namespace SweatSpace.Api.Persistence.Repos
                 .FirstOrDefaultAsync(w => w.Id == id);
         }
 
-        public async Task<WorkoutDto> GetWorkoutDtoAsync(int id)
+        public async Task<WorkoutResponse> GetWorkoutResponseAsync(int id)
         {
-            return await _context.Workouts.ProjectTo<WorkoutDto>(_mapper.ConfigurationProvider)
+            return await _context.Workouts.ProjectTo<WorkoutResponse>(_mapper.ConfigurationProvider)
                  .FirstOrDefaultAsync(w => w.Id == id);
         }
 
-        public async Task<PagedList<WorkoutDto>> GetWorkoutsDtosAsync(WorkoutParams workoutParams)
+        public async Task<PagedList<WorkoutResponse>> GetWorkoutResponsesAsync(WorkoutParams workoutParams)
         {
             var query = _context.Workouts.AsQueryable().AsNoTracking();
 
@@ -52,8 +52,8 @@ namespace SweatSpace.Api.Persistence.Repos
                 _ => query.OrderByDescending(w => w.UsersThatLiked.Count)
             };
 
-            var workouts = query.ProjectTo<WorkoutDto>(_mapper.ConfigurationProvider);
-            return await PagedList<WorkoutDto>.CreateAsync(workouts, workoutParams.PageNumber, workoutParams.ItemsPerPage);
+            var workouts = query.ProjectTo<WorkoutResponse>(_mapper.ConfigurationProvider);
+            return await PagedList<WorkoutResponse>.CreateAsync(workouts, workoutParams.PageNumber, workoutParams.ItemsPerPage);
         }
 
         public void RemoveWorkout(Workout workout)

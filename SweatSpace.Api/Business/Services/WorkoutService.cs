@@ -4,10 +4,10 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
-using SweatSpace.Api.Business.Dtos;
+using SweatSpace.Api.Business.Requests;
 using SweatSpace.Api.Business.Exceptions;
 using SweatSpace.Api.Business.Interfaces;
-using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Helpers;
 using SweatSpace.Api.Persistence.Interfaces;
@@ -33,23 +33,23 @@ namespace SweatSpace.Api.Business.Services
             _logger = logger;
         }
 
-        public async Task<WorkoutDto> AddWorkoutAsync(AddWorkoutRequest workoutAddDto)
+        public async Task<WorkoutResponse> AddWorkoutAsync(AddWorkoutRequest workoutAddDto)
         {
             var workout = _mapper.Map<Workout>(workoutAddDto);
 
             await _workoutRepo.AddWorkoutAsync(workout);
             await _unitOfWork.SaveAllAsync();
-            return _mapper.Map<WorkoutDto>(workout);
+            return _mapper.Map<WorkoutResponse>(workout);
         }
 
-        public async Task<WorkoutDto> GetWorkoutDtoAsync(int id)
+        public async Task<WorkoutResponse> GetWorkoutResponseAsync(int id)
         {
-            return await _workoutRepo.GetWorkoutDtoAsync(id);
+            return await _workoutRepo.GetWorkoutResponseAsync(id);
         }
 
-        public async Task<PagedList<WorkoutDto>> GetWorkoutDtosAsync(WorkoutParams workoutParams)
+        public async Task<PagedList<WorkoutResponse>> GetWorkoutResponsesAsync(WorkoutParams workoutParams)
         {
-            return await _workoutRepo.GetWorkoutsDtosAsync(workoutParams);
+            return await _workoutRepo.GetWorkoutResponsesAsync(workoutParams);
         }
 
         public async Task ResetWorkoutAsync(int workoutId)

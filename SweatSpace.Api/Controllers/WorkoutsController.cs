@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SweatSpace.Api.Business.Dtos;
+using SweatSpace.Api.Business.Requests;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Extensions;
-using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Params;
 
@@ -32,9 +32,9 @@ namespace SweatSpace.Api.Controllers
         }
 
         [HttpGet("{id}", Name = nameof(GetWorkout))]
-        public async Task<ActionResult<WorkoutDto>> GetWorkout(int id)
+        public async Task<ActionResult<WorkoutResponse>> GetWorkout(int id)
         {
-            return await _workoutService.GetWorkoutDtoAsync(id);
+            return await _workoutService.GetWorkoutResponseAsync(id);
         }
 
         /// <summary>
@@ -43,10 +43,10 @@ namespace SweatSpace.Api.Controllers
         /// <param name="workoutParams"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkouts([FromQuery] WorkoutParams workoutParams)
+        public async Task<ActionResult<IEnumerable<WorkoutResponse>>> GetWorkouts([FromQuery] WorkoutParams workoutParams)
         {
             workoutParams.UserId = User.GetUserId();
-            var workouts = await _workoutService.GetWorkoutDtosAsync(workoutParams);
+            var workouts = await _workoutService.GetWorkoutResponsesAsync(workoutParams);
             Response.AddPaginationHeader(workouts.TotalItems, workouts.ItemsPerPage, workouts.PageNumber, workouts.TotalPages);
             return workouts;
         }

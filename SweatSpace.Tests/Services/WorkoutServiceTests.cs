@@ -5,10 +5,10 @@ using AutoMapper;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using SweatSpace.Api.Business.Dtos;
+using SweatSpace.Api.Business.Requests;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Business.Services;
-using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
 using SweatSpace.Api.Persistence.Profiles;
@@ -39,11 +39,11 @@ namespace SweatSpace.Tests.Services
         [Theory, AutoData]
         public async Task AddWorkout_Returns_NewWorkoutDto(AddWorkoutRequest workoutDto)
         {
-            var newWorkoutDto = await _workoutService.AddWorkoutAsync(workoutDto);
+            var newWorkoutResponse = await _workoutService.AddWorkoutAsync(workoutDto);
 
             _mockUnitOfWork.Verify(x => x.SaveAllAsync());
 
-            newWorkoutDto.Should().NotBeNull();
+            newWorkoutResponse.Should().NotBeNull();
         }
 
         [Fact]
@@ -81,12 +81,12 @@ namespace SweatSpace.Tests.Services
         public async Task GetWorkoutDto_Returns_Workout_If_Exists()
         {
             //arrange
-            var workoutDto = new WorkoutDto { Id = 2 };
-            _mockWorkoutRepo.Setup(x => x.GetWorkoutDtoAsync(workoutDto.Id)).ReturnsAsync(workoutDto);
+            var workoutResponse = new WorkoutResponse { Id = 2 };
+            _mockWorkoutRepo.Setup(x => x.GetWorkoutResponseAsync(workoutResponse.Id)).ReturnsAsync(workoutResponse);
 
             //act
-            var workoutDtoNotNull = await _workoutService.GetWorkoutDtoAsync(workoutDto.Id);
-            var workoutDtoNull = await _workoutService.GetWorkoutDtoAsync(2222);
+            var workoutDtoNotNull = await _workoutService.GetWorkoutResponseAsync(workoutResponse.Id);
+            var workoutDtoNull = await _workoutService.GetWorkoutResponseAsync(2222);
 
             //assert
             workoutDtoNotNull.Should().NotBeNull();

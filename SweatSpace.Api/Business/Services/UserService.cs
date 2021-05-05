@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using SweatSpace.Api.Business.Dtos;
+using SweatSpace.Api.Business.Requests;
 using SweatSpace.Api.Business.Exceptions;
 using SweatSpace.Api.Business.Interfaces;
-using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
 
@@ -35,9 +35,9 @@ namespace SweatSpace.Api.Business.Services
             _userManager = userManager;
         }
 
-        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+        public async Task<IEnumerable<MemberResponse>> GetMemberResponsesAsync()
         {
-            return await _userRepo.GetMembersAsync();
+            return await _userRepo.GetMemberResponsesAsync();
         }
 
         public async Task RegisterAsync(RegisterUserRequest userRegisterDto)

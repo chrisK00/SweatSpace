@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Helpers;
-using SweatSpace.Api.Persistence.Dtos;
+using SweatSpace.Api.Persistence.Responses;
 
 namespace SweatSpace.Api.Controllers
 {
@@ -25,9 +25,9 @@ namespace SweatSpace.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("members")]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetMembers()
+        public async Task<ActionResult<IEnumerable<MemberResponse>>> GetMembers()
         {
-            var users = await _userService.GetMembersAsync();
+            var users = await _userService.GetMemberResponsesAsync();
             return Ok(users);
         }
 
