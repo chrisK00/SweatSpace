@@ -15,5 +15,68 @@
   {
     "UserName": "deleted",
     "Email": "deleted"
+  },
+  {
+    "Id": 6,
+    "UserName": "Sharpe",
+    "CreatedDate": "2019-10-02",
+    "Workouts": [
+      {
+        "AppUserId": 6,
+        "Name": "Samoa",
+        "TimesCompletedThisWeek": 1,
+        "Exercises": [
+          {
+            "Sets": 3,
+            "AppUserId": 6,
+            "Exercise": {
+              "Name": "Longbranch"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 10,
+    "UserName": "Cash",
+    "CreatedDate": "2019-12-23",
+    "Workouts": [
+      {
+        "AppUserId": 10,
+        "Name": "Svalbard and Jan Mayen Islands",
+        "TimesCompletedThisWeek": 8,
+        "Exercises": [
+          {
+            "Sets": 0,
+            "AppUserId": 10,
+            "Exercise": {
+              "Name": "Kirk"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 9,
+    "UserName": "Colon",
+    "CreatedDate": "2019-05-31",
+    "Workouts": [
+      {
+        "AppUserId": 9,
+        "Name": "Malawi",
+        "TimesCompletedThisWeek": 3,
+        "Exercises": [
+          {
+            "Sets": 5,
+            "AppUserId": 9,
+            "Exercise": {
+              "Name": "Iola"
+            }
+          }
+        ]
+      }
+    ]
   }
-]
+] 

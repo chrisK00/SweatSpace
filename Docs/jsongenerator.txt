@@ -1,0 +1,24 @@
+[
+  '{{repeat(3)}}',
+  {
+    Id:'{{integer(1,3)}}',
+    UserName: '{{firstName("male")}}',
+    CreatedDate: '{{date(new Date(2019, 0, 1), new Date(2020,5,30), "YYYY-MM-dd")}}',
+    Workouts: [
+        { 
+          AppUserId:'{{integer(1,3)}}',
+          Name:'{{country()}}',
+          TimesCompletedThisWeek:'{{integer(0,10)}}',
+          Exercises: [
+            {
+              Sets:'{{integer(0,10)}}',
+               AppUserId:'{{integer(1,3)}}',
+              Exercise: {
+                Name:'{{city()}}'
+              }
+            }
+          ]
+        }      
+    ]
+  }
+]
