@@ -26,6 +26,7 @@ namespace SweatSpace.Api.Extensions
     {
         public static IServiceCollection ConfigureAppServices(this IServiceCollection services, IConfiguration config)
         {
+            services.AddCors();
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();

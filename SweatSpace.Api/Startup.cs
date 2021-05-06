@@ -50,6 +50,9 @@ namespace SweatSpace.Api
 
             app.UseRouting();
 
+            app.UseCors(p => p.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+            .WithOrigins("http://localhost:4200"));
+
             app.UseAuthentication();
             app.UseAuthorization();
 
