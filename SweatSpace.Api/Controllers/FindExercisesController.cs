@@ -30,13 +30,12 @@ namespace SweatSpace.Api.Controllers
         public async Task<IEnumerable<Exercise>> GetExercises([FromQuery] ExerciseParams exerciseParams)
         {
             PagedList<Exercise> exercises;
-            string key = $"exercises-{exerciseParams.PageNumber}-{exerciseParams.ItemsPerPage}";
+            string key = $"exercises-{exerciseParams.PageNumber}-{exerciseParams.ItemsPerPage}-{exerciseParams.Name}";
 
             if (!_memoryCache.TryGetValue(key, out exercises))
             {
                 exercises = await _exerciseService.FindExercisesAsync(exerciseParams);
                 _memoryCache.Set(key, exercises, TimeSpan.FromMinutes(2));
-                Console.WriteLine("Did not hit the cache");
             }
 
             Response.AddPaginationHeader(exercises.TotalItems, exercises.ItemsPerPage, exercises.PageNumber,
