@@ -7,9 +7,9 @@ namespace SweatSpace.Api.Business.Requests
         private string _userName;
 
         [Required]
-        public string UserName { get => _userName; set => _userName = value.Trim(); }
+        public string UserName { get => _userName; init => _userName = value.Trim(); }
 
         [Required, MinLength(6)]
-        public string Password { get; set; }
+        public string Password { get; init; }
     }
 }

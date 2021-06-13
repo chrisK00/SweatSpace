@@ -2,9 +2,9 @@
 {
     public class ApiException
     {
-        public int StatusCode { get; set; }
-        public string Message { get; set; }
-        public string StackTrace { get; set; }
+        public int StatusCode { get; }
+        public string Message { get; }
+        public string StackTrace { get; }
 
         public ApiException(int statuscode, string message = null, string stackTrace = null)
         {

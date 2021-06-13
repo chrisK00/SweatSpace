@@ -6,18 +6,18 @@ namespace SweatSpace.Api.Persistence.Responses
 {
     public class WorkoutResponse
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         [Required, MaxLength(255)]
-        public string Name { get; set; }
-        public int TimesCompletedThisWeek { get; set; }
-        public bool IsCompleted { get; set; }
+        public string Name { get; init; }
+        public int TimesCompletedThisWeek { get; init; }
+        public bool IsCompleted { get; init; }
 
         [Range(0, 5)]
-        public int Rating { get; set; }
-        public DateTime? Date { get; set; }
+        public int Rating { get; init; }
+        public DateTime? Date { get; init; }
 
-        public int AppUserId { get; set; }
-        public ICollection<ExerciseResponse> Exercises { get; set; } = new List<ExerciseResponse>();
+        public int AppUserId { get; init; }
+        public IEnumerable<ExerciseResponse> Exercises { get; init; } = new List<ExerciseResponse>();
     }
 }

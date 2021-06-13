@@ -27,7 +27,7 @@ namespace SweatSpace.Api.Business.Services
 
             if (!exists)
             {
-                _logger.LogError($"User: {userId} does not own: {entityId} of type {typeof(T)}");
+                _logger.LogError($"User: {userId} does not own: {entityId} of type {typeof(T).Name}");
                 throw new UnauthorizedAccessException("You dont own this item"); 
             }
         }

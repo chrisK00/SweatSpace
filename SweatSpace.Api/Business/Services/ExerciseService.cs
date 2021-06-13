@@ -25,7 +25,7 @@ namespace SweatSpace.Api.Business.Services
 
         public ExerciseService(IWorkoutRepo workoutRepo, IUnitOfWork unitOfWork, IMapper mapper, IExerciseRepo exerciseRepo,
             IShuffleService shuffleService, ILogger<ExerciseService> logger)
-        {
+        { 
             _workoutRepo = workoutRepo;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -65,7 +65,7 @@ namespace SweatSpace.Api.Business.Services
             WorkoutExerciseParams workoutExerciseParams)
         {
             var workout = await _workoutRepo.GetWorkoutResponseAsync(workoutId);
-            IEnumerable<ExerciseResponse> exercises = new List<ExerciseResponse>();
+            IEnumerable<ExerciseResponse> exercises = new List<ExerciseResponse>(workout.Exercises);
 
             if (workout == null)
             {

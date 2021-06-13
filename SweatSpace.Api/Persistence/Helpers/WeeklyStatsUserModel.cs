@@ -5,7 +5,7 @@ namespace SweatSpace.Api.Persistence.Helpers
 {
     public class WeeklyStatsUserModel
     {
-        public string Email { get; set; }
-        public ICollection<Workout> Workouts { get; set; } = new List<Workout>();
+        public string Email { get; init; }
+        public ICollection<Workout> Workouts { get; init; } = new List<Workout>();
     }
 }

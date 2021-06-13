@@ -18,8 +18,7 @@ namespace SweatSpace.Api.Business.Exceptions
         {
         }
 
-        private AppException(SerializationInfo info, StreamingContext context)
-           : base(info, context)
+        private AppException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

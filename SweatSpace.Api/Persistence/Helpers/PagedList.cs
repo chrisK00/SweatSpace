@@ -24,10 +24,10 @@ namespace SweatSpace.Api.Persistence.Helpers
             AddRange(items);
         }
 
-        public int PageNumber { get; set; }
-        public int TotalPages { get; set; }
-        public int ItemsPerPage { get; set; }
-        public int TotalItems { get; set; }
+        public int PageNumber { get; }
+        public int TotalPages { get; }
+        public int ItemsPerPage { get; }
+        public int TotalItems { get; }
 
         /// <summary>
         /// Creates a paged list with the items returned from executing the query

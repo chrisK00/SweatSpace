@@ -29,10 +29,9 @@ namespace SweatSpace.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<Exercise>> GetExercises([FromQuery] ExerciseParams exerciseParams)
         {
-            PagedList<Exercise> exercises;
             string key = $"exercises-{exerciseParams.PageNumber}-{exerciseParams.ItemsPerPage}-{exerciseParams.Name}";
 
-            if (!_memoryCache.TryGetValue(key, out exercises))
+            if (!_memoryCache.TryGetValue(key, out PagedList<Exercise> exercises))
             {
                 exercises = await _exerciseService.FindExercisesAsync(exerciseParams);
                 _memoryCache.Set(key, exercises, TimeSpan.FromMinutes(2));

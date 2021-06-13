@@ -2,9 +2,9 @@
 {
     public class UpdateExerciseRequest
     {
-        public int Id { get; set; }
-        public int Sets { get; set; }
-        public int Reps { get; set; }
-        public bool IsCompleted { get; set; }
+        public int Id { get; init; }
+        public int Sets { get; init; }
+        public int Reps { get; init; }
+        public bool IsCompleted { get; init; }
     }
 }
