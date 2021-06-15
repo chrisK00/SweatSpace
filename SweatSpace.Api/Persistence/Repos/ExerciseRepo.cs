@@ -30,9 +30,10 @@ namespace SweatSpace.Api.Persistence.Repos
 
         public async Task<PagedList<Exercise>> GetExercisesAsync(ExerciseParams exerciseParams)
         {
-            var query = _context.Exercises.AsNoTracking();
- 
+            var query = _context.Exercises.OrderBy(x => x.Name).AsNoTracking();
+
             query = !string.IsNullOrWhiteSpace(exerciseParams.Name) ? query.Where(x => x.Name == exerciseParams.Name) : query;
+
             return await PagedList<Exercise>.CreateAsync(query, exerciseParams.PageNumber, exerciseParams.ItemsPerPage);
         }
 
