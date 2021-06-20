@@ -32,7 +32,7 @@ namespace SweatSpace.Api.Persistence.Repos
         {
             var query = _context.Exercises.OrderBy(x => x.Name).AsNoTracking();
 
-            query = !string.IsNullOrWhiteSpace(exerciseParams.Name) ? query.Where(x => x.Name == exerciseParams.Name) : query;
+            query = !string.IsNullOrWhiteSpace(exerciseParams.Name) ? query.Where(x => x.Name.Contains(exerciseParams.Name)) : query;
 
             return await PagedList<Exercise>.CreateAsync(query, exerciseParams.PageNumber, exerciseParams.ItemsPerPage);
         }
