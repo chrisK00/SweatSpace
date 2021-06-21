@@ -25,7 +25,7 @@ namespace SweatSpace.Api.Business.Services
 
         public ExerciseService(IWorkoutRepo workoutRepo, IUnitOfWork unitOfWork, IMapper mapper, IExerciseRepo exerciseRepo,
             IShuffleService shuffleService, ILogger<ExerciseService> logger)
-        { 
+        {
             _workoutRepo = workoutRepo;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -67,11 +67,7 @@ namespace SweatSpace.Api.Business.Services
             var workout = await _workoutRepo.GetWorkoutResponseAsync(workoutId);
             IEnumerable<ExerciseResponse> exercises = new List<ExerciseResponse>(workout.Exercises);
 
-            if (workout == null)
-            {
-                _logger.LogError($"Workout {workoutId} doesnt exist");
-                throw new KeyNotFoundException("Workout doesnt exist");
-            }
+            _ = workout ?? throw new KeyNotFoundException($"Workout with the id: {workoutId} does not exist");
 
             if (workoutExerciseParams.Shuffle)
             {
@@ -85,11 +81,8 @@ namespace SweatSpace.Api.Business.Services
         public async Task RemoveExerciseAsync(string name)
         {
             var exercise = await _exerciseRepo.GetExerciseByNameAsync(name);
-            if (exercise == null)
-            {
-                _logger.LogError($"Exercise {name} does not exist");
-                throw new KeyNotFoundException("Could not find exercise");
-            }
+            _ = exercise ?? throw new KeyNotFoundException($"Could not find an exercise called: {exercise.Name}");
+
             _exerciseRepo.RemoveExercise(exercise);
             await _unitOfWork.SaveAllAsync();
         }
