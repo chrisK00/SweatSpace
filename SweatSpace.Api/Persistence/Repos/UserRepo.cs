@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SweatSpace.Api.Persistence.Responses;
 using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
 using SweatSpace.Persistence.Business;
@@ -18,19 +15,12 @@ namespace SweatSpace.Api.Persistence.Repos
     internal class UserRepo : IUserRepo
     {
         private readonly UserManager<AppUser> _userManager;
-        private readonly IMapper _mapper;
         private readonly DataContext _context;
 
-        public UserRepo(UserManager<AppUser> userManager, IMapper mapper, DataContext context)
+        public UserRepo(UserManager<AppUser> userManager, DataContext context)
         {
             _userManager = userManager;
-            _mapper = mapper;
             _context = context;
-        }
-
-        public async Task<IEnumerable<MemberResponse>> GetMemberResponsesAsync()
-        {
-            return await _userManager.Users.ProjectTo<MemberResponse>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         public async Task<AppUser> GetUserByNameAsync(string userName)

@@ -22,9 +22,12 @@ namespace SweatSpace.Api.Business.Services
         private readonly IExerciseRepo _exerciseRepo;
         private readonly IShuffleService _shuffleService;
         private readonly ILogger<ExerciseService> _logger;
+        private readonly IExerciseReadOnlyRepo _exerciseReadOnlyRepo;
+        private readonly IWorkoutReadOnlyRepo _workoutReadOnlyRepo;
 
         public ExerciseService(IWorkoutRepo workoutRepo, IUnitOfWork unitOfWork, IMapper mapper, IExerciseRepo exerciseRepo,
-            IShuffleService shuffleService, ILogger<ExerciseService> logger)
+            IShuffleService shuffleService, ILogger<ExerciseService> logger, IExerciseReadOnlyRepo exerciseReadOnlyRepo,
+            IWorkoutReadOnlyRepo workoutReadOnlyRepo)
         {
             _workoutRepo = workoutRepo;
             _unitOfWork = unitOfWork;
@@ -32,6 +35,8 @@ namespace SweatSpace.Api.Business.Services
             _exerciseRepo = exerciseRepo;
             _shuffleService = shuffleService;
             _logger = logger;
+            _exerciseReadOnlyRepo = exerciseReadOnlyRepo;
+            _workoutReadOnlyRepo = workoutReadOnlyRepo;
         }
 
         public async Task AddExerciseToWorkoutAsync(AddExerciseRequest exerciseAddDto, int workoutId)
@@ -58,13 +63,13 @@ namespace SweatSpace.Api.Business.Services
 
         public async Task<PagedList<Exercise>> FindExercisesAsync(ExerciseParams exerciseParams)
         {
-            return await _exerciseRepo.GetExercisesAsync(exerciseParams);
+            return await _exerciseReadOnlyRepo.GetExercisesAsync(exerciseParams);
         }
 
         public async Task<IEnumerable<ExerciseResponse>> GetExerciseResponsesForWorkoutAsync(int workoutId,
             WorkoutExerciseParams workoutExerciseParams)
         {
-            var workout = await _workoutRepo.GetWorkoutResponseAsync(workoutId);
+            var workout = await _workoutReadOnlyRepo.GetWorkoutResponseAsync(workoutId);
             IEnumerable<ExerciseResponse> exercises = new List<ExerciseResponse>(workout.Exercises);
 
             _ = workout ?? throw new KeyNotFoundException($"Workout with the id: {workoutId} does not exist");

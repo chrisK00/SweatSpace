@@ -22,15 +22,17 @@ namespace SweatSpace.Api.Business.Services
         private readonly IUserRepo _userRepo;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<WorkoutService> _logger;
+        private readonly IWorkoutReadOnlyRepo _workoutReadOnlyRepo;
 
         public WorkoutService(IWorkoutRepo workoutRepo, IMapper mapper, IUserRepo userRepo, IUnitOfWork unitOfWork,
-            ILogger<WorkoutService> logger)
+            ILogger<WorkoutService> logger, IWorkoutReadOnlyRepo workoutReadOnlyRepo)
         {
             _workoutRepo = workoutRepo;
             _mapper = mapper;
             _userRepo = userRepo;
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _workoutReadOnlyRepo = workoutReadOnlyRepo;
         }
 
         public async Task<WorkoutResponse> AddWorkoutAsync(AddWorkoutRequest workoutAddDto)
@@ -44,12 +46,12 @@ namespace SweatSpace.Api.Business.Services
 
         public async Task<WorkoutResponse> GetWorkoutResponseAsync(int id)
         {
-            return await _workoutRepo.GetWorkoutResponseAsync(id);
+            return await _workoutReadOnlyRepo.GetWorkoutResponseAsync(id);
         }
 
         public async Task<PagedList<WorkoutResponse>> GetWorkoutResponsesAsync(WorkoutParams workoutParams)
         {
-            return await _workoutRepo.GetWorkoutResponsesAsync(workoutParams);
+            return await _workoutReadOnlyRepo.GetWorkoutResponsesAsync(workoutParams);
         }
 
         public async Task ResetWorkoutAsync(int workoutId)
@@ -131,7 +133,9 @@ namespace SweatSpace.Api.Business.Services
 
         public async Task<int> CopyWorkoutAsync(int workoutId, int userId)
         {
-            var workoutToCopy = await _workoutRepo.GetWorkoutByIdAsync(workoutId);
+            var workoutToCopy = await _workoutReadOnlyRepo.GetWorkoutByIdAsync(workoutId);
+
+            _ = workoutToCopy ?? throw new KeyNotFoundException("Workout doesnt exist");
 
             var newWorkout = new Workout
             {

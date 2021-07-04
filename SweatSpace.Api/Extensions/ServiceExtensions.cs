@@ -26,7 +26,6 @@ namespace SweatSpace.Api.Extensions
     {
         public static IServiceCollection ConfigureAppServices(this IServiceCollection services, IConfiguration config)
         {
-            services.AddCors();
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
@@ -38,13 +37,18 @@ namespace SweatSpace.Api.Extensions
             services.AddScoped<IShuffleService, ShuffleService>();
             services.AddScoped<IWeeklyStatsService, WeeklyStatsService>();
             services.AddScoped<IOwnedAuthService, OwnedAuthService>();
+            services.AddScoped<IExerciseReadOnlyRepo, ExerciseReadOnlyRepo>();
+            services.AddScoped<IUserReadOnlyRepo, UserReadOnlyRepo>();
+            services.AddScoped<IWorkoutReadOnlyRepo, WorkoutReadOnlyRepo>();
 
+            services.AddCors();
             services.AddMemoryCache();
             services.AddScheduler();
             services.AddTransient<SendWeeklyStats>();
             services.AddMailer(config);
             services.AddAutoMapper(typeof(UserProfiles).Assembly);
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(config.GetConnectionString("Default")));
+
             return services;
         }
 
@@ -77,6 +81,7 @@ namespace SweatSpace.Api.Extensions
             {
                 opt.AddPolicy(PolicyConstants.AdminPolicy, policy => policy.RequireRole("Admin"));
             });
+
             return services;
         }
 

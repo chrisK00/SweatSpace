@@ -24,9 +24,10 @@ namespace SweatSpace.Api.Business.Services
         private readonly ITokenService _tokenService;
         private readonly IUserRepo _userRepo;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IUserReadOnlyRepo _userReadOnlyRepo;
 
         public UserService(IMapper mapper, SignInManager<AppUser> signInManager, ILogger<UserService> logger,
-            ITokenService tokenService, IUserRepo userRepo, UserManager<AppUser> userManager)
+            ITokenService tokenService, IUserRepo userRepo, UserManager<AppUser> userManager, IUserReadOnlyRepo userReadOnlyRepo)
         {
             _mapper = mapper;
             _signInManager = signInManager;
@@ -34,11 +35,12 @@ namespace SweatSpace.Api.Business.Services
             _tokenService = tokenService;
             _userRepo = userRepo;
             _userManager = userManager;
+            _userReadOnlyRepo = userReadOnlyRepo;
         }
 
         public async Task<IEnumerable<MemberResponse>> GetMemberResponsesAsync()
         {
-            return await _userRepo.GetMemberResponsesAsync();
+            return await _userReadOnlyRepo.GetMemberResponsesAsync();
         }
 
         public async Task RegisterAsync(RegisterUserRequest userRegisterDto)

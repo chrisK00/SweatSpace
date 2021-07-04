@@ -137,5 +137,10 @@
             <param name="itemsPerPage"></param>
             <returns>A paged list</returns>
         </member>
+        <member name="T:SweatSpace.Api.Persistence.Interfaces.IExerciseReadOnlyRepo">
+            <summary>
+            Returns all items .AsNoTracking
+            </summary>
+        </member>
     </members>
 </doc>
