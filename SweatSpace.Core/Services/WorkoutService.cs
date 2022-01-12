@@ -63,7 +63,8 @@ namespace SweatSpace.Core.Services
             foreach (var exercise in workout.Exercises)
             {
                 exercise.IsCompleted = false;
-            };
+            }
+
             await _unitOfWork.SaveAllAsync();
         }
 

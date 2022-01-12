@@ -65,7 +65,7 @@ namespace SweatSpace.Core.Services
 
             if (!result.Succeeded)
             {
-                _logger.LogError($"Failed to login user: Bad credentials");
+                _logger.LogError("Failed to login user: Bad credentials");
                 throw new UnauthorizedAccessException("Invalid username or password");
             }
 
