@@ -4,62 +4,6 @@
         <name>SweatSpace.Api</name>
     </assembly>
     <members>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IExerciseService.AddExerciseToWorkoutAsync(SweatSpace.Api.Business.Requests.AddExerciseRequest,System.Int32)">
-            <summary>
-            Adds an exercise to an existing workout
-            </summary>
-            <param name="addExerciseRequest"></param>
-            <param name="workoutId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IShuffleService.ShuffleListAsync``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>
-            Returns a list with the items in random order
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="items"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IUserService.LoginAsync(SweatSpace.Api.Business.Requests.LoginUserRequest)">
-            <summary>
-            Tries to login a user with the specified username and password
-            </summary>
-            <param name="loginUserRequest"></param>
-            <returns>Token</returns>
-            <exception cref="T:System.UnauthorizedAccessException"></exception>
-        </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.GetWorkoutResponsesAsync(SweatSpace.Api.Persistence.Params.WorkoutParams)">
-            <summary>
-            Returns a paged list of all the workout dtos
-            </summary>
-            <param name="workoutParams"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.WorkoutCompletedAsync(System.Int32)">
-            <summary>
-            Marks a workout completed if all exercises are completed
-            </summary>
-            <param name="workoutId"></param>
-            <returns></returns>
-            <exception cref="T:SweatSpace.Api.Business.Exceptions.AppException"></exception>
-        </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.ToggleLikeWorkoutAsync(System.Int32,System.Int32)">
-            <summary>
-            Toggles a user's like on a workout
-            </summary>
-            <param name="workoutId"></param>
-            <param name="userId"></param>
-            <returns></returns>
-            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
-        </member>
-        <member name="M:SweatSpace.Api.Business.Interfaces.IWorkoutService.CopyWorkoutAsync(System.Int32,System.Int32)">
-            <summary>
-            Creates a copy of the existing workout and adds it to the workouts owned by the specified user
-            </summary>
-            <param name="workoutId"></param>
-            <param name="userId"></param>
-            <returns>The new workout id</returns>
-        </member>
         <member name="M:SweatSpace.Api.Controllers.AccountController.Login(SweatSpace.Api.Business.Requests.LoginUserRequest)">
             <summary>
             Tries to login a existing user
@@ -80,7 +24,7 @@
             <param name="roles"></param>
             <returns></returns>
         </member>
-        <member name="M:SweatSpace.Api.Controllers.ExercisesController.AddExercise(SweatSpace.Api.Business.Requests.AddExerciseRequest,System.Int32)">
+        <member name="M:SweatSpace.Api.Controllers.ExercisesController.AddExercise(SweatSpace.Core.Requests.AddExerciseRequest,System.Int32)">
             <summary>
             Adds a exercise to the specified workout
             </summary>
@@ -93,7 +37,7 @@
             Search controller - For the shared exercises
             </summary>
         </member>
-        <member name="M:SweatSpace.Api.Controllers.WorkoutsController.GetWorkouts(SweatSpace.Api.Persistence.Params.WorkoutParams)">
+        <member name="M:SweatSpace.Api.Controllers.WorkoutsController.GetWorkouts(SweatSpace.Core.Requests.Params.WorkoutParams)">
             <summary>
             Gets workouts paginated
             </summary>
@@ -114,33 +58,13 @@
             <param name="workoutId"></param>
             <returns></returns>
         </member>
-        <member name="M:SweatSpace.Api.Controllers.WorkoutsController.UpdateWorkout(System.Int32,SweatSpace.Api.Business.Requests.UpdateWorkoutRequest)">
+        <member name="M:SweatSpace.Api.Controllers.WorkoutsController.UpdateWorkout(System.Int32,SweatSpace.Core.Requests.UpdateWorkoutRequest)">
             <summary>
             Fully updates an existing workout
             </summary>
             <param name="workoutId"></param>
             <param name="updateWorkoutRequest"></param>
             <returns></returns>
-        </member>
-        <member name="T:SweatSpace.Api.Persistence.Helpers.PagedList`1">
-            <summary>
-            Use the generic static method to create a PagedList
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:SweatSpace.Api.Persistence.Helpers.PagedList`1.CreateAsync(System.Linq.IQueryable{`0},System.Int32,System.Int32)">
-            <summary>
-            Creates a paged list with the items returned from executing the query
-            </summary>
-            <param name="query"></param>
-            <param name="pageNumber"></param>
-            <param name="itemsPerPage"></param>
-            <returns>A paged list</returns>
-        </member>
-        <member name="T:SweatSpace.Api.Persistence.Interfaces.IExerciseReadOnlyRepo">
-            <summary>
-            Returns all items .AsNoTracking
-            </summary>
         </member>
     </members>
 </doc>

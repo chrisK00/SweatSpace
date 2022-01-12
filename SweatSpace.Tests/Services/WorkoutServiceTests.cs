@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoFixture.Xunit2;
+﻿using AutoFixture.Xunit2;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using SweatSpace.Api.Business.Requests;
-using SweatSpace.Api.Business.Interfaces;
-using SweatSpace.Api.Business.Services;
-using SweatSpace.Api.Persistence.Responses;
-using SweatSpace.Api.Persistence.Entities;
 using SweatSpace.Api.Persistence.Interfaces;
-using SweatSpace.Api.Persistence.Profiles;
+using SweatSpace.Core.Entities;
+using SweatSpace.Core.Helpers.Profiles;
+using SweatSpace.Core.Interfaces.Repos;
+using SweatSpace.Core.Interfaces.Services;
+using SweatSpace.Core.Requests;
+using SweatSpace.Core.Responses;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
+using SweatSpace.Core.Services;
 
 namespace SweatSpace.Tests.Services
 {
@@ -23,19 +24,19 @@ namespace SweatSpace.Tests.Services
         private readonly Mock<ILogger<WorkoutService>> _mockLogger;
         private readonly IMapper _mapper;
         private readonly IWorkoutService _workoutService;
-        private readonly Mock<IWorkoutReadOnlyRepo> _mockWorkoutReadOnlyRepo;
+        private readonly Mock<IWorkoutReadRepo> _mockWorkoutReadRepo;
         private readonly Mock<IUnitOfWork> _mockUnitOfWork;
 
         public WorkoutServiceTests()
         {
             _mockUserRepo = new Mock<IUserRepo>();
             _mockWorkoutRepo = new Mock<IWorkoutRepo>();
-            _mockWorkoutReadOnlyRepo = new Mock<IWorkoutReadOnlyRepo>();
+            _mockWorkoutReadRepo = new Mock<IWorkoutReadRepo>();
             _mockLogger = new Mock<ILogger<WorkoutService>>();
             _mockUnitOfWork = new Mock<IUnitOfWork>();
             _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<WorkoutProfiles>()));
             _workoutService = new WorkoutService(_mockWorkoutRepo.Object, _mapper, _mockUserRepo.Object,
-              _mockUnitOfWork.Object, _mockLogger.Object, _mockWorkoutReadOnlyRepo.Object);
+              _mockUnitOfWork.Object, _mockLogger.Object, _mockWorkoutReadRepo.Object);
         }
 
         [Theory, AutoData]
@@ -62,7 +63,7 @@ namespace SweatSpace.Tests.Services
             Workout savedWorkout = null;
             var workoutToCopy = new Workout { Id = 2, Name = "potato", IsCompleted = false};
 
-            _mockWorkoutReadOnlyRepo.Setup(x => x.GetWorkoutByIdAsync(workoutToCopy.Id)).ReturnsAsync(workoutToCopy);
+            _mockWorkoutReadRepo.Setup(x => x.GetWorkoutByIdAsync(workoutToCopy.Id)).ReturnsAsync(workoutToCopy);
 
             _mockWorkoutRepo.Setup(x => x.AddWorkoutAsync(It.IsAny<Workout>()))
                 .Callback<Workout>(x => savedWorkout = x);
@@ -84,7 +85,7 @@ namespace SweatSpace.Tests.Services
         {
             //arrange
             var workoutResponse = new WorkoutResponse { Id = 2 };
-            _mockWorkoutReadOnlyRepo.Setup(x => x.GetWorkoutResponseAsync(workoutResponse.Id)).ReturnsAsync(workoutResponse);
+            _mockWorkoutReadRepo.Setup(x => x.GetWorkoutResponseAsync(workoutResponse.Id)).ReturnsAsync(workoutResponse);
 
             //act
             var workoutDtoNotNull = await _workoutService.GetWorkoutResponseAsync(workoutResponse.Id);

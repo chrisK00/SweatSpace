@@ -1,24 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Coravel;
+﻿using Coravel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SweatSpace.Api.Business.Interfaces;
-using SweatSpace.Api.Business.Invocables;
-using SweatSpace.Api.Business.Services;
 using SweatSpace.Api.Helpers;
-using SweatSpace.Api.Persistence.Entities;
-using SweatSpace.Api.Persistence.Interfaces;
-using SweatSpace.Api.Persistence.Profiles;
-using SweatSpace.Api.Persistence.Repos;
-using SweatSpace.Persistence.Business;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace SweatSpace.Api.Extensions
 {
@@ -26,33 +16,14 @@ namespace SweatSpace.Api.Extensions
     {
         public static IServiceCollection ConfigureAppServices(this IServiceCollection services, IConfiguration config)
         {
-            services.AddScoped<IUserRepo, UserRepo>();
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IWorkoutRepo, WorkoutRepo>();
-            services.AddScoped<IWorkoutService, WorkoutService>();
-            services.AddScoped<IExerciseRepo, ExerciseRepo>();
-            services.AddScoped<IExerciseService, ExerciseService>();
-            services.AddScoped<IShuffleService, ShuffleService>();
-            services.AddScoped<IWeeklyStatsService, WeeklyStatsService>();
-            services.AddScoped<IOwnedAuthService, OwnedAuthService>();
-            services.AddScoped<IExerciseReadOnlyRepo, ExerciseReadOnlyRepo>();
-            services.AddScoped<IUserReadOnlyRepo, UserReadOnlyRepo>();
-            services.AddScoped<IWorkoutReadOnlyRepo, WorkoutReadOnlyRepo>();
-
             services.AddCors();
             services.AddMemoryCache();
             services.AddScheduler();
-            services.AddTransient<SendWeeklyStats>();
-            services.AddMailer(config);
-            services.AddAutoMapper(typeof(UserProfiles).Assembly);
-            services.AddDbContext<DataContext>(opt => opt.UseNpgsql(config.GetConnectionString("Default")));
 
             return services;
         }
 
-        public static IServiceCollection ConfigureIdentityServices(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration config)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                  .AddJwtBearer(opt =>
@@ -68,15 +39,6 @@ namespace SweatSpace.Api.Extensions
                      };
                  });
 
-            services.AddIdentityCore<AppUser>(opt =>
-            {
-                opt.Password.RequireNonAlphanumeric = false;
-            })
-               .AddRoles<AppRole>()
-               .AddRoleManager<RoleManager<AppRole>>()
-               .AddSignInManager<SignInManager<AppUser>>()
-               .AddRoleValidator<RoleValidator<AppRole>>()
-               .AddEntityFrameworkStores<DataContext>();
             services.AddAuthorization(opt =>
             {
                 opt.AddPolicy(PolicyConstants.AdminPolicy, policy => policy.RequireRole("Admin"));

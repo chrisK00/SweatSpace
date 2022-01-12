@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SweatSpace.Api.Business.Invocables;
 using SweatSpace.Api.Extensions;
 using SweatSpace.Api.Middlewares;
+using SweatSpace.Core.Extensions;
+using SweatSpace.Infrastructure.Extensions;
+using SweatSpace.Workers.Extensions;
+using SweatSpace.Workers.Invocables;
 
 namespace SweatSpace.Api
 {
@@ -23,7 +26,11 @@ namespace SweatSpace.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureAppServices(_config);
-            services.ConfigureIdentityServices(_config);
+            services.AddAuth(_config);
+
+            services.RegisterCoreServices();
+            services.RegisterInfrastructureServices(_config);
+            services.RegisterWorkerServices(_config);
 
             services.AddControllers();
             services.ConfigureSwagger();          
@@ -44,6 +51,7 @@ namespace SweatSpace.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SweatSpace.Api v1"));
             }
+
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();

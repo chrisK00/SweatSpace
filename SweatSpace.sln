@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SweatSpace.Api", "SweatSpace.Api\SweatSpace.Api.csproj", "{4B57F26C-1152-4FFB-888F-1650AE1CAACF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweatSpace.Tests", "SweatSpace.Tests\SweatSpace.Tests.csproj", "{A4DBE9A4-8EB2-464F-8B02-5A3FBF82E03E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SweatSpace.Tests", "SweatSpace.Tests\SweatSpace.Tests.csproj", "{A4DBE9A4-8EB2-464F-8B02-5A3FBF82E03E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweatSpace.Core", "SweatSpace.Core\SweatSpace.Core.csproj", "{1CE029C0-FF94-495D-A276-116C60E3D852}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweatSpace.Infrastructure", "SweatSpace.Infrastructure\SweatSpace.Infrastructure.csproj", "{E07C3BBD-151B-4BAA-8B07-853AFAB60A25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweatSpace.Workers", "SweatSpace.Workers\SweatSpace.Workers.csproj", "{4666D721-8ABA-4A8F-B5A4-3C1052BE49A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{A4DBE9A4-8EB2-464F-8B02-5A3FBF82E03E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4DBE9A4-8EB2-464F-8B02-5A3FBF82E03E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4DBE9A4-8EB2-464F-8B02-5A3FBF82E03E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CE029C0-FF94-495D-A276-116C60E3D852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CE029C0-FF94-495D-A276-116C60E3D852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CE029C0-FF94-495D-A276-116C60E3D852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CE029C0-FF94-495D-A276-116C60E3D852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E07C3BBD-151B-4BAA-8B07-853AFAB60A25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E07C3BBD-151B-4BAA-8B07-853AFAB60A25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E07C3BBD-151B-4BAA-8B07-853AFAB60A25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E07C3BBD-151B-4BAA-8B07-853AFAB60A25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4666D721-8ABA-4A8F-B5A4-3C1052BE49A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4666D721-8ABA-4A8F-B5A4-3C1052BE49A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4666D721-8ABA-4A8F-B5A4-3C1052BE49A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4666D721-8ABA-4A8F-B5A4-3C1052BE49A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

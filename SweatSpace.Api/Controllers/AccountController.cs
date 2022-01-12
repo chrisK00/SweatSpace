@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SweatSpace.Api.Business.Requests;
-using SweatSpace.Api.Business.Interfaces;
+using SweatSpace.Core.Interfaces.Services;
+using SweatSpace.Core.Requests;
+using System.Threading.Tasks;
 
 namespace SweatSpace.Api.Controllers
 {

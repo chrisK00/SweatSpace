@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Helpers;
-using SweatSpace.Api.Persistence.Responses;
+using SweatSpace.Core.Interfaces.Services;
+using SweatSpace.Core.Responses;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SweatSpace.Api.Controllers
 {

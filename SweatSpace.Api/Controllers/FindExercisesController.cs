@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using SweatSpace.Api.Business.Interfaces;
 using SweatSpace.Api.Extensions;
-using SweatSpace.Api.Persistence.Entities;
-using SweatSpace.Api.Persistence.Helpers;
-using SweatSpace.Api.Persistence.Params;
+using SweatSpace.Core.Entities;
+using SweatSpace.Core.Helpers;
+using SweatSpace.Core.Interfaces.Services;
+using SweatSpace.Core.Requests.Params;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SweatSpace.Api.Controllers
 {
