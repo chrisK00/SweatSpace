@@ -1,7 +1,7 @@
 # SweatSpace
 Api for finding and managing workouts
 
-Sort of folder structured N-tier for loose coupling.
+Refactored from N-tier to a pragmatic Clean Architecture version for loose coupling
 
 # How to use
 1. Add a appsettings.secret.json file
