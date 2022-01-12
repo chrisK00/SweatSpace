@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 using SweatSpace.Core.Services;
+using SweatSpace.Core.Exceptions;
 
 namespace SweatSpace.Tests.Services
 {
@@ -61,7 +62,7 @@ namespace SweatSpace.Tests.Services
         {
             //arrange
             Workout savedWorkout = null;
-            var workoutToCopy = new Workout { Id = 2, Name = "potato", IsCompleted = false};
+            var workoutToCopy = new Workout { Id = 2, Name = "potato", IsCompleted = false };
 
             _mockWorkoutReadRepo.Setup(x => x.GetWorkoutByIdAsync(workoutToCopy.Id)).ReturnsAsync(workoutToCopy);
 
@@ -94,6 +95,23 @@ namespace SweatSpace.Tests.Services
             //assert
             workoutDtoNotNull.Should().NotBeNull();
             workoutDtoNull.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task WorkoutCompleted_Throws_When_WorkoutHasNotCompletedAllExercises()
+        {
+            var workout = new Workout
+            {
+                Exercises = new List<WorkoutExercise> {
+                new WorkoutExercise { IsCompleted = false },
+                new WorkoutExercise { IsCompleted = true },
+                }
+            };
+
+            _mockWorkoutRepo.Setup(_ => _.GetWorkoutByIdAsync(workout.Id)).ReturnsAsync(workout);
+
+            await _workoutService.Invoking(_ => _.WorkoutCompletedAsync(workout.Id))
+                .Should().ThrowAsync<AppException>();
         }
     }
 }
