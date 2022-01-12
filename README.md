@@ -1,7 +1,7 @@
 # SweatSpace
 Api for finding and managing workouts
 
-Refactored from N-tier to a pragmatic Clean Architecture version for loose coupling
+Refactored from N-tier to a pragmatic Clean Architecture version for loose coupling. Right now the repositories are "stupid repositories" but if one did instead add some business rules and exception handling there alternatively place a service in between the Core Services and the Repository you could even remove the dependency on Entity framework core and Identity completely. However the Paginated list would also have to be abstracted away behind an interface which can be done by placing the interface inside Core and then having the implementation inside the Infrastructure layer.  
 
 # How to use
 1. Add a appsettings.secret.json file
@@ -24,7 +24,7 @@ The app also has task scheduling (coravel) which is currently sending a mail to 
 - db design/relationships with EF and fluent api
 - generics 
 - automapper
-- N-tier 3 layered architecture
+- Multi layered architecture with focus on core
 - coravel task scheduling+mailing 
 - Authentication and Authorization with asp identity and Jwt token
 - postman 
