@@ -22,7 +22,7 @@ namespace SweatSpace.Infrastructure.Repos
 
         public async Task<Workout> GetWorkoutByIdAsync(int id)
         {
-            return await _context.Workouts.Include(e => e.Exercises).ThenInclude(e => e.Exercise)
+            return await _context.Workouts.Include(w => w.Exercises).ThenInclude(we => we.Exercise)
                 .FirstOrDefaultAsync(w => w.Id == id);
         }
 
