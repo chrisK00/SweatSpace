@@ -20,13 +20,14 @@ namespace SweatSpace.Tests.Services
 {
     public class WorkoutServiceTests
     {
-        private readonly Mock<IUserRepo> _mockUserRepo;
-        private readonly Mock<IWorkoutRepo> _mockWorkoutRepo;
-        private readonly Mock<ILogger<WorkoutService>> _mockLogger;
+        private readonly Mock<IUserRepo> _mockUserRepo = new();
+        private readonly Mock<IWorkoutRepo> _mockWorkoutRepo = new();
+        private readonly Mock<ILogger<WorkoutService>> _mockLogger = new();
+        private readonly Mock<IWorkoutReadRepo> _mockWorkoutReadRepo = new();
+        private readonly Mock<IUnitOfWork> _mockUnitOfWork = new();
+
         private readonly IMapper _mapper;
         private readonly IWorkoutService _workoutService;
-        private readonly Mock<IWorkoutReadRepo> _mockWorkoutReadRepo;
-        private readonly Mock<IUnitOfWork> _mockUnitOfWork;
 
         public WorkoutServiceTests()
         {
@@ -35,7 +36,7 @@ namespace SweatSpace.Tests.Services
             _mockWorkoutReadRepo = new Mock<IWorkoutReadRepo>();
             _mockLogger = new Mock<ILogger<WorkoutService>>();
             _mockUnitOfWork = new Mock<IUnitOfWork>();
-            _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<WorkoutProfiles>()));
+            _mapper = new Mapper(new MapperConfiguration(opt => opt.AddMaps(typeof(WorkoutProfiles).Assembly)));
             _workoutService = new WorkoutService(_mockWorkoutRepo.Object, _mapper, _mockUserRepo.Object,
               _mockUnitOfWork.Object, _mockLogger.Object, _mockWorkoutReadRepo.Object);
         }
@@ -64,7 +65,7 @@ namespace SweatSpace.Tests.Services
             Workout savedWorkout = null;
             var workoutToCopy = new Workout { Id = 2, Name = "potato", IsCompleted = false };
 
-            _mockWorkoutReadRepo.Setup(x => x.GetWorkoutByIdAsync(workoutToCopy.Id)).ReturnsAsync(workoutToCopy);
+            _mockWorkoutRepo.Setup(x => x.GetWorkoutByIdAsync(workoutToCopy.Id)).ReturnsAsync(workoutToCopy);
 
             _mockWorkoutRepo.Setup(x => x.AddWorkoutAsync(It.IsAny<Workout>()))
                 .Callback<Workout>(x => savedWorkout = x);

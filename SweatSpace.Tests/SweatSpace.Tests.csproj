@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SweatSpace.Api\SweatSpace.Api.csproj" />
+    <ProjectReference Include="..\SweatSpace.Infrastructure\SweatSpace.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
