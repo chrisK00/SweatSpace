@@ -16,7 +16,7 @@ using Xunit;
 using SweatSpace.Core.Services;
 using SweatSpace.Core.Exceptions;
 
-namespace SweatSpace.Tests.Services
+namespace SweatSpace.Tests.Unit
 {
     public class WorkoutServiceTests
     {
