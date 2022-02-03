@@ -12,7 +12,7 @@ using SweatSpace.Core.Services;
 using SweatSpace.Infrastructure.Services;
 using Xunit;
 
-namespace SweatSpace.Tests.Services
+namespace SweatSpace.Tests.Unit
 {
     public class ExerciseServiceTests
     {

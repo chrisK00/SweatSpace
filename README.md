@@ -17,7 +17,7 @@ Refactored from N-tier to a pragmatic Clean Architecture version for loose coupl
 Available endpoints right now (april) are available inside the Docs folder.
 The app also has task scheduling (coravel) which is currently sending a mail to a file every week.
 
-# Some topics covered in this app
+## Some topics covered in this app
 - http requests/reponses
 - global exc handler
 - ref by id
@@ -34,7 +34,15 @@ The app also has task scheduling (coravel) which is currently sending a mail to 
 - logging
 - CRUD operations
 - paging and filtering
-- Tests with xUnit, Moq and FluentAssertions
+- Unit and Integration tests using xUnit, Moq, FluentAssertions and a Sqlite in memory db
+
+### Generate test reports using Coverlet and ReportGenerator
+1. Run `dotnet tool install -g dotnet-reportgenerator-globaltool`
+2. Run `dotnet test --collect:"XPlat Code Coverage"`
+3. Copy the generated path
+4. Run with the generated path `reportgenerator -reports:pastePathHere -targetdir:.coverage-report -reporttypes:HTML`
+
+
 
 
 

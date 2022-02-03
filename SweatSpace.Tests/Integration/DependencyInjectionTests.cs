@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using SweatSpace.Api;
 using Xunit;
 
-namespace SweatSpace.Tests
+namespace SweatSpace.Tests.Integration
 {
     public class DependencyInjectionTests
     {
