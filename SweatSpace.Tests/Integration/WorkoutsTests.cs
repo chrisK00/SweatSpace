@@ -1,8 +1,10 @@
 ﻿using AutoFixture.Xunit2;
 using FluentAssertions;
+using Microsoft.AspNetCore.WebUtilities;
 using SweatSpace.Core.Requests;
 using SweatSpace.Core.Responses;
 using SweatSpace.Tests.Integration.Setup;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -30,6 +32,16 @@ namespace SweatSpace.Tests.Integration
             workout.Should().NotBeNull();
             workout.AppUserId.Should().Be(WebApiFactory.UserId);
             workout.Name.Should().Be(request.Name);
-        } 
+        }
+
+        [Fact]
+        public async Task GetWorkouts_WithFilterByMyWorkouts_ReturnsOnlyMyWorkouts()
+        {
+            var uri = QueryHelpers.AddQueryString(_client.BaseAddress.AbsoluteUri, "filterBy", "myWorkouts");
+            var workoutResponses = await _client.GetFromJsonAsync<IEnumerable<WorkoutResponse>>(uri);
+
+            workoutResponses.Should().NotBeEmpty();
+            workoutResponses.Should().NotContain(w => w.AppUserId != WebApiFactory.UserId);
+        }
     }
 }

@@ -34,7 +34,7 @@ The app also has task scheduling (coravel) which is currently sending a mail to 
 - logging
 - CRUD operations
 - paging and filtering
-- Unit and Integration tests using xUnit, Moq, FluentAssertions and a Sqlite in memory db
+- Unit and Integration tests using xUnit, Moq, FluentAssertions, AutoFixture and a Sqlite in memory db
 
 ### Generate test reports using Coverlet and ReportGenerator
 1. Run `dotnet tool install -g dotnet-reportgenerator-globaltool`

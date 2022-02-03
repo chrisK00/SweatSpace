@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using AutoFixture;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -40,10 +41,23 @@ namespace SweatSpace.Tests.Integration.Setup
         {
             context.Database.EnsureCreated();
             var admin = new AppUser { UserName = "admin", Email = "admin@gmail.com" };
-            context.Add(admin);
+            var user = new AppUser { UserName = "user", Email = "user@gmail.com" };
+            context.AddRange(admin, user);
             context.SaveChanges();
 
             UserId = admin.Id;
+
+            var workouts = new Fixture().Build<Workout>()
+                .Without(w => w.Id).Without(w => w.UsersThatLiked).Without(w => w.Exercises)
+                .CreateMany().ToArray();
+
+            for (int i = 0; i < workouts.Length; i++)
+            {
+                workouts[i].AppUserId = i % 2 == 0 ? admin.Id : user.Id;
+            }
+
+            context.AddRange(workouts);
+            context.SaveChanges();
         }
     }
 }
