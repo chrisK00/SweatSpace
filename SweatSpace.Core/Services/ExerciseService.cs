@@ -27,8 +27,7 @@ namespace SweatSpace.Core.Services
         private readonly IWorkoutReadRepo _workoutReadRepo;
 
         public ExerciseService(IWorkoutRepo workoutRepo, IUnitOfWork unitOfWork, IMapper mapper, IExerciseRepo exerciseRepo,
-             ILogger<ExerciseService> logger, IExerciseReadRepo exerciseReadOnlyRepo,
-            IWorkoutReadRepo workoutReadRepo)
+             ILogger<ExerciseService> logger, IExerciseReadRepo exerciseReadOnlyRepo, IWorkoutReadRepo workoutReadRepo)
         {
             _workoutRepo = workoutRepo;
             _unitOfWork = unitOfWork;
@@ -76,11 +75,10 @@ namespace SweatSpace.Core.Services
 
             if (workoutExerciseParams.Shuffle)
             {
-                exercises = workout.Exercises.Shuffle();
+                exercises = exercises.Shuffle();
             }
 
-            exercises = exercises.OrderBy(x => x.IsCompleted);
-            return exercises;
+            return exercises.OrderBy(x => x.IsCompleted).ToArray();
         }
 
         public async Task RemoveExerciseAsync(string name)

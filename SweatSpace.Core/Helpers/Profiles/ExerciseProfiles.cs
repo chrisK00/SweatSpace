@@ -12,8 +12,8 @@ namespace SweatSpace.Core.Helpers.Profiles
             CreateMap<AddExerciseRequest, WorkoutExercise>();
             CreateMap<UpdateExerciseRequest, WorkoutExercise>();
 
-            CreateMap<WorkoutExercise, ExerciseResponse>().ForMember(d => d.Name, opt =>
-            opt.MapFrom(s => s.Exercise.Name));
+            CreateMap<WorkoutExercise, ExerciseResponse>()
+                .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Exercise.Name));
         }
     }
 }

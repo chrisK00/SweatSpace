@@ -9,6 +9,6 @@ namespace SweatSpace.Core.Entities
         public ICollection<AppUserRole> Roles { get; set; } = new List<AppUserRole>();
         public ICollection<Workout> Workouts { get; set; } = new List<Workout>();
         public ICollection<Workout> LikedWorkouts { get; set; } = new List<Workout>();
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     }
 }

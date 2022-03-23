@@ -11,8 +11,8 @@ namespace SweatSpace.Core.Helpers.Profiles
         public UserProfiles()
         {
             CreateMap<RegisterUserRequest, AppUser>();
-            CreateMap<AppUser, MemberResponse>().ForMember(dest => dest.Roles, opt =>
-            opt.MapFrom(src => src.Roles.Select(r => r.Role.Name)));
+            CreateMap<AppUser, MemberResponse>()
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.Roles.Select(r => r.Role.Name)));
         }
     }
 }
