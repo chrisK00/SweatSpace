@@ -23,7 +23,6 @@ namespace SweatSpace.Tests.Unit
         private readonly Mock<IWorkoutReadRepo> _mockWorkoutReadRepo = new();
         private readonly Mock<IUnitOfWork> _mockUnitOfWork = new();
 
-        private readonly IShuffleService _shuffleService = new ShuffleService();
         private readonly IMapper _mapper;
         private readonly IExerciseService _exerciseService;
 
@@ -31,8 +30,8 @@ namespace SweatSpace.Tests.Unit
         {
             _mapper = new Mapper(new MapperConfiguration(opt => opt.AddMaps(typeof(WorkoutProfiles).Assembly)));
 
-            _exerciseService = new ExerciseService(_mockWorkoutRepo.Object, _mockUnitOfWork.Object,
-                _mapper, _mockExerciseRepo.Object, _shuffleService, _mockLogger.Object,
+            _exerciseService = new ExerciseService(_mockWorkoutRepo.Object, _mockUnitOfWork.Object, _mapper,
+                _mockExerciseRepo.Object, _mockLogger.Object,
                 _mockExerciseReadRepo.Object, _mockWorkoutReadRepo.Object);
         }
 

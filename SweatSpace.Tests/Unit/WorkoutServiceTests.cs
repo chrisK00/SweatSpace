@@ -81,7 +81,6 @@ namespace SweatSpace.Tests.Unit
             savedWorkout.Id.Should().NotBe(workoutToCopy.Id);
         }
 
-
         [Fact]
         public async Task GetWorkoutDto_Returns_Workout_If_Exists()
         {

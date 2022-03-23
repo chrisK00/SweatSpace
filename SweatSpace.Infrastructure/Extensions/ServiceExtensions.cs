@@ -30,8 +30,6 @@ namespace SweatSpace.Infrastructure.Extensions
             services.AddScoped<IOwnedAuthService, OwnedAuthService>();
             services.AddScoped<ITokenService, TokenService>();
 
-            services.AddScoped<IShuffleService, ShuffleService>();
-
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(config.GetConnectionString("Default")));
 
             services.AddIdentity();

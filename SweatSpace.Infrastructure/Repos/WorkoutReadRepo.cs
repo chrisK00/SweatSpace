@@ -25,14 +25,16 @@ namespace SweatSpace.Infrastructure.Repos
 
         public async Task<Workout> GetWorkoutByIdAsync(int id)
         {
-            return await _context.Workouts.Include(e => e.Exercises).ThenInclude(e => e.Exercise).AsNoTracking()
+            return await _context.Workouts.AsNoTracking()
+                .Include(e => e.Exercises).ThenInclude(e => e.Exercise)
                 .FirstOrDefaultAsync(w => w.Id == id);
         }
 
         public async Task<WorkoutResponse> GetWorkoutResponseAsync(int id)
         {
-            return await _context.Workouts.ProjectTo<WorkoutResponse>(_mapper.ConfigurationProvider)
-              .AsNoTracking().FirstOrDefaultAsync(w => w.Id == id);
+            return await _context.Workouts.AsNoTracking()
+                .ProjectTo<WorkoutResponse>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(w => w.Id == id);
         }
 
         public async Task<PagedList<WorkoutResponse>> GetWorkoutResponsesAsync(WorkoutParams workoutParams)

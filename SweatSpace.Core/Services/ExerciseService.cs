@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SweatSpace.Api.Persistence.Interfaces;
 using SweatSpace.Core.Entities;
+using SweatSpace.Core.Extensions;
 using SweatSpace.Core.Helpers;
 using SweatSpace.Core.Interfaces.Repos;
 using SweatSpace.Core.Interfaces.Services;
@@ -21,20 +22,18 @@ namespace SweatSpace.Core.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IExerciseRepo _exerciseRepo;
-        private readonly IShuffleService _shuffleService;
         private readonly ILogger<ExerciseService> _logger;
         private readonly IExerciseReadRepo _exerciseReadRepo;
         private readonly IWorkoutReadRepo _workoutReadRepo;
 
         public ExerciseService(IWorkoutRepo workoutRepo, IUnitOfWork unitOfWork, IMapper mapper, IExerciseRepo exerciseRepo,
-            IShuffleService shuffleService, ILogger<ExerciseService> logger, IExerciseReadRepo exerciseReadOnlyRepo,
+             ILogger<ExerciseService> logger, IExerciseReadRepo exerciseReadOnlyRepo,
             IWorkoutReadRepo workoutReadRepo)
         {
             _workoutRepo = workoutRepo;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _exerciseRepo = exerciseRepo;
-            _shuffleService = shuffleService;
             _logger = logger;
             _exerciseReadRepo = exerciseReadOnlyRepo;
             _workoutReadRepo = workoutReadRepo;
@@ -77,7 +76,7 @@ namespace SweatSpace.Core.Services
 
             if (workoutExerciseParams.Shuffle)
             {
-                exercises = _shuffleService.ShuffleListAsync(workout.Exercises);
+                exercises = workout.Exercises.Shuffle();
             }
 
             exercises = exercises.OrderBy(x => x.IsCompleted);
