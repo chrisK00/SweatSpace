@@ -19,7 +19,7 @@ namespace SweatSpace.Tests.Integration
 
         public WorkoutsTests(WebApiFactory factory)
         {
-             _client = factory.CreateClient().ForController("workouts").WithAdminAuth();
+             _client = factory.CreateClient().ForController(Constants.Workouts).WithAdminAuth();
         }
 
         [Theory, AutoData]

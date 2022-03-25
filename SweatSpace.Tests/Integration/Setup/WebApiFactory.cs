@@ -16,6 +16,7 @@ namespace SweatSpace.Tests.Integration.Setup
     public class WebApiFactory : WebApplicationFactory<Startup>
     {
         public static int UserId { get; private set; }
+        public static int WorkoutId { get; private set; }
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -58,6 +59,7 @@ namespace SweatSpace.Tests.Integration.Setup
 
             context.AddRange(workouts);
             context.SaveChanges();
+            WorkoutId = workouts.First(x => x.AppUserId == admin.Id).Id;
         }
     }
 }
